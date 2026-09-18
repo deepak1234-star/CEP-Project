@@ -10,7 +10,9 @@ interface ClerkProviderWrapperProps {
 export default function ClerkProviderWrapper({
   children,
 }: ClerkProviderWrapperProps) {
-  const key = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
+  const key =
+    process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY ||
+    "pk_test_YnVzeS1icmVhbS00NTY5LmNsZXJrLmFjY291bnRzLmRldiQ";
 
   // Only wrap with ClerkProvider if a valid publishable key is configured
   if (key && key.startsWith("pk_")) {
