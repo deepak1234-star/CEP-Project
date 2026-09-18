@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { SignedIn, SignedOut } from "@clerk/nextjs";
+import { SafeSignedIn, SafeSignedOut } from "@/components/SafeAuth";
 import { Recycle, Chrome, Lock, CheckCircle2, ArrowRight, Zap, Sparkles, BookOpen, Trash2 } from "lucide-react";
 
 export default function Home() {
@@ -41,7 +41,7 @@ export default function Home() {
               <ArrowRight className="w-4 h-4 ml-1" />
             </Link>
 
-            <SignedOut>
+            <SafeSignedOut>
               <Link
                 href="/login"
                 className="w-full sm:w-auto inline-flex items-center justify-center space-x-3 px-8 py-4 rounded-xl font-semibold text-white bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 hover:-translate-y-0.5 active:translate-y-0 transition-all"
@@ -49,16 +49,16 @@ export default function Home() {
                 <Chrome className="w-5 h-5 text-cyan-400" />
                 <span>Continue with Google</span>
               </Link>
-            </SignedOut>
+            </SafeSignedOut>
 
-            <SignedIn>
+            <SafeSignedIn>
               <Link
                 href="/dashboard"
                 className="w-full sm:w-auto inline-flex items-center justify-center space-x-3 px-8 py-4 rounded-xl font-semibold text-white bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 hover:-translate-y-0.5 active:translate-y-0 transition-all"
               >
                 <span>Go to User Dashboard</span>
               </Link>
-            </SignedIn>
+            </SafeSignedIn>
           </div>
         </div>
 

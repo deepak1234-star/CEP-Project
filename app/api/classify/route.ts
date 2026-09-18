@@ -1,4 +1,4 @@
-4WS3import { NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { WASTE_DATABASE } from "@/lib/wasteDatabase";
 
 export async function POST(req: Request) {

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { SafeSignedIn, SafeSignedOut, SafeUserButton } from "@/components/SafeAuth";
 import { ShieldCheck, LogIn, UserPlus, LayoutDashboard, Recycle, Sparkles } from "lucide-react";
 
 export default function Navbar() {
@@ -24,7 +24,7 @@ export default function Navbar() {
             <span>EcoSort AI</span>
           </Link>
 
-          <SignedIn>
+          <SafeSignedIn>
             <Link
               href="/dashboard"
               className="inline-flex items-center space-x-2 px-3 sm:px-4 py-2 rounded-lg text-sm font-medium text-slate-200 hover:text-white bg-slate-900/80 border border-slate-800 hover:border-slate-700 transition-all shadow-sm"
@@ -33,7 +33,7 @@ export default function Navbar() {
               <span className="hidden sm:inline">Dashboard</span>
             </Link>
             <div className="pl-2 border-l border-white/10 flex items-center">
-              <UserButton
+              <SafeUserButton
                 afterSignOutUrl="/"
                 appearance={{
                   elements: {
@@ -42,9 +42,9 @@ export default function Navbar() {
                 }}
               />
             </div>
-          </SignedIn>
+          </SafeSignedIn>
 
-          <SignedOut>
+          <SafeSignedOut>
             <Link
               href="/login"
               className="inline-flex items-center space-x-2 px-3 sm:px-4 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-all"
@@ -59,7 +59,7 @@ export default function Navbar() {
               <UserPlus className="w-4 h-4" />
               <span>Get Started</span>
             </Link>
-          </SignedOut>
+          </SafeSignedOut>
         </nav>
       </div>
     </header>
