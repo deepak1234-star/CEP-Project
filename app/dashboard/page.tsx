@@ -141,7 +141,7 @@ export default async function DashboardPage() {
           </div>
           <h2 className="text-2xl font-bold text-white">♻️ EcoSort AI Waste Assistant</h2>
           <p className="text-slate-300 text-sm max-w-2xl leading-relaxed">
-            Upload photographs of plastic, paper, food scraps, e-waste, or batteries to get real-time AI classification, confidence scores, and recycling instructions.
+            Use real-time live webcam or photo upload to classify waste, check plastic resin codes (#1-7), listen to voice disposal guides, and unlock sustainability badges.
           </p>
         </div>
 

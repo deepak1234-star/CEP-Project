@@ -1,10 +1,12 @@
-import { ClassificationResult, BinInfo, WasteCategory } from "@/types/ecosort";
+import { ClassificationResult, BinInfo, WasteCategory, ResinCodeInfo, EcoBadge } from "@/types/ecosort";
 
 export interface ExtendedClassificationResult extends ClassificationResult {
-  decompositionTime: string;
-  co2SavedPerKg: string;
-  recyclabilityRating: "High" | "Medium" | "Low" | "Special Handling";
-  commonMistake: string;
+  decompositionTime?: string;
+  co2SavedPerKg?: string;
+  recyclabilityRating?: "High" | "Medium" | "Low" | "Special Handling";
+  commonMistake?: string;
+  resinCode?: number;
+  resinName?: string;
 }
 
 export const WASTE_DATABASE: Record<string, Omit<ExtendedClassificationResult, "id" | "createdAt">> = {
@@ -14,6 +16,8 @@ export const WASTE_DATABASE: Record<string, Omit<ExtendedClassificationResult, "
     binType: "BLUE / YELLOW BIN (Dry Recyclable Waste)",
     binColor: "yellow",
     confidence: 97,
+    resinCode: 1,
+    resinName: "PETE (Polyethylene Terephthalate)",
     preparationAction: "Empty all liquid contents, rinse quickly, crush flat to save bin space, and replace the cap.",
     dos: [
       "Empty and rinse out remaining liquid residual.",
@@ -31,12 +35,38 @@ export const WASTE_DATABASE: Record<string, Omit<ExtendedClassificationResult, "
     recyclabilityRating: "High",
     commonMistake: "Leaving half-full liquids inside, which contaminates paper recycling."
   },
+  "milk_jug": {
+    itemName: "HDPE Milk Jug / Detergent Bottle (#2)",
+    category: "Plastic",
+    binType: "BLUE / YELLOW BIN (Plastics Recycling)",
+    binColor: "yellow",
+    confidence: 98,
+    resinCode: 2,
+    resinName: "HDPE (High-Density Polyethylene)",
+    preparationAction: "Rinse with water to remove milk/soap residue, flatten gently, and place in dry recyclables.",
+    dos: [
+      "Rinse out dairy or detergent residue.",
+      "Leave plastic cap on or screw tightly.",
+      "Crush jug body to save space."
+    ],
+    donts: [
+      "Do not leave sour milk curd inside.",
+      "Do not mix with hazardous chemical containers."
+    ],
+    explanation: "HDPE is one of the easiest plastics to recycle and is remade into drainage pipes, park benches, detergent bottles, and recycling bins.",
+    decompositionTime: "100 Years",
+    co2SavedPerKg: "1.8 kg CO₂",
+    recyclabilityRating: "High",
+    commonMistake: "Discarding unrinsed milk jugs which cause bacterial odor."
+  },
   "plastic_bag": {
-    itemName: "Polythene Carry Bag / Plastic Film",
+    itemName: "LDPE Soft Plastic Carry Bag (#4)",
     category: "Plastic",
     binType: "BLUE BIN (Soft Plastics Drop-off)",
     binColor: "yellow",
     confidence: 94,
+    resinCode: 4,
+    resinName: "LDPE (Low-Density Polyethylene)",
     preparationAction: "Bundle soft plastic bags together and drop off at grocery store plastic film recycling collection bins.",
     dos: [
       "Stuff multiple plastic bags into a single bag for easy handling.",
@@ -51,6 +81,75 @@ export const WASTE_DATABASE: Record<string, Omit<ExtendedClassificationResult, "
     co2SavedPerKg: "1.1 kg CO₂",
     recyclabilityRating: "Medium",
     commonMistake: "Tossing loose soft plastic bags into curbside recycling bins where they tangle sorting gears."
+  },
+  "food_container_pp": {
+    itemName: "PP Food Container / Takeout Box (#5)",
+    category: "Plastic",
+    binType: "YELLOW BIN (Clean Plastics)",
+    binColor: "yellow",
+    confidence: 93,
+    resinCode: 5,
+    resinName: "PP (Polypropylene)",
+    preparationAction: "Scrape food debris completely, wipe off grease with a paper towel, and place in plastics bin.",
+    dos: [
+      "Rinse away food traces.",
+      "Check for microwave-safe #5 triangle symbol."
+    ],
+    donts: [
+      "Do not recycle containers coated with heavy grease or curry oils.",
+      "Do not melt in oven."
+    ],
+    explanation: "Polypropylene has high heat tolerance and is recycled into auto parts, storage bins, dishware, and battery cables.",
+    decompositionTime: "300 Years",
+    co2SavedPerKg: "1.4 kg CO₂",
+    recyclabilityRating: "High",
+    commonMistake: "Recycling grease-soaked takeout containers without scraping."
+  },
+  "styrofoam": {
+    itemName: "Expanded Polystyrene (Styrofoam / EPS #6)",
+    category: "Plastic",
+    binType: "BLACK BIN (Landfill) or Specialized EPS Drop-off",
+    binColor: "yellow",
+    confidence: 91,
+    resinCode: 6,
+    resinName: "PS (Polystyrene / Styrofoam)",
+    preparationAction: "Check if local depot accepts EPS foam block drop-off; otherwise dispose in general landfill trash.",
+    dos: [
+      "Break down bulky blocks if accepted at specialist centers.",
+      "Keep free of tape and sticky labels."
+    ],
+    donts: [
+      "❌ DO NOT put in standard curbside blue recycling bins (breaks into microplastics).",
+      "❌ Never heat styrofoam in microwave."
+    ],
+    explanation: "Styrofoam is 95% air and easily fragments into environmental microplastics that contaminate waterways and wildlife.",
+    decompositionTime: "500+ Years",
+    co2SavedPerKg: "0.2 kg CO₂",
+    recyclabilityRating: "Low",
+    commonMistake: "Throwing styrofoam cups and packaging peanuts in curbside recycling."
+  },
+  "toothbrush": {
+    itemName: "Plastic Toothbrush (Mixed Composite #7)",
+    category: "Plastic",
+    binType: "GENERAL TRASH BIN or TerraCycle Dedicated Program",
+    binColor: "yellow",
+    confidence: 95,
+    resinCode: 7,
+    resinName: "OTHER / Mixed Resin & Nylon Bristles",
+    preparationAction: "Standard municipal curbside cannot separate nylon bristles from rubberized handles; utilize dedicated mail-in recycling or general bin.",
+    dos: [
+      "Reuse old clean toothbrushes for household cleaning chores before discarding.",
+      "Look into bamboo toothbrush alternatives."
+    ],
+    donts: [
+      "Do not put into standard blue curbside recycling.",
+      "Do not burn plastic brushes."
+    ],
+    explanation: "Toothbrushes fuse multi-layer elastomers with nylon bristles, making mechanical separation impossible in regular municipal plants.",
+    decompositionTime: "400 Years",
+    co2SavedPerKg: "0.3 kg CO₂",
+    recyclabilityRating: "Special Handling",
+    commonMistake: "Assuming all plastic items can go into curbside bins."
   },
   "old_phone": {
     itemName: "Smartphone / Mobile Device",
@@ -118,6 +217,28 @@ export const WASTE_DATABASE: Record<string, Omit<ExtendedClassificationResult, "
     recyclabilityRating: "High",
     commonMistake: "Mixing oil-stained food packaging with clean paper pulp."
   },
+  "tetra_pak": {
+    itemName: "Tetra Pak Milk / Juice Carton (Aseptic Composite)",
+    category: "Paper",
+    binType: "BLUE BIN (Carton Recycling / Paper Mill Stream)",
+    binColor: "blue",
+    confidence: 94,
+    preparationAction: "Empty completely, rinse with water, push the straw/cap back inside or screw cap on, and flatten.",
+    dos: [
+      "Rinse out dairy or juice residue.",
+      "Flatten to maximize collection volume.",
+      "Check local municipality for carton acceptance."
+    ],
+    donts: [
+      "Do not toss full cartons into recycling.",
+      "Do not separate aluminum foil layer manually."
+    ],
+    explanation: "Tetra Paks are 75% paperboard with ultra-thin polyethylene and aluminum foil barriers. Hydro-pulper machines separate these materials effectively.",
+    decompositionTime: "5 Years",
+    co2SavedPerKg: "1.2 kg CO₂",
+    recyclabilityRating: "High",
+    commonMistake: "Throwing non-rinsed milk cartons that spoil collection bins."
+  },
   "pizza_box": {
     itemName: "Greasy Pizza Box (Soiled Cardboard)",
     category: "Organic",
@@ -180,6 +301,27 @@ export const WASTE_DATABASE: Record<string, Omit<ExtendedClassificationResult, "
     recyclabilityRating: "High",
     commonMistake: "Leaving sticky liquid inside that attracts pests."
   },
+  "aluminum_foil": {
+    itemName: "Aluminum Food Foil & Pie Trays",
+    category: "Metal",
+    binType: "BLUE BIN (Metal Recycling)",
+    binColor: "blue",
+    confidence: 93,
+    preparationAction: "Wipe off visible food grease and roll clean foil into a ball (at least 5cm diameter) so sorting machines detect it.",
+    dos: [
+      "Wipe clean of major cheese or food residue.",
+      "Scrunch smaller pieces together into a large fist-sized ball."
+    ],
+    donts: [
+      "Do not recycle foil caked with burnt cheese or meat.",
+      "Do not throw loose tiny shreds that fall through sorting screens."
+    ],
+    explanation: "Clean aluminum foil can be re-melted into new aluminum ingots endlessly with zero loss of quality.",
+    decompositionTime: "400 Years",
+    co2SavedPerKg: "7.5 kg CO₂",
+    recyclabilityRating: "High",
+    commonMistake: "Throwing tiny individual foil wrappers that slip through machinery."
+  },
   "glass_bottle": {
     itemName: "Glass Beverage Bottle / Jar",
     category: "Glass",
@@ -222,8 +364,255 @@ export const WASTE_DATABASE: Record<string, Omit<ExtendedClassificationResult, "
     co2SavedPerKg: "2.5 kg CO₂",
     recyclabilityRating: "Special Handling",
     commonMistake: "Tossing dead batteries into general trash bins where compaction causes chemical fires."
+  },
+  "cfl_bulb": {
+    itemName: "CFL Fluorescent Bulb / Mercury Tube",
+    category: "Hazardous",
+    binType: "RED HAZARDOUS BIN (Lighting Takeback Center)",
+    binColor: "red",
+    confidence: 96,
+    preparationAction: "Wrap in original box or paper to prevent shattering; take to a municipal hazardous collection or hardware store drop box.",
+    dos: [
+      "Wrap gently so bulb doesn't break in transit.",
+      "Use home improvement retailer collection boxes."
+    ],
+    donts: [
+      "❌ NEVER throw in household trash (releases neurotoxic mercury gas when broken).",
+      "❌ Do not vacuum a broken bulb (ventilate room immediately)."
+    ],
+    explanation: "Fluorescent and CFL bulbs contain mercury vapor. Specialized recovery extracts mercury and recycles phosphor powders safely.",
+    decompositionTime: "1,000+ Years",
+    co2SavedPerKg: "1.8 kg CO₂",
+    recyclabilityRating: "Special Handling",
+    commonMistake: "Throwing fluorescent tubes in general trash where they shatter and emit toxic vapor."
+  },
+  "expired_medicine": {
+    itemName: "Expired Medicines & Blister Packs",
+    category: "Hazardous",
+    binType: "PHARMACY DROP-OFF BOX (Take-Back Program)",
+    binColor: "red",
+    confidence: 97,
+    preparationAction: "Leave in original bottles/blister packs with personal name blacked out, and return to an authorized pharmacy drop box.",
+    dos: [
+      "Cross out personal prescription info on bottle labels.",
+      "Drop off at local community pharmacy take-back boxes."
+    ],
+    donts: [
+      "❌ NEVER flush pills down the toilet or sink (contaminates rivers and drinking water).",
+      "❌ Do not throw loose pills into household trash."
+    ],
+    explanation: "Pharmaceuticals flushed into wastewater pass through treatment facilities and bioaccumulate in marine life and water ecosystems.",
+    decompositionTime: "Chemical Hazard",
+    co2SavedPerKg: "0.5 kg CO₂",
+    recyclabilityRating: "Special Handling",
+    commonMistake: "Flushing unused antibiotics or painkillers down the toilet."
+  },
+  "coffee_cup": {
+    itemName: "Disposable Coffee Cup (Polyethylene-Lined Paper)",
+    category: "Paper",
+    binType: "GENERAL LANDFILL or Dedicated Cup Recycling Bins",
+    binColor: "yellow",
+    confidence: 92,
+    resinCode: 7,
+    resinName: "Composite Paper + PE Plastic Lining",
+    preparationAction: "Recycle the plastic lid (usually #5 or #6) in plastic bin; dispose the paper cup body in trash unless specialized cup collectors exist.",
+    dos: [
+      "Separate the plastic lid and recycle according to resin number.",
+      "Use a reusable ceramic or insulated thermos cup whenever possible."
+    ],
+    donts: [
+      "❌ Do not toss the cup body into standard clean paper recycling (plastic lining clogs paper pulping)."
+    ],
+    explanation: "Coffee cups have a waterproof plastic coating bonded to the paper that ordinary paper recycling mills cannot melt or filter.",
+    decompositionTime: "30 Years",
+    co2SavedPerKg: "0.2 kg CO₂",
+    recyclabilityRating: "Low",
+    commonMistake: "Assuming paper coffee cups are 100% biodegradable paper."
+  },
+  "clothes": {
+    itemName: "Used Clothes & Cotton Fabric",
+    category: "Organic",
+    binType: "TEXTILE DONATION DROP-BOX / Textile Bin",
+    binColor: "green",
+    confidence: 95,
+    preparationAction: "Wash and dry items thoroughly; donate wearable clothes to charity or drop off worn-out textiles at fabric recycling kiosks.",
+    dos: [
+      "Donate clean, wearable clothing to local shelters.",
+      "Turn old cotton rags into cleaning cloths.",
+      "Drop unwearable textiles in municipal fabric bins."
+    ],
+    donts: [
+      "Do not throw clean garments into curbside landfill bins.",
+      "Do not donate wet or mildewed textiles."
+    ],
+    explanation: "Textile recycling shreds fabrics into insulation, acoustic padding, or new recycled yarns, saving enormous amounts of water.",
+    decompositionTime: "5 Months (Cotton) to 200 Years (Polyester)",
+    co2SavedPerKg: "4.0 kg CO₂",
+    recyclabilityRating: "High",
+    commonMistake: "Sending good wearable clothes to municipal landfills."
   }
 };
+
+export const RESIN_CODES_DATABASE: ResinCodeInfo[] = [
+  {
+    code: 1,
+    symbol: "♳",
+    abbreviation: "PET / PETE",
+    fullName: "Polyethylene Terephthalate",
+    recyclability: "Widely Recycled",
+    safetyLevel: "Safe",
+    commonProducts: ["Water bottles", "Soft drink bottles", "Salad dressing containers", "Peanut butter jars"],
+    recycledInto: ["Fleece jackets", "Carpet fibers", "Tote bags", "New plastic bottles", "Sleeping bag insulation"],
+    description: "The most widely recycled clear plastic. Intended for single use; avoid reusing with warm liquids as bacteria can harbor in micro-grooves.",
+    microwaveSafe: false,
+    colorHex: "#0284c7"
+  },
+  {
+    code: 2,
+    symbol: "♴",
+    abbreviation: "HDPE",
+    fullName: "High-Density Polyethylene",
+    recyclability: "Widely Recycled",
+    safetyLevel: "Safe",
+    commonProducts: ["Milk jugs", "Detergent & shampoo bottles", "Bleach containers", "Butter tubs", "Motor oil bottles"],
+    recycledInto: ["Drainage pipes", "Outdoor park benches", "Picnic tables", "Plastic lumber", "Recycling bins"],
+    description: "Extremely durable, chemically resistant plastic that does not leach chemicals. Readily accepted in almost all curbside recycling programs.",
+    microwaveSafe: false,
+    colorHex: "#10b981"
+  },
+  {
+    code: 3,
+    symbol: "♵",
+    abbreviation: "PVC / V",
+    fullName: "Polyvinyl Chloride",
+    recyclability: "Rarely Recycled",
+    safetyLevel: "Avoid / Toxic Hazard",
+    commonProducts: ["Plumbing pipes", "Vinyl flooring", "Shower curtains", "Medical tubing", "Window frames"],
+    recycledInto: ["Speed bumps", "Gutters", "Mudflaps", "Electrical conduit"],
+    description: "Contains harmful plasticizers (phthalates) and releases dioxins when burned. Rarely recyclable through curbside municipal bins.",
+    microwaveSafe: false,
+    colorHex: "#ef4444"
+  },
+  {
+    code: 4,
+    symbol: "♶",
+    abbreviation: "LDPE",
+    fullName: "Low-Density Polyethylene",
+    recyclability: "Locally Recycled",
+    safetyLevel: "Safe",
+    commonProducts: ["Grocery carry bags", "Bread wrappers", "Squeeze condiment bottles", "Bubble wrap", "Dry cleaner bags"],
+    recycledInto: ["Trash can liners", "Floor tiles", "Compost bins", "Lumber", "Shipping envelopes"],
+    description: "Flexible and tough plastic film. Must NOT be tossed loose into curbside automated sorting lines; drop off at supermarket collection bins.",
+    microwaveSafe: false,
+    colorHex: "#f59e0b"
+  },
+  {
+    code: 5,
+    symbol: "♷",
+    abbreviation: "PP",
+    fullName: "Polypropylene",
+    recyclability: "Widely Recycled",
+    safetyLevel: "Safe",
+    commonProducts: ["Yogurt tubs", "Medicine bottles", "Syrup bottles", "Bottle caps", "Microwaveable food containers"],
+    recycledInto: ["Battery cables", "Signal lights", "Ice scrapers", "Bicycle racks", "Storage bins"],
+    description: "High melting point makes it safe for hot foods and dishwasher cleaning. Highly recyclable and increasingly collected curbside.",
+    microwaveSafe: true,
+    colorHex: "#06b6d4"
+  },
+  {
+    code: 6,
+    symbol: "♸",
+    abbreviation: "PS",
+    fullName: "Polystyrene / Styrofoam",
+    recyclability: "Rarely Recycled",
+    safetyLevel: "Caution",
+    commonProducts: ["Disposable coffee cups", "Styrofoam meat trays", "Packing peanuts", "Plastic cutlery", "Egg cartons"],
+    recycledInto: ["Thermal insulation", "License plate frames", "Rulers", "Foam packing"],
+    description: "Can leach styrene (a suspected carcinogen) when heated. Difficult and cost-prohibitive to recycle in municipal sorting streams.",
+    microwaveSafe: false,
+    colorHex: "#f97316"
+  },
+  {
+    code: 7,
+    symbol: "♹",
+    abbreviation: "OTHER",
+    fullName: "Miscellaneous / Polycarbonate / PLA Bioplastics",
+    recyclability: "Difficult to Recycle",
+    safetyLevel: "Caution",
+    commonProducts: ["Baby bottles (older polycarbonate)", "Eyeglass lenses", "5-gallon water jugs", "Compostable PLA plastics", "Nylon cords"],
+    recycledInto: ["Plastic lumber", "Custom industrial molded goods"],
+    description: "A catch-all category for multi-layer composites and newer bioplastics. Polycarbonate can leach BPA; PLA bioplastics require industrial composting.",
+    microwaveSafe: false,
+    colorHex: "#a855f7"
+  }
+];
+
+export const ECO_BADGES_LIST: EcoBadge[] = [
+  {
+    id: "first_scan",
+    title: "First Scan Pioneer",
+    description: "Classified your very first waste item using AI",
+    icon: "🌱",
+    category: "scanner",
+    requiredCount: 1,
+  },
+  {
+    id: "scanner_pro",
+    title: "Eco Detective",
+    description: "Scanned 5 or more items to classify recyclables",
+    icon: "🔍",
+    category: "scanner",
+    requiredCount: 5,
+  },
+  {
+    id: "ewaste_guardian",
+    title: "E-Waste Guardian",
+    description: "Identified electronic waste or spent batteries",
+    icon: "⚡",
+    category: "category",
+    requiredCount: 1,
+  },
+  {
+    id: "compost_master",
+    title: "Compost Master",
+    description: "Sorted organic food scraps or natural waste",
+    icon: "🍂",
+    category: "category",
+    requiredCount: 2,
+  },
+  {
+    id: "plastic_patrol",
+    title: "Ocean Guardian",
+    description: "Sorted 3 or more plastic items responsibly",
+    icon: "🌊",
+    category: "category",
+    requiredCount: 3,
+  },
+  {
+    id: "quiz_champ",
+    title: "Recycling Scholar",
+    description: "Tested your eco-knowledge on the recycling quiz",
+    icon: "🧠",
+    category: "quiz",
+    requiredCount: 1,
+  },
+  {
+    id: "eco_champion",
+    title: "Zero-Waste Hero",
+    description: "Scanned 10+ items and completed quiz training",
+    icon: "🏆",
+    category: "milestone",
+    requiredCount: 10,
+  },
+  {
+    id: "voice_listener",
+    title: "Audio Scholar",
+    description: "Listened to the AI voice guide disposal instructions",
+    icon: "🔊",
+    category: "milestone",
+    requiredCount: 1,
+  }
+];
 
 export const SMART_BIN_GUIDE: BinInfo[] = [
   {
@@ -302,3 +691,68 @@ export const SMART_BIN_GUIDE: BinInfo[] = [
     ]
   }
 ];
+
+/**
+ * Pure Web Audio API Synthesizer sounds - zero external sound files required!
+ */
+export function playSound(type: "scan" | "success" | "chime" | "click") {
+  if (typeof window === "undefined") return;
+  try {
+    const AudioContextClass = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+    if (!AudioContextClass) return;
+    const ctx = new AudioContextClass();
+
+    if (type === "scan") {
+      // Futuristic laser frequency sweep
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(440, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.15);
+      gain.gain.setValueAtTime(0.08, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.18);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.2);
+    } else if (type === "success") {
+      // Warm chord chime (Major triad)
+      [523.25, 659.25, 783.99].forEach((freq, i) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = "triangle";
+        osc.frequency.value = freq;
+        gain.gain.setValueAtTime(0.07, ctx.currentTime + i * 0.08);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.08 + 0.35);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(ctx.currentTime + i * 0.08);
+        osc.stop(ctx.currentTime + i * 0.08 + 0.36);
+      });
+    } else if (type === "chime") {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(880, ctx.currentTime);
+      gain.gain.setValueAtTime(0.05, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.22);
+    } else if (type === "click") {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = "triangle";
+      osc.frequency.setValueAtTime(200, ctx.currentTime);
+      gain.gain.setValueAtTime(0.04, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.05);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.06);
+    }
+  } catch (e) {
+    // AudioContext blocked or not allowed by policy
+  }
+}

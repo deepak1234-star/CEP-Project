@@ -5,19 +5,14 @@ import React from "react";
 
 interface ClerkProviderWrapperProps {
   children: React.ReactNode;
-  publishableKey?: string;
 }
 
 export default function ClerkProviderWrapper({
   children,
-  publishableKey,
 }: ClerkProviderWrapperProps) {
-  const key =
-    publishableKey ||
-    process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY ||
-    "pk_test_bW9yYWwtcGFuZ29saW4tODcuY2xlcmsuYWNjb3VudHMuZGV2JA";
+  const key = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
-  // If valid publishable key is present, wrap with ClerkProvider
+  // Only wrap with ClerkProvider if a valid publishable key is configured
   if (key && key.startsWith("pk_")) {
     return (
       <ClerkProvider
@@ -54,6 +49,6 @@ export default function ClerkProviderWrapper({
     );
   }
 
-  // Fallback: render children directly so app never crashes
+  // Fallback: render children directly so app never crashes without a key
   return <>{children}</>;
 }
