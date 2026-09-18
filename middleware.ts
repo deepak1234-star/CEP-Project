@@ -1,29 +1,18 @@
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
-
-const secretKey = process.env.CLERK_SECRET_KEY;
-const isClerkConfigured =
-  Boolean(secretKey &&
-  secretKey.startsWith("sk_") &&
-  !secretKey.includes("placeholder"));
+import { NextResponse } from "next/server";
 
 const isProtectedRoute = createRouteMatcher(["/dashboard(.*)"]);
 
-const clerkHandler = isClerkConfigured
-  ? clerkMiddleware(async (auth, req) => {
-      if (isProtectedRoute(req)) {
-        await auth.protect();
-      }
-    })
-  : null;
-
-export default function middleware(req: NextRequest, event: any) {
-  if (!isClerkConfigured || !clerkHandler) {
-    return NextResponse.next();
+export default clerkMiddleware(async (auth, req) => {
+  if (isProtectedRoute(req)) {
+    const { userId } = await auth();
+    if (!userId) {
+      const loginUrl = new URL("/login", req.url);
+      loginUrl.searchParams.set("redirect_url", req.url);
+      return NextResponse.redirect(loginUrl);
+    }
   }
-  return clerkHandler(req, event);
-}
+});
 
 export const config = {
   matcher: [
@@ -32,4 +21,3 @@ export const config = {
     "/(api|trpc)(.*)",
   ],
 };
-

@@ -1,3 +1,4 @@
+import { currentUser, auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -14,57 +15,29 @@ import {
   Globe,
   ArrowRight,
   Leaf,
-  AlertTriangle,
-  Key,
 } from "lucide-react";
 
 export default async function DashboardPage() {
-  let userId: string | null = null;
-  let user: any = null;
-  let clerkError: string | null = null;
+  const { userId } = await auth();
+  const user = await currentUser();
 
-  const secretKey = process.env.CLERK_SECRET_KEY;
-  const isSecretConfigured = Boolean(
-    secretKey &&
-      secretKey.startsWith("sk_") &&
-      !secretKey.includes("placeholder")
-  );
-
-  if (isSecretConfigured) {
-    try {
-      const { auth, currentUser } = await import("@clerk/nextjs/server");
-      const authResult = await auth();
-      userId = authResult?.userId || null;
-      if (userId) {
-        user = await currentUser();
-      }
-    } catch (e: any) {
-      clerkError = e?.message || "Failed to authenticate session with Clerk";
-      console.warn("Clerk server auth check caught:", clerkError);
-    }
+  // Guard against unauthenticated access
+  if (!userId || !user) {
+    redirect("/login");
   }
 
-  // Determine if running in demo/preview mode (when secret key is unconfigured or auth handshake failed)
-  const isDemo = !isSecretConfigured || !user;
+  // Extract user details securely from Clerk user object
+  const userFullName =
+    user.fullName ||
+    `${user.firstName || ""} ${user.lastName || ""}`.trim() ||
+    "Authenticated User";
 
-  // Extract user details securely with fallback for local preview
-  const userFullName = isDemo
-    ? "EcoSort Pioneer"
-    : user.fullName ||
-      `${user.firstName || ""} ${user.lastName || ""}`.trim() ||
-      "Authenticated User";
+  const userEmail =
+    user.primaryEmailAddress?.emailAddress || "No primary email connected";
 
-  const userEmail = isDemo
-    ? "user@moral-pangolin-87.clerk.accounts.dev"
-    : user.primaryEmailAddress?.emailAddress || "No primary email connected";
+  const userAvatar = user.imageUrl || "https://img.clerk.com/preview.png";
 
-  const userAvatar = isDemo
-    ? "https://img.clerk.com/preview.png"
-    : user.imageUrl || "https://img.clerk.com/preview.png";
-
-  const createdAtDate = isDemo
-    ? "September 2026"
-    : user.createdAt
+  const createdAtDate = user.createdAt
     ? new Date(user.createdAt).toLocaleDateString("en-US", {
         year: "numeric",
         month: "long",
@@ -72,63 +45,19 @@ export default async function DashboardPage() {
       })
     : "Recently";
 
-  const lastSignInDate = isDemo
-    ? "Active Now (Preview Session)"
-    : user.lastSignInAt
+  const lastSignInDate = user.lastSignInAt
     ? new Date(user.lastSignInAt).toLocaleString("en-US", {
         dateStyle: "medium",
         timeStyle: "short",
       })
     : "Active Now";
 
-  const hasGoogleOAuth = isDemo
-    ? true
-    : user.externalAccounts?.some((acc: any) => acc.provider === "google") ?? false;
+  const hasGoogleOAuth = user.externalAccounts?.some(
+    (acc) => acc.provider === "google"
+  ) ?? false;
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8">
-      {/* Notice Banner if Clerk Secret Key is placeholder */}
-      {(!isSecretConfigured || clerkError) && (
-        <div className="rounded-2xl bg-amber-500/10 border border-amber-500/30 p-4 sm:p-5 text-amber-200 text-xs sm:text-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl backdrop-blur-md">
-          <div className="flex items-start sm:items-center space-x-3.5">
-            <div className="p-2.5 rounded-xl bg-amber-500/20 text-amber-400 flex-shrink-0 border border-amber-500/30">
-              <Key className="w-5 h-5" />
-            </div>
-            <div className="space-y-1">
-              <p className="font-bold text-white text-sm">
-                Clerk Live Secret Key Notice
-              </p>
-              <p className="text-amber-300/80 text-xs leading-relaxed max-w-2xl">
-                Your frontend publishable key is connected, but <code>CLERK_SECRET_KEY</code> in <code>.env.local</code> is still set to the placeholder. To verify live sessions on the server, grab your secret key from{" "}
-                <a
-                  href="https://dashboard.clerk.com"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="underline text-amber-200 font-semibold hover:text-white"
-                >
-                  dashboard.clerk.com &gt; API Keys
-                </a>
-                .
-              </p>
-            </div>
-          </div>
-          <div className="flex items-center gap-2.5 w-full sm:w-auto flex-shrink-0">
-            <Link
-              href="/ecosort"
-              className="flex-1 sm:flex-none text-center px-4 py-2.5 rounded-xl bg-emerald-500 text-slate-950 font-bold text-xs hover:bg-emerald-400 transition-all shadow-md shadow-emerald-500/20"
-            >
-              Open EcoSort AI
-            </Link>
-            <Link
-              href="/"
-              className="flex-1 sm:flex-none text-center px-4 py-2.5 rounded-xl bg-slate-800 text-slate-200 font-semibold text-xs hover:bg-slate-700 transition-all border border-slate-700"
-            >
-              Home
-            </Link>
-          </div>
-        </div>
-      )}
-
       {/* Top Banner Header */}
       <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-slate-900 to-cyan-950 border border-slate-800 p-6 sm:p-10 shadow-2xl">
         <div className="absolute -right-10 -bottom-10 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
@@ -138,9 +67,9 @@ export default async function DashboardPage() {
             {/* User Profile Avatar */}
             <div className="relative flex-shrink-0">
               <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden ring-4 ring-cyan-500/30 shadow-xl bg-slate-800 flex items-center justify-center">
-                {!isDemo && user?.imageUrl ? (
+                {userAvatar ? (
                   <Image
-                    src={user.imageUrl}
+                    src={userAvatar}
                     alt={userFullName}
                     width={112}
                     height={112}
@@ -149,13 +78,13 @@ export default async function DashboardPage() {
                   />
                 ) : (
                   <div className="w-full h-full bg-gradient-to-br from-emerald-500 via-cyan-500 to-blue-600 flex items-center justify-center text-white font-black text-3xl sm:text-4xl shadow-inner select-none">
-                    🌱
+                    {userFullName.slice(0, 1).toUpperCase()}
                   </div>
                 )}
               </div>
               <div
                 className="absolute -bottom-2 -right-2 bg-emerald-500 text-slate-950 p-1.5 rounded-full ring-4 ring-slate-900"
-                title="Session Active"
+                title="Session Active & Authenticated"
               >
                 <CheckCircle className="w-4 h-4 stroke-[3]" />
               </div>
@@ -165,7 +94,7 @@ export default async function DashboardPage() {
             <div className="space-y-2">
               <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-                <span>Session Active</span>
+                <span>Session Active &amp; Authenticated</span>
               </div>
 
               <h1 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
@@ -181,7 +110,7 @@ export default async function DashboardPage() {
                 {hasGoogleOAuth && (
                   <div className="flex items-center space-x-1.5 text-xs text-blue-400 bg-blue-500/10 px-2.5 py-1 rounded-full border border-blue-500/20">
                     <Globe className="w-3.5 h-3.5" />
-                    <span>Google OAuth Enabled</span>
+                    <span>Google OAuth Verified</span>
                   </div>
                 )}
               </div>
@@ -190,36 +119,24 @@ export default async function DashboardPage() {
 
           {/* Action Buttons & User Menu */}
           <div className="flex flex-wrap items-center justify-center md:justify-end gap-3 pt-4 md:pt-0 border-t md:border-t-0 border-slate-800">
-            {isDemo ? (
-              <Link
-                href="/"
-                className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl font-semibold text-sm text-slate-200 bg-slate-800 hover:bg-slate-700 border border-slate-700 transition-all shadow-md"
-              >
+            <SignOutButton redirectUrl="/login">
+              <button className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl font-semibold text-sm text-slate-200 bg-slate-800 hover:bg-rose-950/40 hover:text-rose-400 border border-slate-700 hover:border-rose-800/60 transition-all shadow-md">
                 <LogOut className="w-4 h-4" />
-                <span>Back to Home</span>
-              </Link>
-            ) : (
-              <>
-                <SignOutButton redirectUrl="/login">
-                  <button className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl font-semibold text-sm text-slate-200 bg-slate-800 hover:bg-rose-950/40 hover:text-rose-400 border border-slate-700 hover:border-rose-800/60 transition-all shadow-md">
-                    <LogOut className="w-4 h-4" />
-                    <span>Sign Out</span>
-                  </button>
-                </SignOutButton>
+                <span>Sign Out</span>
+              </button>
+            </SignOutButton>
 
-                <div className="p-1 rounded-xl bg-slate-800/80 border border-slate-700 flex items-center">
-                  <UserButton
-                    afterSignOutUrl="/login"
-                    appearance={{
-                      elements: {
-                        avatarBox:
-                          "w-9 h-9 ring-2 ring-cyan-500/40 hover:ring-cyan-400 transition-all",
-                      },
-                    }}
-                  />
-                </div>
-              </>
-            )}
+            <div className="p-1 rounded-xl bg-slate-800/80 border border-slate-700 flex items-center">
+              <UserButton
+                afterSignOutUrl="/login"
+                appearance={{
+                  elements: {
+                    avatarBox:
+                      "w-9 h-9 ring-2 ring-cyan-500/40 hover:ring-cyan-400 transition-all",
+                  },
+                }}
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -272,12 +189,12 @@ export default async function DashboardPage() {
             </div>
             <div className="flex justify-between py-2">
               <span className="text-slate-400">Account Type</span>
-              <span className="font-medium text-slate-200">EcoSort Citizen</span>
+              <span className="font-medium text-slate-200">Authenticated Member</span>
             </div>
             <div className="flex justify-between py-2">
               <span className="text-slate-400">Authentication</span>
               <span className="font-medium text-emerald-400">
-                Google Single Sign-On
+                {hasGoogleOAuth ? "Google Single Sign-On" : "Clerk Managed Auth"}
               </span>
             </div>
           </div>
@@ -307,11 +224,11 @@ export default async function DashboardPage() {
             </div>
             <div className="flex justify-between py-2">
               <span className="text-slate-400">Session Storage</span>
-              <span className="font-medium text-emerald-400">Secure JWT</span>
+              <span className="font-medium text-emerald-400">HTTP-Only JWT</span>
             </div>
             <div className="flex justify-between py-2">
               <span className="text-slate-400">Route Protection</span>
-              <span className="font-medium text-cyan-400">Next.js Edge Middleware</span>
+              <span className="font-medium text-cyan-400">Edge Middleware</span>
             </div>
           </div>
         </div>
