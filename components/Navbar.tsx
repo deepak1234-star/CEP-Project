@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { SafeSignedIn, SafeSignedOut, SafeUserButton } from "@/components/SafeAuth";
+import { SafeSignedIn, SafeSignedOut } from "@/components/SafeAuth";
+import CustomUserButton from "@/components/CustomUserButton";
 import { ShieldCheck, LogIn, UserPlus, LayoutDashboard, Home, Sparkles } from "lucide-react";
 
 export default function Navbar() {
@@ -35,14 +36,7 @@ export default function Navbar() {
               <span className="hidden sm:inline">Dashboard</span>
             </Link>
             <div className="pl-1.5 sm:pl-2 border-l border-white/10 flex items-center">
-              <SafeUserButton
-                afterSignOutUrl="/"
-                appearance={{
-                  elements: {
-                    avatarBox: "w-8 h-8 sm:w-9 sm:h-9 ring-2 ring-cyan-500/40 hover:ring-cyan-400 transition-all",
-                  },
-                }}
-              />
+              <CustomUserButton afterSignOutUrl="/" />
             </div>
           </SafeSignedIn>
 

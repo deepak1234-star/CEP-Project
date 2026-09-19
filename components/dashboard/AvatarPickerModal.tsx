@@ -20,6 +20,7 @@ import {
   CustomAvatarState,
   saveStoredAvatar,
 } from "@/lib/avatars";
+import { syncAvatarToCloud } from "@/lib/userSync";
 
 interface AvatarPickerModalProps {
   isOpen: boolean;
@@ -64,6 +65,7 @@ export default function AvatarPickerModal({
       avatarName: preset.name,
     };
     saveStoredAvatar(userId, newAvatar);
+    syncAvatarToCloud(newAvatar);
     onAvatarUpdated(newAvatar);
   };
 
@@ -113,6 +115,7 @@ export default function AvatarPickerModal({
             avatarName: "Uploaded Photo",
           };
           saveStoredAvatar(userId, newAvatar);
+          syncAvatarToCloud(newAvatar);
           onAvatarUpdated(newAvatar);
           setIsUploading(false);
         };
@@ -124,6 +127,7 @@ export default function AvatarPickerModal({
 
   const handleResetToDefault = () => {
     saveStoredAvatar(userId, null);
+    syncAvatarToCloud(null);
     setSelectedPresetId(null);
     setUploadedImage(null);
     onAvatarUpdated(null);

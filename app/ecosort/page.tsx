@@ -21,7 +21,9 @@ import {
   Award,
   Layers,
   ArrowRight,
+  Cloud,
 } from "lucide-react";
+import { fetchUserCloudData, syncScanToCloud, mergeScanHistories } from "@/lib/userSync";
 
 export default function EcoSortPage() {
   const [activeTab, setActiveTab] = useState<
@@ -30,14 +32,17 @@ export default function EcoSortPage() {
   const [currentResult, setCurrentResult] = useState<ClassificationResult | null>(null);
   const [scanHistory, setScanHistory] = useState<ClassificationResult[]>([]);
   const [quizCompleted, setQuizCompleted] = useState<boolean>(false);
+  const [isCloudSynced, setIsCloudSynced] = useState<boolean>(false);
 
-  // Load persistent scan history from localStorage
+  // Load persistent scan history from localStorage and Clerk Cloud
   useEffect(() => {
+    let localList: ClassificationResult[] = [];
     try {
       const saved = localStorage.getItem("ecosort_scan_history");
       if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed)) {
+          localList = parsed;
           setScanHistory(parsed);
           if (parsed.length > 0) {
             setCurrentResult(parsed[0]);
@@ -47,6 +52,23 @@ export default function EcoSortPage() {
     } catch (e) {
       console.warn("Failed to load local scan history:", e);
     }
+
+    // Auto-sync with user's Clerk cloud profile across devices
+    fetchUserCloudData().then((cloud) => {
+      if (cloud && cloud.scanHistory) {
+        setIsCloudSynced(true);
+        if (cloud.scanHistory.length > 0) {
+          const merged = mergeScanHistories(localList, cloud.scanHistory);
+          setScanHistory(merged);
+          if (merged.length > 0) {
+            setCurrentResult(merged[0]);
+          }
+          try {
+            localStorage.setItem("ecosort_scan_history", JSON.stringify(merged));
+          } catch {}
+        }
+      }
+    });
   }, []);
 
   // Save scan history to localStorage
@@ -63,6 +85,9 @@ export default function EcoSortPage() {
     setCurrentResult(result);
     const updated = [result, ...scanHistory.filter((i) => i.id !== result.id)].slice(0, 50);
     saveScanHistory(updated);
+    // Persist to Clerk cloud metadata for cross-device synchronization
+    syncScanToCloud(result);
+    setIsCloudSynced(true);
   };
 
   const handleClearHistory = () => {
@@ -93,6 +118,16 @@ export default function EcoSortPage() {
 
       {/* Global Impact & Stats Counter Bar */}
       <EcoStats scanCount={scanHistory.length} />
+
+      {/* Cloud Sync Status Indicator */}
+      {isCloudSynced && (
+        <div className="flex items-center justify-center">
+          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-cyan-950/40 border border-cyan-500/30 text-cyan-300 text-xs font-medium">
+            <Cloud className="w-3.5 h-3.5 text-cyan-400 animate-pulse" />
+            <span>Cloud Synced Across All Devices</span>
+          </div>
+        </div>
+      )}
 
       {/* Main Tab Navigation: Smooth horizontal scroll on mobile, centered wrapped on desktop */}
       <div className="w-full flex justify-start sm:justify-center overflow-x-auto no-scrollbar pb-1">

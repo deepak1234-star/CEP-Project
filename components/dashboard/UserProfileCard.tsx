@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { SignOutButton, UserButton } from "@clerk/nextjs";
+import { SignOutButton } from "@clerk/nextjs";
+import CustomUserButton from "@/components/CustomUserButton";
 import {
   CheckCircle,
   Mail,
@@ -13,12 +14,15 @@ import {
   Palette,
   ShieldCheck,
   User,
+  Cloud,
 } from "lucide-react";
 import AvatarPickerModal from "./AvatarPickerModal";
 import {
   getStoredAvatar,
+  saveStoredAvatar,
   CustomAvatarState,
 } from "@/lib/avatars";
+import { fetchUserCloudData } from "@/lib/userSync";
 
 interface UserProfileCardProps {
   userId: string;
@@ -44,6 +48,14 @@ export default function UserProfileCard({
     const stored = getStoredAvatar(userId);
     if (stored) {
       setCustomAvatar(stored);
+    } else {
+      // Auto-load avatar from cloud metadata across devices
+      fetchUserCloudData().then((cloud) => {
+        if (cloud?.customAvatar) {
+          setCustomAvatar(cloud.customAvatar);
+          saveStoredAvatar(userId, cloud.customAvatar);
+        }
+      });
     }
 
     const handler = (e: Event) => {
@@ -206,15 +218,7 @@ export default function UserProfileCard({
             </SignOutButton>
 
             <div className="p-1 rounded-xl bg-slate-800/80 border border-slate-700 flex items-center">
-              <UserButton
-                afterSignOutUrl="/login"
-                appearance={{
-                  elements: {
-                    avatarBox:
-                      "w-8 h-8 sm:w-9 sm:h-9 ring-2 ring-cyan-500/40 hover:ring-cyan-400 transition-all",
-                  },
-                }}
-              />
+              <CustomUserButton afterSignOutUrl="/login" />
             </div>
           </div>
         </div>
