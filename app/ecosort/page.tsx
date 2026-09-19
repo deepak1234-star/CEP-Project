@@ -71,44 +71,44 @@ export default function EcoSortPage() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8">
+    <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-6 sm:space-y-8">
       {/* Top Banner Header */}
-      <div className="text-center max-w-3xl mx-auto space-y-4">
-        <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs sm:text-sm font-semibold">
-          <Leaf className="w-4 h-4 text-emerald-400" />
-          <span>♻️ EcoSort AI Waste Classification System</span>
+      <div className="text-center max-w-3xl mx-auto space-y-3 sm:space-y-4 pt-1 sm:pt-2">
+        <div className="inline-flex items-center space-x-2 px-3 sm:px-3.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs sm:text-sm font-semibold">
+          <Leaf className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-400 flex-shrink-0" />
+          <span className="truncate">♻️ EcoSort AI Waste Classification System</span>
         </div>
 
-        <h1 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">
-          Classify Waste & Protect The Planet with <br className="hidden sm:block" />
+        <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-snug sm:leading-tight">
+          Classify Waste &amp; Protect The Planet with <br className="hidden sm:block" />
           <span className="bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">
             Artificial Intelligence
           </span>
         </h1>
 
-        <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
-          Use live webcam capture, photo upload, or keyword inquiry to get instant neural material detection, resin code identification, bin destination & step-by-step recycling instructions.
+        <p className="text-slate-400 text-xs sm:text-base leading-relaxed max-w-2xl mx-auto">
+          Use live webcam capture, photo upload, or keyword inquiry to get instant neural material detection, resin code identification, bin destination &amp; step-by-step recycling instructions.
         </p>
       </div>
 
       {/* Global Impact & Stats Counter Bar */}
       <EcoStats scanCount={scanHistory.length} />
 
-      {/* Main Tab Navigation */}
-      <div className="flex justify-center">
-        <div className="flex flex-wrap justify-center gap-2 bg-slate-900/80 p-1.5 rounded-2xl border border-slate-800">
+      {/* Main Tab Navigation: Smooth horizontal scroll on mobile, centered wrapped on desktop */}
+      <div className="w-full flex justify-start sm:justify-center overflow-x-auto no-scrollbar pb-1">
+        <div className="inline-flex items-center gap-1.5 sm:gap-2 bg-slate-900/90 p-1.5 rounded-2xl border border-slate-800 flex-nowrap sm:flex-wrap">
           <button
             onClick={() => {
               playSound("click");
               setActiveTab("scanner");
             }}
-            className={`inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all ${
+            className={`inline-flex items-center space-x-1.5 sm:space-x-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all whitespace-nowrap flex-shrink-0 ${
               activeTab === "scanner"
                 ? "bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/20"
-                : "text-slate-400 hover:text-white"
+                : "text-slate-400 hover:text-white hover:bg-slate-800/50"
             }`}
           >
-            <Sparkles className="w-4 h-4" />
+            <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             <span>AI Scanner</span>
           </button>
 
@@ -117,13 +117,13 @@ export default function EcoSortPage() {
               playSound("click");
               setActiveTab("resin");
             }}
-            className={`inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all ${
+            className={`inline-flex items-center space-x-1.5 sm:space-x-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all whitespace-nowrap flex-shrink-0 ${
               activeTab === "resin"
                 ? "bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/20"
-                : "text-slate-400 hover:text-white"
+                : "text-slate-400 hover:text-white hover:bg-slate-800/50"
             }`}
           >
-            <Layers className="w-4 h-4" />
+            <Layers className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             <span>Resin Codes (#1-7)</span>
           </button>
 
@@ -132,13 +132,13 @@ export default function EcoSortPage() {
               playSound("click");
               setActiveTab("history");
             }}
-            className={`inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all relative ${
+            className={`inline-flex items-center space-x-1.5 sm:space-x-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all relative whitespace-nowrap flex-shrink-0 ${
               activeTab === "history"
                 ? "bg-gradient-to-r from-teal-500 to-emerald-600 text-white shadow-lg shadow-teal-500/20"
-                : "text-slate-400 hover:text-white"
+                : "text-slate-400 hover:text-white hover:bg-slate-800/50"
             }`}
           >
-            <History className="w-4 h-4" />
+            <History className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             <span>History</span>
             {scanHistory.length > 0 && (
               <span className="ml-1 px-1.5 py-0.2 rounded-full bg-slate-800 text-[10px] text-cyan-300 border border-cyan-500/30 font-mono">
@@ -152,13 +152,13 @@ export default function EcoSortPage() {
               playSound("click");
               setActiveTab("binGuide");
             }}
-            className={`inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all ${
+            className={`inline-flex items-center space-x-1.5 sm:space-x-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all whitespace-nowrap flex-shrink-0 ${
               activeTab === "binGuide"
                 ? "bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg shadow-emerald-500/20"
-                : "text-slate-400 hover:text-white"
+                : "text-slate-400 hover:text-white hover:bg-slate-800/50"
             }`}
           >
-            <BookOpen className="w-4 h-4" />
+            <BookOpen className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             <span>Bin Guide</span>
           </button>
 
@@ -167,13 +167,13 @@ export default function EcoSortPage() {
               playSound("click");
               setActiveTab("achievements");
             }}
-            className={`inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all ${
+            className={`inline-flex items-center space-x-1.5 sm:space-x-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all whitespace-nowrap flex-shrink-0 ${
               activeTab === "achievements"
                 ? "bg-gradient-to-r from-purple-500 to-pink-600 text-white shadow-lg shadow-purple-500/20"
-                : "text-slate-400 hover:text-white"
+                : "text-slate-400 hover:text-white hover:bg-slate-800/50"
             }`}
           >
-            <Award className="w-4 h-4" />
+            <Award className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             <span>Eco Badges</span>
           </button>
 
@@ -182,14 +182,14 @@ export default function EcoSortPage() {
               playSound("click");
               setActiveTab("quiz");
             }}
-            className={`inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all ${
+            className={`inline-flex items-center space-x-1.5 sm:space-x-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all whitespace-nowrap flex-shrink-0 ${
               activeTab === "quiz"
-                ? "bg-gradient-to-r from-amber-500 to-orange-600 text-white shadow-lg shadow-amber-500/20"
-                : "text-slate-400 hover:text-white"
+                ? "bg-gradient-to-r from-amber-500 to-orange-600 text-slate-950 shadow-lg shadow-amber-500/20"
+                : "text-slate-400 hover:text-white hover:bg-slate-800/50"
             }`}
           >
-            <HelpCircle className="w-4 h-4" />
-            <span>Quiz</span>
+            <HelpCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+            <span>Eco Quiz</span>
           </button>
         </div>
       </div>

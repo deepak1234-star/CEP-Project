@@ -1,21 +1,16 @@
 import { currentUser, auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import Image from "next/image";
 import Link from "next/link";
-import { SignOutButton, UserButton } from "@clerk/nextjs";
 import {
   ShieldCheck,
-  Mail,
   User,
   Calendar,
-  LogOut,
   Sparkles,
-  CheckCircle,
   Recycle,
   Globe,
   ArrowRight,
-  Leaf,
 } from "lucide-react";
+import UserProfileCard from "@/components/dashboard/UserProfileCard";
 
 export default async function DashboardPage() {
   const { userId } = await auth();
@@ -57,89 +52,15 @@ export default async function DashboardPage() {
   ) ?? false;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8">
-      {/* Top Banner Header */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-slate-900 to-cyan-950 border border-slate-800 p-6 sm:p-10 shadow-2xl">
-        <div className="absolute -right-10 -bottom-10 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
-
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
-          <div className="flex flex-col sm:flex-row items-center sm:items-start md:items-center gap-6 text-center sm:text-left">
-            {/* User Profile Avatar */}
-            <div className="relative flex-shrink-0">
-              <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden ring-4 ring-cyan-500/30 shadow-xl bg-slate-800 flex items-center justify-center">
-                {userAvatar ? (
-                  <Image
-                    src={userAvatar}
-                    alt={userFullName}
-                    width={112}
-                    height={112}
-                    className="w-full h-full object-cover"
-                    priority
-                  />
-                ) : (
-                  <div className="w-full h-full bg-gradient-to-br from-emerald-500 via-cyan-500 to-blue-600 flex items-center justify-center text-white font-black text-3xl sm:text-4xl shadow-inner select-none">
-                    {userFullName.slice(0, 1).toUpperCase()}
-                  </div>
-                )}
-              </div>
-              <div
-                className="absolute -bottom-2 -right-2 bg-emerald-500 text-slate-950 p-1.5 rounded-full ring-4 ring-slate-900"
-                title="Session Active & Authenticated"
-              >
-                <CheckCircle className="w-4 h-4 stroke-[3]" />
-              </div>
-            </div>
-
-            {/* Profile Info */}
-            <div className="space-y-2">
-              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-                <span>Session Active &amp; Authenticated</span>
-              </div>
-
-              <h1 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
-                {userFullName}
-              </h1>
-
-              <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4 text-slate-300 text-sm">
-                <div className="flex items-center space-x-2">
-                  <Mail className="w-4 h-4 text-cyan-400" />
-                  <span>{userEmail}</span>
-                </div>
-
-                {hasGoogleOAuth && (
-                  <div className="flex items-center space-x-1.5 text-xs text-blue-400 bg-blue-500/10 px-2.5 py-1 rounded-full border border-blue-500/20">
-                    <Globe className="w-3.5 h-3.5" />
-                    <span>Google OAuth Verified</span>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/* Action Buttons & User Menu */}
-          <div className="flex flex-wrap items-center justify-center md:justify-end gap-3 pt-4 md:pt-0 border-t md:border-t-0 border-slate-800">
-            <SignOutButton redirectUrl="/login">
-              <button className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl font-semibold text-sm text-slate-200 bg-slate-800 hover:bg-rose-950/40 hover:text-rose-400 border border-slate-700 hover:border-rose-800/60 transition-all shadow-md">
-                <LogOut className="w-4 h-4" />
-                <span>Sign Out</span>
-              </button>
-            </SignOutButton>
-
-            <div className="p-1 rounded-xl bg-slate-800/80 border border-slate-700 flex items-center">
-              <UserButton
-                afterSignOutUrl="/login"
-                appearance={{
-                  elements: {
-                    avatarBox:
-                      "w-9 h-9 ring-2 ring-cyan-500/40 hover:ring-cyan-400 transition-all",
-                  },
-                }}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
+    <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-6 sm:space-y-8">
+      {/* Interactive User Profile Card with Avatar Picker */}
+      <UserProfileCard
+        userId={userId}
+        userFullName={userFullName}
+        userEmail={userEmail}
+        initialClerkAvatar={userAvatar}
+        hasGoogleOAuth={hasGoogleOAuth}
+      />
 
       {/* Quick Access to EcoSort AI Scanner */}
       <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-emerald-950/40 via-slate-900 to-cyan-950/40 border border-emerald-500/30 p-6 sm:p-8 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6">
