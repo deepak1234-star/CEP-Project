@@ -2,12 +2,15 @@ import Link from "next/link";
 import { SafeSignedIn, SafeSignedOut } from "@/components/SafeAuth";
 import CustomUserButton from "@/components/CustomUserButton";
 import { ShieldCheck, LogIn, UserPlus, LayoutDashboard, Home, Sparkles } from "lucide-react";
+import { getCurrentUserAdminStatus } from "@/lib/adminAuth";
 
-export default function Navbar() {
+export default async function Navbar() {
+  const { isAdmin } = await getCurrentUserAdminStatus();
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-slate-950/80 backdrop-blur-md">
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        {/* Brand Logo with Home Icon (Replacing Recycle Icon) */}
+        {/* Brand Logo with Home Icon */}
         <Link href="/" className="flex items-center space-x-2.5 sm:space-x-3 group flex-shrink-0" title="Go to Home">
           <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-emerald-500 via-cyan-500 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition-transform duration-200">
             <Home className="w-5 h-5 sm:w-5.5 sm:h-5.5 text-white" />
@@ -18,7 +21,7 @@ export default function Navbar() {
         </Link>
 
         <nav className="flex items-center space-x-1.5 sm:space-x-3">
-          {/* EcoSort AI button: Hidden on mobile screens to keep the header uncluttered */}
+          {/* EcoSort AI button */}
           <Link
             href="/ecosort"
             className="hidden md:inline-flex items-center space-x-2 px-3 sm:px-4 py-2 rounded-lg text-sm font-semibold text-emerald-400 bg-emerald-950/40 border border-emerald-500/30 hover:bg-emerald-900/50 transition-all shadow-sm"
@@ -28,6 +31,18 @@ export default function Navbar() {
           </Link>
 
           <SafeSignedIn>
+            {/* Admin Dashboard Pill (Visible strictly to Administrators) */}
+            {isAdmin && (
+              <Link
+                href="/admin/dashboard"
+                className="inline-flex items-center space-x-1 sm:space-x-1.5 px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-bold text-emerald-300 bg-emerald-950/60 border border-emerald-500/40 hover:bg-emerald-900/60 transition-all shadow-sm animate-pulse"
+                title="Super Admin Mission Control"
+              >
+                <ShieldCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-400" />
+                <span>Admin</span>
+              </Link>
+            )}
+
             <Link
               href="/dashboard"
               className="inline-flex items-center space-x-1.5 sm:space-x-2 px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-medium text-slate-200 hover:text-white bg-slate-900/80 border border-slate-800 hover:border-slate-700 transition-all shadow-sm"

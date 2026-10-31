@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { auth } from "@clerk/nextjs/server";
-import { recordUserScanActivity } from "@/lib/clerkActivity";
+import { auth, currentUser } from "@clerk/nextjs/server";
+import { logScanActivity } from "@/lib/db/activityService";
 
 // Active Gemini models with available quota, tested and prioritized
 const GEMINI_MODELS = [
@@ -201,14 +201,48 @@ export async function POST(req: Request) {
       createdAt: new Date().toISOString(),
     };
 
-    // If user is logged in via Clerk, automatically record activity & ecoPoints into Clerk metadata
+    // If user is logged in via Clerk, automatically record activity into MongoDB & Clerk metadata
     try {
       const { userId } = await auth();
       if (userId) {
-        await recordUserScanActivity(userId, result);
+        const user = await currentUser();
+        const primaryEmail =
+          user?.emailAddresses.find((e) => e.id === user?.primaryEmailAddressId)?.emailAddress ||
+          user?.emailAddresses[0]?.emailAddress ||
+          "";
+        const userName =
+          `${user?.firstName || ""} ${user?.lastName || ""}`.trim() || user?.username || "Eco Recycler";
+        const userAvatar = user?.imageUrl || "";
+
+        let co2Num = 0.5;
+        if (result.co2SavedPerKg) {
+          const match = result.co2SavedPerKg.match(/([\d.]+)/);
+          if (match) co2Num = parseFloat(match[1]);
+        }
+
+        await logScanActivity({
+          userId,
+          userEmail: primaryEmail,
+          userName,
+          userAvatar,
+          itemName: result.itemName,
+          category: result.category,
+          binType: result.binType,
+          binColor: result.binColor,
+          co2SavedKg: co2Num,
+          confidence: result.confidence,
+          preparationAction: result.preparationAction,
+          dos: result.dos,
+          donts: result.donts,
+          explanation: result.explanation,
+          resinCode: result.resinCode,
+          resinName: result.resinName,
+          decompositionTime: result.decompositionTime,
+          source: "camera_scan",
+        });
       }
     } catch (syncErr) {
-      console.warn("Could not sync scan activity to Clerk metadata:", syncErr);
+      console.warn("Could not sync scan activity to DB/Clerk:", syncErr);
     }
 
     return NextResponse.json({ success: true, result });
