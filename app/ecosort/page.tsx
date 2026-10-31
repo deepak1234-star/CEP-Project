@@ -34,72 +34,41 @@ export default function EcoSortPage() {
   const [quizCompleted, setQuizCompleted] = useState<boolean>(false);
   const [isCloudSynced, setIsCloudSynced] = useState<boolean>(false);
 
-  // Load persistent scan history from localStorage and Clerk Cloud
+  // Load persistent scan history directly from Clerk Cloud
   useEffect(() => {
-    let localList: ClassificationResult[] = [];
+    // Purge any remnant localStorage
     try {
-      const saved = localStorage.getItem("ecosort_scan_history");
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed)) {
-          localList = parsed;
-          setScanHistory(parsed);
-          if (parsed.length > 0) {
-            setCurrentResult(parsed[0]);
-          }
-        }
-      }
-    } catch (e) {
-      console.warn("Failed to load local scan history:", e);
-    }
+      localStorage.removeItem("ecosort_scan_history");
+    } catch {}
 
-    // Auto-sync with user's Clerk cloud profile across devices
+    // Pure Clerk Cloud data fetch
     fetchUserCloudData().then((cloud) => {
       if (cloud && cloud.scanHistory) {
         setIsCloudSynced(true);
+        setScanHistory(cloud.scanHistory);
         if (cloud.scanHistory.length > 0) {
-          const merged = mergeScanHistories(localList, cloud.scanHistory);
-          setScanHistory(merged);
-          if (merged.length > 0) {
-            setCurrentResult(merged[0]);
-          }
-          try {
-            localStorage.setItem("ecosort_scan_history", JSON.stringify(merged));
-          } catch {}
-        } else if (localList.length > 0) {
-          // If cloud has 0 scans but local storage has scans, push local scans to cloud
-          fetch("/api/user/sync", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ batchScans: localList }),
-          }).catch(console.warn);
+          setCurrentResult(cloud.scanHistory[0]);
         }
       }
     });
   }, []);
 
-  // Save scan history to localStorage
-  const saveScanHistory = (newList: ClassificationResult[]) => {
-    setScanHistory(newList);
-    try {
-      localStorage.setItem("ecosort_scan_history", JSON.stringify(newList));
-    } catch (e) {
-      console.warn("Failed to persist scan history:", e);
-    }
-  };
-
   const handleScanResult = (result: ClassificationResult) => {
     setCurrentResult(result);
-    const updated = [result, ...scanHistory.filter((i) => i.id !== result.id)].slice(0, 50);
-    saveScanHistory(updated);
-    // Persist to Clerk cloud metadata for cross-device synchronization
+    setScanHistory((prev) => [result, ...prev.filter((i) => i.id !== result.id)].slice(0, 50));
+    // Persist directly to Clerk cloud metadata and MongoDB
     syncScanToCloud(result);
     setIsCloudSynced(true);
   };
 
   const handleClearHistory = () => {
-    saveScanHistory([]);
+    setScanHistory([]);
     setCurrentResult(null);
+    fetch("/api/user/sync", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ scanHistory: [] }),
+    }).catch(console.warn);
   };
 
   return (
