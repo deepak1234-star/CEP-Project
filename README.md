@@ -1,114 +1,39 @@
-# Next.js & Clerk Authentication with Google OAuth 🔑
+# ♻️ EcoSort AI — AI-Powered Waste Classification & Recycling System
 
-A production-ready web application built with **Next.js (App Router)**, **TypeScript**, **Tailwind CSS**, and **Clerk (`@clerk/nextjs`)**, featuring **real Google OAuth 2.0 authentication**, protected routes, persistent sessions, and responsive UI.
+EcoSort AI is a web application and environmental recycling assistant built with **Next.js 14 (App Router)**, **TypeScript**, **Tailwind CSS**, **Google Gemini Vision AI**, and **Clerk Authentication with Google OAuth**.
 
----
-
-## 🚀 Features
-
-- 🔐 **Real Google OAuth 2.0**: Official Google account-selection/login flow via Clerk.
-- 🛡️ **Route Protection**: `/dashboard` is protected using Clerk Edge Middleware. Unauthenticated visits automatically redirect to `/login`.
-- 👤 **Authenticated Profile Display**: Shows user avatar, full name, primary email address, session state, and account details on the dashboard.
-- 🔄 **Persistent Session**: Session remains active across page reloads and browser restarts using secure HTTP-only cookies.
-- 🚪 **Sign Out**: Instant sign-out functionality clearing local & server session tokens.
-- 📱 **Responsive UI**: Sleek, modern dark-mode interface built with Tailwind CSS.
+EcoSort AI eliminates recycling confusion by analyzing photos of waste items in real time, accurately classifying them into 7 disposal categories, identifying plastic resin codes (#1–7), recommending municipal bin colors, calculating carbon offsets, and gamifying sustainability through quizzes and badges.
 
 ---
 
-## 🛠️ Step-by-Step Setup Guide
+## 🚀 Key Features
 
-### 1. How to Create the Clerk Application
-1. Go to [https://dashboard.clerk.com/](https://dashboard.clerk.com/) and log in or create a free account.
-2. Click **Add application** (or **Create Application**).
-3. Enter your **Application name** (e.g., `AuthGuard App`).
-4. Select sign-in options: Ensure **Google** and **Email** are selected.
-5. Click **Create Application**.
+### 🤖 1. Real-Time Gemini Vision AI Classification
+- **Live Camera & Photo Upload**: Capture items directly from your webcam or mobile camera, or drag and drop photos.
+- **Deep Multimodal Analysis**: Powered by Google Gemini Vision (`gemini-3.5-flash` / `gemini-3.8-flash`) returning item name, material category, confidence score, decomposition lifespan, CO₂ savings, and practical DOs & DONTs.
+- **Extensive Offline Knowledge Base**: Comprehensive fallback database covering 18+ common waste types, plastic resin codes (#1–#7), e-waste, hazardous materials, and composite packaging.
 
----
+### 🗑️ 2. Smart Municipal Bin Sorting (7 Categories)
+- **🟢 Organic**: Food scraps, fruit peels, compostables, grease-soiled food boxes.
+- **🔵 Paper**: Clean newspapers, office paper, cardboard boxes, envelopes.
+- **🟡 Plastic**: Bottles, HDPE jugs, PP takeout containers, resin codes #1–#5.
+- **⚙️ Metal**: Clean aluminum beverage cans, tin food containers, foil.
+- **🟣 Glass**: Beverage bottles, food jars, glass containers.
+- **🔴 E-Waste**: Smartphones, circuit boards, chargers, laptop cords, cables.
+- **⚠️ Hazardous**: Lithium & alkaline batteries, fluorescent bulbs, medicines.
 
-### 2. How to Enable Google as a Sign-In Provider in Clerk
-1. In your Clerk Dashboard, navigate to **User & Authentication** → **Social Connections**.
-2. Locate **Google** in the list.
-3. Toggle the switch to **Enabled**.
-4. *(Optional for production)*: By default, Clerk provides **Development credentials** for Google OAuth so you can test immediately without any custom Google Cloud Console setup. 
-   - For Production: You can toggle "Use custom credentials" and paste your Google Cloud OAuth **Client ID** and **Client Secret** obtained from the [Google Cloud Console](https://console.cloud.google.com/).
+### 🔬 3. Resin Identification Code Guide (#1 – #7)
+- Comprehensive interactive guide for PET (#1), HDPE (#2), PVC (#3), LDPE (#4), PP (#5), PS (#6), and OTHER (#7).
+- Explains recyclability level, typical uses, melting properties, and sorting rules.
 
----
+### 🏆 4. Gamified Eco-Quiz & Achievement Badges
+- Interactive recycling quiz testing knowledge on greasy pizza boxes, battery drop-offs, and resin markings.
+- Dynamic reward badges ("Eco Novice", "Recycling Champion", "Zero-Waste Hero") tracked to user achievements.
 
-### 3. Required Environment Variables
-Create a `.env.local` file in the root directory of the project with the following variables:
-
-```env
-# Get these keys from https://dashboard.clerk.com -> API Keys
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_YOUR_CLERK_PUBLISHABLE_KEY
-CLERK_SECRET_KEY=sk_test_YOUR_CLERK_SECRET_KEY
-
-# Custom Clerk Auth Route Paths
-NEXT_PUBLIC_CLERK_SIGN_IN_URL=/login
-NEXT_PUBLIC_CLERK_SIGN_UP_URL=/signup
-NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/dashboard
-NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/dashboard
-```
-
-> [!IMPORTANT]
-> Never commit `.env.local` or secret keys to version control. Keep `CLERK_SECRET_KEY` strictly on the server.
-
----
-
-### 4. How to Run the Website Locally
-
-1. **Install Dependencies**:
-   ```bash
-   npm install
-   ```
-
-2. **Start the Development Server**:
-   ```bash
-   npm run dev
-   ```
-
-3. Open your browser and visit: [http://localhost:3000](http://localhost:3000)
-
----
-
-### 5. How to Deploy to Vercel
-
-1. Push your code to a GitHub, GitLab, or Bitbucket repository.
-2. Go to [Vercel](https://vercel.com/) and click **Add New Project**.
-3. Import your project repository.
-4. Under **Environment Variables**, add:
-   - `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` (Your Clerk Publishable Key)
-   - `CLERK_SECRET_KEY` (Your Clerk Secret Key)
-   - `NEXT_PUBLIC_CLERK_SIGN_IN_URL` = `/login`
-   - `NEXT_PUBLIC_CLERK_SIGN_UP_URL` = `/signup`
-   - `NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL` = `/dashboard`
-   - `NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL` = `/dashboard`
-5. Click **Deploy**.
-
----
-
-### 6. How to Configure the Production Domain
-
-1. In your **Clerk Dashboard**, go to **Paths** and update your **Production Domain** to match your Vercel deployment domain (e.g. `https://your-app.vercel.app`).
-2. Add your domain to **Allowed Origins** in Clerk settings if applicable.
-3. If using custom Google OAuth credentials in production:
-   - Go to [Google Cloud Console](https://console.cloud.google.com/).
-   - Add your production callback URL (provided in Clerk's Google OAuth settings page) to **Authorized redirect URIs**.
-
----
-
-### 7. How to Test the Complete Google Login Flow
-
-1. Open your browser and navigate to `http://localhost:3000/login` (or your deployed URL).
-2. Click the **"Continue with Google"** button.
-3. Observe that Google redirects you to the official Google Account selection screen (`accounts.google.com`).
-4. Choose your Google account and grant permission.
-5. Google will redirect back through Clerk authentication, which will automatically bring you to `/dashboard`.
-6. Verify on `/dashboard` that:
-   - Your profile picture, full name, and email address are displayed.
-   - Refresh the browser tab to verify session persistence.
-   - Click **Sign Out** to verify session teardown and redirection back to `/login`.
-7. Attempt to open `/dashboard` directly in an incognito window without logging in to verify that middleware redirects you immediately to `/login`.
+### 🔐 5. Google OAuth & Clerk Cloud Synchronization
+- **One-Click Google Sign-In**: Powered by Clerk (`@clerk/nextjs`).
+- **Protected User Dashboard**: `/dashboard` route protected by Next.js edge middleware.
+- **Multi-Device Cloud Sync**: Scan history, sustainability stats, and custom avatar selections automatically synchronize to the user's Clerk profile across devices.
 
 ---
 
@@ -116,23 +41,130 @@ NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/dashboard
 
 ```text
 ├── app/
-│   ├── layout.tsx            # Root layout wrapped in ClerkProvider
-│   ├── page.tsx              # Public Landing page
-│   ├── login/
-│   │   └── [[...login]]/
-│   │       └── page.tsx      # Login page with Clerk SignIn & Google OAuth
-│   ├── signup/
-│   │   └── [[...signup]]/
-│   │       └── page.tsx      # Sign-up page with Clerk SignUp
+│   ├── layout.tsx                      # Root layout wrapped with ClerkProvider
+│   ├── page.tsx                        # Public landing page with category showcase
+│   ├── ecosort/
+│   │   └── page.tsx                    # Main EcoSort AI Scanner, Quiz, & History Hub
 │   ├── dashboard/
-│   │   └── page.tsx          # Protected Dashboard displaying User Profile
-│   └── globals.css           # Tailwind directives & theme styling
+│   │   └── page.tsx                    # Protected dashboard displaying profile & stats
+│   ├── login/[[...login]]/             # Clerk Google OAuth Sign-In page
+│   ├── signup/[[...signup]]/           # Clerk Sign-Up page
+│   ├── api/
+│   │   ├── classify/route.ts           # Gemini Vision AI & database classification API
+│   │   └── user/sync/route.ts          # Clerk metadata profile & scan history sync API
+│   └── globals.css                     # Tailwind CSS directives & custom themes
 ├── components/
-│   └── Navbar.tsx            # Navigation bar with Auth controls
-├── middleware.ts             # Clerk Middleware route protection (/dashboard)
-├── .env.example              # Environment variables template
-├── .env.local                # Local environment secrets
-├── tailwind.config.ts        # Tailwind CSS configuration
-├── tsconfig.json             # TypeScript configuration
-└── package.json              # Project dependencies
+│   ├── Navbar.tsx                      # Sticky navigation header with auth state
+│   ├── dashboard/
+│   │   ├── UserProfileCard.tsx         # User identity profile card
+│   │   ├── EditProfileModal.tsx        # Profile editing modal with bio & completion meter
+│   │   └── AvatarPickerModal.tsx       # Custom avatar selector
+│   └── ecosort/
+│   │   ├── WasteScanner.tsx            # Camera stream & upload analysis interface
+│   │   ├── AnalysisResultCard.tsx      # Comprehensive AI sorting result card
+│   │   ├── SmartBinGuide.tsx           # 7-category bin classification guide
+│   │   ├── ResinCodeGuide.tsx          # Plastics #1-7 resin guide
+│   │   ├── EcoQuiz.tsx                 # Interactive environmental quiz
+│   │   ├── EcoAchievements.tsx         # Badges and milestones
+│   │   ├── EcoStats.tsx                # CO2 savings and item tally
+│   │   └── ScanHistoryDrawer.tsx       # Saved scan drawer with filter & export
+├── lib/
+│   ├── wasteDatabase.ts                # Built-in item database and audio synthesizer
+│   ├── userSync.ts                     # Multi-device cloud sync helpers
+│   ├── userProfile.ts                  # Profile completion calculations
+│   └── avatars.ts                      # Preset avatar catalogue
+├── types/
+│   ├── ecosort.ts                      # EcoSort TypeScript interfaces
+│   └── profile.ts                      # User profile TypeScript interfaces
+├── test_images/                        # Test images for visual verification
+├── gemini_scanner.py                   # Standalone Python CLI Gemini Vision scanner
+├── test_api.py                         # Automated test script for /api/classify
+├── middleware.ts                       # Clerk edge middleware route guard
+├── .env.example                        # Template for environment variables
+├── .env.local                          # Private environment variables (never committed)
+├── tailwind.config.ts                  # Tailwind configuration
+└── tsconfig.json                       # TypeScript compiler configuration
 ```
+
+---
+
+## 🛠️ Getting Started
+
+### 1. Prerequisites
+- **Node.js**: `v18.17+` or `v20+`
+- **npm** or **pnpm**
+- **Python**: `v3.10+` (optional, for standalone CLI scanner scripts)
+
+### 2. Environment Variables Setup
+Create a `.env.local` file in the project root:
+
+```env
+# Clerk Authentication (from https://dashboard.clerk.com -> API Keys)
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_YOUR_CLERK_PUBLISHABLE_KEY
+CLERK_SECRET_KEY=sk_test_YOUR_CLERK_SECRET_KEY
+
+# Clerk Auth Routes
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/login
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/signup
+NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/dashboard
+NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/dashboard
+
+# Google Gemini Vision API Key (from https://aistudio.google.com/)
+GEMINI_API_KEY=YOUR_GEMINI_API_KEY
+```
+
+> [!IMPORTANT]
+> Keep `CLERK_SECRET_KEY` and `GEMINI_API_KEY` private. Never commit `.env.local` to public version control.
+
+### 3. Install Dependencies
+```bash
+npm install
+```
+
+### 4. Run Development Server
+```bash
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+---
+
+## 🧪 Testing & Verification
+
+### Test Next.js Classification API
+While `npm run dev` is running, execute the automated Python test script:
+```bash
+python test_api.py
+```
+This tests `POST /api/classify` with complex real-world sample images in `test_images/` and outputs the full AI classification, confidence score, preparation actions, and disposal metrics.
+
+### Run Standalone Python Gemini Scanner
+You can also scan any local image directly from the terminal without starting the web server:
+```bash
+python gemini_scanner.py test_images/ewaste.jpg
+```
+
+### Run TypeScript & Production Build Checks
+```bash
+# Verify TypeScript types
+npx tsc --noEmit
+
+# Compile production bundle
+npm run build
+```
+
+---
+
+## 🌐 Deployment (Vercel)
+
+1. Push your repository to GitHub.
+2. Link the repository in [Vercel](https://vercel.com).
+3. Add the required Environment Variables in the Vercel project settings:
+   - `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`
+   - `CLERK_SECRET_KEY`
+   - `NEXT_PUBLIC_CLERK_SIGN_IN_URL` = `/login`
+   - `NEXT_PUBLIC_CLERK_SIGN_UP_URL` = `/signup`
+   - `NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL` = `/dashboard`
+   - `NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL` = `/dashboard`
+   - `GEMINI_API_KEY`
+4. Deploy! Your app is now live with real-time AI waste recognition and Google OAuth.

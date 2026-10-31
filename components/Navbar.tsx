@@ -43,6 +43,7 @@ export default function Navbar() {
           <SafeSignedOut>
             <Link
               href="/login"
+              prefetch={true}
               className="inline-flex items-center space-x-1 sm:space-x-1.5 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-all"
             >
               <LogIn className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
@@ -50,6 +51,7 @@ export default function Navbar() {
             </Link>
             <Link
               href="/signup"
+              prefetch={true}
               className="inline-flex items-center space-x-1 sm:space-x-1.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold text-white bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 transition-all shadow-md shadow-cyan-500/25 whitespace-nowrap"
             >
               <UserPlus className="w-3.5 h-3.5 sm:w-4 sm:h-4" />

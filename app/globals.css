@@ -102,3 +102,122 @@ button, a {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* ==========================================================================
+   Clerk UserButton Popover High-Contrast & Theme Visibility Fixes
+   ========================================================================== */
+
+/* Main Popover Card */
+.cl-userButtonPopoverCard,
+div[class*="userButtonPopoverCard"],
+div[class*="cl-userButtonPopoverCard"] {
+  background-color: #0f172a !important;
+  border: 1px solid #1e293b !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.08) !important;
+  border-radius: 1.25rem !important;
+  overflow: hidden !important;
+}
+
+/* User Identity Header */
+.cl-userPreview,
+div[class*="userPreview"] {
+  padding: 1rem 1.25rem !important;
+  background-color: #0b1120 !important;
+  border-bottom: 1px solid #1e293b !important;
+}
+
+.cl-userPreviewMainIdentifier,
+div[class*="userPreviewMainIdentifier"] {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  font-size: 0.95rem !important;
+}
+
+.cl-userPreviewSecondaryIdentifier,
+div[class*="userPreviewSecondaryIdentifier"] {
+  color: #94a3b8 !important;
+  font-size: 0.8rem !important;
+}
+
+/* Action Buttons Container */
+.cl-userButtonPopoverActions,
+div[class*="userButtonPopoverActions"] {
+  padding: 0.5rem !important;
+  background-color: #0f172a !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.25rem !important;
+}
+
+/* Action Buttons (Manage Account, Sign Out, Visit Profile) */
+.cl-userButtonPopoverActionButton,
+.cl-userButtonPopoverCustomItemButton,
+button[class*="userButtonPopoverActionButton"],
+button[class*="userButtonPopoverCustomItemButton"],
+a[class*="userButtonPopoverCustomItemButton"] {
+  color: #f8fafc !important;
+  background-color: transparent !important;
+  font-weight: 600 !important;
+  font-size: 0.875rem !important;
+  padding: 0.75rem 1rem !important;
+  border-radius: 0.75rem !important;
+  transition: all 0.15s ease-in-out !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.75rem !important;
+  cursor: pointer !important;
+  border: 1px solid transparent !important;
+}
+
+.cl-userButtonPopoverActionButton:hover,
+.cl-userButtonPopoverCustomItemButton:hover,
+button[class*="userButtonPopoverActionButton"]:hover,
+button[class*="userButtonPopoverCustomItemButton"]:hover,
+a[class*="userButtonPopoverCustomItemButton"]:hover {
+  background-color: #1e293b !important;
+  color: #38bdf8 !important;
+  border-color: rgba(56, 189, 248, 0.2) !important;
+}
+
+/* Action Button Text Labels (Manage account & Sign out) */
+.cl-userButtonPopoverActionButtonText,
+.cl-userButtonPopoverCustomItemButtonText,
+span[class*="userButtonPopoverActionButtonText"],
+span[class*="userButtonPopoverCustomItemButtonText"] {
+  color: #f1f5f9 !important;
+  font-weight: 600 !important;
+  font-size: 0.875rem !important;
+  opacity: 1 !important;
+}
+
+.cl-userButtonPopoverActionButton:hover .cl-userButtonPopoverActionButtonText,
+.cl-userButtonPopoverCustomItemButton:hover .cl-userButtonPopoverCustomItemButtonText {
+  color: #38bdf8 !important;
+}
+
+/* Action Button Icons */
+.cl-userButtonPopoverActionButtonIcon,
+.cl-userButtonPopoverCustomItemButtonIcon,
+svg[class*="userButtonPopoverActionButtonIcon"],
+div[class*="userButtonPopoverActionButtonIcon"],
+span[class*="userButtonPopoverActionButtonIcon"] {
+  color: #38bdf8 !important;
+  width: 1.15rem !important;
+  height: 1.15rem !important;
+  opacity: 1 !important;
+}
+
+.cl-userButtonPopoverActionButtonIconBox,
+div[class*="userButtonPopoverActionButtonIconBox"] {
+  color: #38bdf8 !important;
+}
+
+/* Popover Footer (Secured by Clerk & Dev Mode) */
+.cl-userButtonPopoverFooter,
+div[class*="userButtonPopoverFooter"] {
+  background-color: #090d16 !important;
+  border-top: 1px solid #1e293b !important;
+  padding: 0.625rem 1rem !important;
+  color: #64748b !important;
+}
+

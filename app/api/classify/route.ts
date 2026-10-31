@@ -1,6 +1,96 @@
 import { NextResponse } from "next/server";
 import { WASTE_DATABASE } from "@/lib/wasteDatabase";
 
+async function classifyWithGeminiVision(imageBase64: string, apiKey: string) {
+  try {
+    let cleanBase64 = imageBase64;
+    let mimeType = "image/jpeg";
+    const matches = imageBase64.match(/^data:([^;]+);base64,(.+)$/);
+    if (matches) {
+      mimeType = matches[1];
+      cleanBase64 = matches[2];
+    }
+
+    const prompt = `You are EcoSort AI, a world-class environmental expert in waste classification, material science, and recycling.
+Analyze the provided image and classify the primary waste or recyclable item shown.
+Return ONLY a valid JSON object matching this schema with no markdown formatting:
+{
+  "itemName": "Specific item name (e.g., Clear PET Water Bottle, Aluminum Beverage Can, Banana Peel, Cardboard Box)",
+  "category": "Must be exactly one of: Organic | Paper | Plastic | Metal | Glass | E-Waste | Hazardous",
+  "binType": "Appropriate municipal bin type name (e.g. Dry Recyclables Blue Bin, Organic Compost Green Bin, Hazardous Special Bin)",
+  "binColor": "Must be exactly one of: green | blue | yellow | purple | red",
+  "confidence": An integer between 88 and 99 reflecting visual classification certainty,
+  "preparationAction": "One clear action instruction (e.g. Empty liquids, rinse thoroughly, and leave cap on)",
+  "dos": ["Array of 3 practical DO instructions for recycling or composting this item"],
+  "donts": ["Array of 3 common mistakes or DONT instructions to avoid contamination"],
+  "explanation": "2 clear sentences explaining the material composition, why it belongs to this category, and how it is recycled",
+  "resinCode": An integer from 1 to 7 if plastic (e.g. 1 for PET, 2 for HDPE, 5 for PP), or null if not plastic,
+  "resinName": "Plastic resin abbreviation and full name if plastic, or null",
+  "decompositionTime": "Estimated landfill decomposition duration (e.g. ~450 Years, ~2-4 Weeks, 100+ Years)",
+  "co2SavedPerKg": "Estimated CO2 savings metric (e.g. 1.8 kg CO2, 2.5 kg CO2)",
+  "recyclabilityRating": "Must be one of: High | Medium | Low | Special Handling",
+  "commonMistake": "The single most common sorting mistake made with this specific item"
+}`;
+
+    const payload = {
+      contents: [
+        {
+          parts: [
+            { text: prompt },
+            {
+              inlineData: {
+                mimeType,
+                data: cleanBase64,
+              },
+            },
+          ],
+        },
+      ],
+      generationConfig: {
+        temperature: 0.1,
+        responseMimeType: "application/json",
+      },
+    };
+
+    const models = ["gemini-3.5-flash", "gemini-3.8-flash", "gemini-flash-latest"];
+    for (const model of models) {
+      try {
+        const res = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          }
+        );
+        if (res.ok) {
+          const data = await res.json();
+          const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+          if (text) {
+            const cleaned = text
+              .replace(/^```json\s*/i, "")
+              .replace(/^```\s*/i, "")
+              .replace(/\s*```$/i, "")
+              .trim();
+            const parsed = JSON.parse(cleaned);
+            if (parsed && parsed.itemName && parsed.category) {
+              return parsed;
+            }
+          }
+        } else {
+          const errText = await res.text();
+          console.warn(`Model ${model} returned HTTP ${res.status}: ${errText.slice(0, 200)}`);
+        }
+      } catch (err) {
+        console.warn(`Model ${model} attempt failed:`, err);
+      }
+    }
+  } catch (err) {
+    console.warn("Gemini vision classification error:", err);
+  }
+  return null;
+}
+
 export async function POST(req: Request) {
   try {
     const body = await req.json();
@@ -53,22 +143,40 @@ export async function POST(req: Request) {
       return null;
     };
 
-    if (searchQuery) {
-      const match = matchText(searchQuery);
-      if (match) itemData = match;
-      else itemData = WASTE_DATABASE["plastic_bottle"];
-    } else if (fileName) {
-      const match = matchText(fileName);
-      if (match) itemData = match;
-      else itemData = WASTE_DATABASE["plastic_bottle"];
-    } else if (sampleKey && WASTE_DATABASE[sampleKey]) {
-      itemData = WASTE_DATABASE[sampleKey];
-    } else if (imageBase64) {
-      // Camera snapshot without a text hint: return a safe general plastic result
-      // and prompt user to use the search bar for more accurate classification
-      itemData = WASTE_DATABASE["plastic_bottle"];
-      classificationNote =
-        "Photo captured! For more precise AI classification, type the item name in the search bar above.";
+    // 1. If an image is provided and Gemini API key is configured, run real AI Vision analysis
+    const geminiKey = process.env.GEMINI_API_KEY;
+
+    let geminiSucceeded = false;
+
+    if (imageBase64 && geminiKey) {
+      const geminiResult = await classifyWithGeminiVision(imageBase64, geminiKey);
+      if (geminiResult) {
+        itemData = {
+          ...geminiResult,
+          imageUrl: imageBase64,
+        };
+        classificationNote = "Analyzed with Google Gemini Vision AI in real time ✨";
+        geminiSucceeded = true;
+      }
+    }
+
+    // 2. If Gemini was not used or did not match, use search query or filename or preset fallback
+    if (!geminiSucceeded) {
+      if (searchQuery) {
+        const match = matchText(searchQuery);
+        if (match) itemData = match;
+        else itemData = WASTE_DATABASE["plastic_bottle"];
+      } else if (fileName) {
+        const match = matchText(fileName);
+        if (match) itemData = match;
+        else itemData = WASTE_DATABASE["plastic_bottle"];
+      } else if (sampleKey && WASTE_DATABASE[sampleKey]) {
+        itemData = WASTE_DATABASE[sampleKey];
+      } else if (imageBase64) {
+        itemData = WASTE_DATABASE["plastic_bottle"];
+        classificationNote =
+          "Photo captured! For extra precision, you can also select a preset or type a keyword.";
+      }
     }
 
     const result = {

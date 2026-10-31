@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import ClerkProviderWrapper from "@/components/ClerkProviderWrapper";
 import Navbar from "@/components/Navbar";
+import EcoSortAgentChat from "@/components/EcoSortAgentChat";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -17,6 +18,14 @@ export default function RootLayout({
   return (
     <ClerkProviderWrapper>
       <html lang="en" className="dark">
+        <head>
+          <link rel="preconnect" href="https://busy-bream-4569.clerk.accounts.dev" crossOrigin="anonymous" />
+          <link rel="dns-prefetch" href="https://busy-bream-4569.clerk.accounts.dev" />
+          <link rel="preconnect" href="https://img.clerk.com" crossOrigin="anonymous" />
+          <link rel="dns-prefetch" href="https://img.clerk.com" />
+          <link rel="preconnect" href="https://clerk.com" crossOrigin="anonymous" />
+          <link rel="dns-prefetch" href="https://clerk.com" />
+        </head>
         <body className="bg-slate-950 text-slate-100 min-h-screen flex flex-col bg-grid-pattern antialiased">
           <div className="fixed inset-0 gradient-glow pointer-events-none" />
           <Navbar />
@@ -35,6 +44,7 @@ export default function RootLayout({
               </p>
             </div>
           </footer>
+          <EcoSortAgentChat />
         </body>
       </html>
     </ClerkProviderWrapper>

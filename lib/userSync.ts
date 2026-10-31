@@ -1,9 +1,11 @@
 import { ClassificationResult } from "@/types/ecosort";
 import { CustomAvatarState } from "./avatars";
+import { UserProfileDetails } from "@/types/profile";
 
 export async function fetchUserCloudData(): Promise<{
   scanHistory: ClassificationResult[];
   customAvatar: CustomAvatarState | null;
+  profileDetails: UserProfileDetails | null;
 } | null> {
   try {
     const res = await fetch("/api/user/sync", {
@@ -17,6 +19,7 @@ export async function fetchUserCloudData(): Promise<{
       return {
         scanHistory: data.scanHistory || [],
         customAvatar: data.customAvatar || null,
+        profileDetails: data.profileDetails || null,
       };
     }
   } catch (err) {
@@ -46,6 +49,18 @@ export async function syncAvatarToCloud(avatar: CustomAvatarState | null) {
     });
   } catch (err) {
     console.warn("Could not sync avatar to cloud:", err);
+  }
+}
+
+export async function syncProfileToCloud(profile: UserProfileDetails | null) {
+  try {
+    await fetch("/api/user/sync", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ profileDetails: profile }),
+    });
+  } catch (err) {
+    console.warn("Could not sync profile to cloud:", err);
   }
 }
 

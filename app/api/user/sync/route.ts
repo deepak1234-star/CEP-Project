@@ -13,12 +13,14 @@ export async function GET() {
     const metadata = (user.unsafeMetadata || {}) as {
       scanHistory?: any[];
       customAvatar?: any;
+      profileDetails?: any;
     };
 
     return NextResponse.json({
       success: true,
       scanHistory: metadata.scanHistory || [],
       customAvatar: metadata.customAvatar || null,
+      profileDetails: metadata.profileDetails || null,
     });
   } catch (error) {
     console.error("Failed to retrieve user cloud metadata:", error);
@@ -34,7 +36,7 @@ export async function POST(req: Request) {
     }
 
     const body = await req.json();
-    const { scanHistory, customAvatar, newScan } = body;
+    const { scanHistory, customAvatar, newScan, profileDetails } = body;
 
     const client = await clerkClient();
     const user = await client.users.getUser(userId);
@@ -53,6 +55,7 @@ export async function POST(req: Request) {
       ...currentMetadata,
       scanHistory: updatedHistory,
       ...(customAvatar !== undefined ? { customAvatar } : {}),
+      ...(profileDetails !== undefined ? { profileDetails } : {}),
       lastSyncedAt: new Date().toISOString(),
     };
 
@@ -64,6 +67,7 @@ export async function POST(req: Request) {
       success: true,
       scanHistory: updatedHistory,
       customAvatar: updatedMetadata.customAvatar,
+      profileDetails: updatedMetadata.profileDetails,
     });
   } catch (error) {
     console.error("Failed to sync user cloud metadata:", error);

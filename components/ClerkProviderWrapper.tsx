@@ -43,6 +43,16 @@ export default function ClerkProviderWrapper({
               "bg-slate-950 border border-slate-800 text-white rounded-lg focus:ring-2 focus:ring-cyan-500",
             dividerLine: "bg-slate-800",
             dividerText: "text-slate-500 text-xs uppercase tracking-wider",
+            userButtonPopoverCard: "bg-slate-900 border border-slate-800 shadow-2xl rounded-2xl",
+            userButtonPopoverActionButton: "!text-white hover:!text-cyan-300 hover:!bg-slate-800/80 transition-colors py-2.5 px-3 rounded-xl",
+            userButtonPopoverActionButtonText: "!text-white !font-semibold text-sm",
+            userButtonPopoverActionButtonIcon: "!text-cyan-400 w-4 h-4",
+            userButtonPopoverCustomItemButton: "!text-white hover:!text-cyan-300 hover:!bg-slate-800/80 transition-colors py-2.5 px-3 rounded-xl",
+            userButtonPopoverCustomItemButtonText: "!text-white !font-semibold text-sm",
+            userButtonPopoverCustomItemButtonIcon: "!text-cyan-400 w-4 h-4",
+            userButtonPopoverFooter: "bg-slate-950 border-t border-slate-800 !text-slate-400",
+            userPreviewMainIdentifier: "!text-white font-bold text-sm",
+            userPreviewSecondaryIdentifier: "!text-slate-400 text-xs",
           },
         }}
       >

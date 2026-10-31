@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useUser, UserButton } from "@clerk/nextjs";
+import { User } from "lucide-react";
 import { getStoredAvatar, CustomAvatarState } from "@/lib/avatars";
 
 type CustomUserButtonProps = React.ComponentProps<typeof UserButton> & {
@@ -47,6 +48,21 @@ export default function CustomUserButton({
     "U"
   ).toUpperCase();
 
+  const popoverAppearance = {
+    elements: {
+      userButtonPopoverCard: "bg-slate-900 border border-slate-800 shadow-2xl rounded-2xl",
+      userButtonPopoverActionButton: "!text-white hover:!text-cyan-300 hover:!bg-slate-800/80 transition-colors py-2.5 px-3 rounded-xl",
+      userButtonPopoverActionButtonText: "!text-white !font-semibold text-sm",
+      userButtonPopoverActionButtonIcon: "!text-cyan-400 w-4 h-4",
+      userButtonPopoverCustomItemButton: "!text-white hover:!text-cyan-300 hover:!bg-slate-800/80 transition-colors py-2.5 px-3 rounded-xl",
+      userButtonPopoverCustomItemButtonText: "!text-white !font-semibold text-sm",
+      userButtonPopoverCustomItemButtonIcon: "!text-cyan-400 w-4 h-4",
+      userButtonPopoverFooter: "bg-slate-950 border-t border-slate-800 !text-slate-400",
+      userPreviewMainIdentifier: "!text-white font-bold text-sm",
+      userPreviewSecondaryIdentifier: "!text-slate-400 text-xs",
+    },
+  };
+
   // If a custom avatar is active, render it underneath a transparent Clerk UserButton trigger
   if (customAvatar) {
     return (
@@ -84,13 +100,25 @@ export default function CustomUserButton({
           <UserButton
             {...props}
             appearance={{
+              ...popoverAppearance,
               elements: {
+                ...popoverAppearance.elements,
                 rootBox: "w-full h-full",
                 userButtonTrigger: "w-full h-full p-0 m-0",
                 avatarBox: "w-full h-full rounded-none",
               },
             }}
-          />
+          >
+            <UserButton.MenuItems>
+              <UserButton.Link
+                label="Visit Profile"
+                href="/dashboard"
+                labelIcon={<User className="w-4 h-4 text-cyan-400" />}
+              />
+              <UserButton.Action label="manageAccount" />
+              <UserButton.Action label="signOut" />
+            </UserButton.MenuItems>
+          </UserButton>
         </div>
       </div>
     );
@@ -102,11 +130,23 @@ export default function CustomUserButton({
       <UserButton
         {...props}
         appearance={{
+          ...popoverAppearance,
           elements: {
+            ...popoverAppearance.elements,
             avatarBox: `${sizeClass} ring-2 ring-cyan-500/40 hover:ring-cyan-400 transition-all`,
           },
         }}
-      />
+      >
+        <UserButton.MenuItems>
+          <UserButton.Link
+            label="Visit Profile"
+            href="/dashboard"
+            labelIcon={<User className="w-4 h-4 text-cyan-400" />}
+          />
+          <UserButton.Action label="manageAccount" />
+          <UserButton.Action label="signOut" />
+        </UserButton.MenuItems>
+      </UserButton>
     </div>
   );
 }

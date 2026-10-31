@@ -1,6 +1,7 @@
-import { SignIn } from "@clerk/nextjs";
+import { SignIn, ClerkLoading, ClerkLoaded } from "@clerk/nextjs";
 import Link from "next/link";
 import { Lock } from "lucide-react";
+import AuthSkeleton from "@/components/AuthSkeleton";
 
 export default function LoginPage() {
   return (
@@ -19,34 +20,39 @@ export default function LoginPage() {
           </p>
         </div>
 
-        {/* Clerk SignIn Component Container */}
+        {/* Clerk SignIn Component Container with Instant Loading State */}
         <div className="w-full flex justify-center">
-          <SignIn
-            path="/login"
-            routing="path"
-            signUpUrl="/signup"
-            fallbackRedirectUrl="/dashboard"
-            appearance={{
-              elements: {
-                rootBox: "w-full flex justify-center",
-                card: "w-full max-w-md bg-slate-900/90 border border-slate-800 shadow-2xl p-6 sm:p-8 rounded-2xl backdrop-blur-xl",
-                headerTitle: "text-white text-xl font-bold text-center",
-                headerSubtitle: "text-slate-400 text-sm text-center",
-                socialButtonsBlockButton: 
-                  "bg-slate-800 border-slate-700 hover:bg-slate-700/80 text-white font-medium py-3 rounded-xl transition-all shadow-sm flex items-center justify-center space-x-2 text-sm",
-                socialButtonsBlockButtonText: "text-white font-medium text-sm",
-                formButtonPrimary:
-                  "bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-semibold py-3 rounded-xl transition-all shadow-lg shadow-cyan-500/20 text-sm",
-                footerActionLink: "text-cyan-400 hover:text-cyan-300 font-semibold text-sm",
-                formFieldLabel: "text-slate-300 text-xs font-semibold uppercase tracking-wider mb-1",
-                formFieldInput: "bg-slate-950 border border-slate-800 text-white rounded-xl py-2.5 px-3 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all text-sm",
-                dividerLine: "bg-slate-800",
-                dividerText: "text-slate-500 text-xs uppercase font-medium bg-slate-900 px-2",
-                identityPreviewText: "text-white font-medium",
-                formResendCodeLink: "text-cyan-400 hover:text-cyan-300 text-sm",
-              }
-            }}
-          />
+          <ClerkLoading>
+            <AuthSkeleton title="Welcome Back" subtitle="Connecting to secure login..." />
+          </ClerkLoading>
+          <ClerkLoaded>
+            <SignIn
+              path="/login"
+              routing="path"
+              signUpUrl="/signup"
+              fallbackRedirectUrl="/dashboard"
+              appearance={{
+                elements: {
+                  rootBox: "w-full flex justify-center",
+                  card: "w-full max-w-md bg-slate-900/90 border border-slate-800 shadow-2xl p-6 sm:p-8 rounded-2xl backdrop-blur-xl",
+                  headerTitle: "text-white text-xl font-bold text-center",
+                  headerSubtitle: "text-slate-400 text-sm text-center",
+                  socialButtonsBlockButton: 
+                    "bg-slate-800 border-slate-700 hover:bg-slate-700/80 text-white font-medium py-3 rounded-xl transition-all shadow-sm flex items-center justify-center space-x-2 text-sm",
+                  socialButtonsBlockButtonText: "text-white font-medium text-sm",
+                  formButtonPrimary:
+                    "bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-semibold py-3 rounded-xl transition-all shadow-lg shadow-cyan-500/20 text-sm",
+                  footerActionLink: "text-cyan-400 hover:text-cyan-300 font-semibold text-sm",
+                  formFieldLabel: "text-slate-300 text-xs font-semibold uppercase tracking-wider mb-1",
+                  formFieldInput: "bg-slate-950 border border-slate-800 text-white rounded-xl py-2.5 px-3 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all text-sm",
+                  dividerLine: "bg-slate-800",
+                  dividerText: "text-slate-500 text-xs uppercase font-medium bg-slate-900 px-2",
+                  identityPreviewText: "text-white font-medium",
+                  formResendCodeLink: "text-cyan-400 hover:text-cyan-300 text-sm",
+                }
+              }}
+            />
+          </ClerkLoaded>
         </div>
 
         {/* Back Link */}

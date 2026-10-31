@@ -44,6 +44,7 @@ export default function Home() {
             <SafeSignedOut>
               <Link
                 href="/login"
+                prefetch={true}
                 className="w-full sm:w-auto inline-flex items-center justify-center space-x-3 px-8 py-4 rounded-xl font-semibold text-white bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 hover:-translate-y-0.5 active:translate-y-0 transition-all"
               >
                 <Chrome className="w-5 h-5 text-cyan-400" />
