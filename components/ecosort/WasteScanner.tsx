@@ -9,8 +9,6 @@ import {
   RefreshCw,
   Search,
   CheckCircle2,
-  ArrowRight,
-  Video,
   VideoOff,
   SwitchCamera,
   AlertCircle,
@@ -24,11 +22,11 @@ interface WasteScannerProps {
 }
 
 export default function WasteScanner({ onScanResult }: WasteScannerProps) {
-  const [mode, setMode] = useState<"upload" | "camera">("upload");
+  const [mode, setMode] = useState<"upload" | "camera">("camera");
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [isScanning, setIsScanning] = useState(false);
-  const [activeSampleKey, setActiveSampleKey] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   // Live Camera State
   const [isCameraActive, setIsCameraActive] = useState(false);
@@ -38,28 +36,7 @@ export default function WasteScanner({ onScanResult }: WasteScannerProps) {
   const streamRef = useRef<MediaStream | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const samplePresets = [
-    { key: "plastic_bottle", label: "🥤 PET Bottle (#1)", icon: "🥤" },
-    { key: "milk_jug", label: "🥛 Milk Jug (#2)", icon: "🥛" },
-    { key: "toothbrush", label: "🪥 Toothbrush (#7)", icon: "🪥" },
-    { key: "styrofoam", label: "📦 Styrofoam (#6)", icon: "📦" },
-    { key: "old_phone", label: "📱 Smartphone (E-Waste)", icon: "📱" },
-    { key: "laptop_charger", label: "🔌 Charger Cable", icon: "🔌" },
-    { key: "banana_peel", label: "🍌 Food Scraps", icon: "🍌" },
-    { key: "pizza_box", label: "🍕 Greasy Pizza Box", icon: "🍕" },
-    { key: "newspaper", label: "📰 Newspaper & Cardboard", icon: "📰" },
-    { key: "tetra_pak", label: "🧃 Tetra Pak Juice Box", icon: "🧃" },
-    { key: "metal_can", label: "🥫 Aluminum Can", icon: "🥫" },
-    { key: "aluminum_foil", label: "🥟 Aluminum Foil", icon: "🥟" },
-    { key: "glass_bottle", label: "🍾 Glass Bottle", icon: "🍾" },
-    { key: "battery", label: "🔋 AA Battery / Hazard", icon: "🔋" },
-    { key: "cfl_bulb", label: "💡 CFL Lightbulb", icon: "💡" },
-    { key: "expired_medicine", label: "💊 Expired Medicine", icon: "💊" },
-    { key: "coffee_cup", label: "☕ Coffee Paper Cup", icon: "☕" },
-    { key: "clothes", label: "👕 Used Cotton Fabric", icon: "👕" },
-  ];
-
-  // Camera cleanup on unmount or mode switch — stable via useCallback to avoid stale closure
+  // Camera cleanup on unmount or mode switch
   const stopCameraStream = useCallback(() => {
     if (streamRef.current) {
       streamRef.current.getTracks().forEach((track) => track.stop());
@@ -98,7 +75,7 @@ export default function WasteScanner({ onScanResult }: WasteScannerProps) {
     } catch (err: unknown) {
       console.warn("Camera access error:", err);
       setCameraError(
-        "Could not access camera. Please verify camera permissions in your browser or try photo upload."
+        "Could not access camera. Please verify camera permissions in your browser or use photo upload."
       );
       setIsCameraActive(false);
     }
@@ -127,7 +104,6 @@ export default function WasteScanner({ onScanResult }: WasteScannerProps) {
     const dataUrl = canvas.toDataURL("image/jpeg", 0.85);
 
     setSelectedImage(dataUrl);
-    setActiveSampleKey(null);
 
     // Stop camera stream after capture
     stopCameraStream();
@@ -144,34 +120,25 @@ export default function WasteScanner({ onScanResult }: WasteScannerProps) {
     reader.onload = (event) => {
       const dataUrl = event.target?.result as string;
       setSelectedImage(dataUrl);
-      setActiveSampleKey(null);
       analyzeWasteImage({ fileName: file.name, imageBase64: dataUrl });
     };
     reader.readAsDataURL(file);
-  };
-
-  const handleSampleSelect = (sampleKey: string) => {
-    playSound("click");
-    setActiveSampleKey(sampleKey);
-    setSelectedImage(null);
-    analyzeWasteImage({ sampleKey });
   };
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!searchQuery.trim()) return;
     playSound("click");
-    setActiveSampleKey(null);
     analyzeWasteImage({ searchQuery: searchQuery.trim() });
   };
 
   const analyzeWasteImage = async (params: {
-    sampleKey?: string;
     fileName?: string;
     searchQuery?: string;
     imageBase64?: string;
   }) => {
     setIsScanning(true);
+    setErrorMessage(null);
     playSound("scan");
 
     try {
@@ -181,12 +148,15 @@ export default function WasteScanner({ onScanResult }: WasteScannerProps) {
         body: JSON.stringify(params),
       });
       const data = await response.json();
-      if (data.success) {
+      if (data.success && data.result) {
         playSound("success");
         onScanResult(data.result);
+      } else {
+        setErrorMessage(data.error || "Google Gemini was unable to classify this item. Please try another angle.");
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error("Scan error:", err);
+      setErrorMessage("Network error during Gemini classification. Please try again.");
     } finally {
       setIsScanning(false);
     }
@@ -200,21 +170,45 @@ export default function WasteScanner({ onScanResult }: WasteScannerProps) {
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Search any item (e.g. coffee cup, pizza box, battery, toothbrush, charger)..."
-          className="w-full bg-slate-900/90 border border-slate-800 text-white rounded-2xl py-3.5 pl-12 pr-28 text-sm focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 shadow-xl placeholder-slate-500 transition-all"
+          placeholder="Ask Gemini to classify any item (e.g. blister pack, broken CFL, pizza box, PET bottle)..."
+          className="w-full bg-slate-900/90 border border-slate-800 text-white rounded-2xl py-3.5 pl-12 pr-32 text-sm focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 shadow-xl placeholder-slate-500 transition-all"
         />
         <Search className="w-5 h-5 text-slate-400 absolute left-4 top-4" />
         <button
           type="submit"
-          disabled={isScanning}
-          className="absolute right-2 top-2 px-4 py-1.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs transition-all shadow-md disabled:opacity-50"
+          disabled={isScanning || !searchQuery.trim()}
+          className="absolute right-2 top-2 px-4 py-1.5 rounded-xl bg-gradient-to-r from-cyan-500 to-emerald-500 hover:from-cyan-400 hover:to-emerald-400 text-slate-950 font-bold text-xs transition-all shadow-md disabled:opacity-50"
         >
-          {isScanning ? "Scanning..." : "Classify"}
+          {isScanning ? "Classifying..." : "Gemini AI"}
         </button>
       </form>
 
+      {/* Error Alert if any */}
+      {errorMessage && (
+        <div className="p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/30 flex items-center space-x-3 text-rose-300 text-xs animate-in fade-in">
+          <AlertCircle className="w-4 h-4 shrink-0 text-rose-400" />
+          <span>{errorMessage}</span>
+        </div>
+      )}
+
       {/* Mode Selector Tabs: Upload vs Live Camera */}
       <div className="flex items-center justify-between bg-slate-900/80 p-1.5 rounded-2xl border border-slate-800">
+        <button
+          type="button"
+          onClick={() => {
+            setMode("camera");
+            startCamera();
+          }}
+          className={`flex-1 inline-flex items-center justify-center space-x-2 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all ${
+            mode === "camera"
+              ? "bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/25"
+              : "text-slate-400 hover:text-white"
+          }`}
+        >
+          <Camera className="w-4 h-4" />
+          <span>Live Camera Scanner</span>
+        </button>
+
         <button
           type="button"
           onClick={() => {
@@ -230,22 +224,6 @@ export default function WasteScanner({ onScanResult }: WasteScannerProps) {
           <Upload className="w-4 h-4 text-cyan-400" />
           <span>Upload Image</span>
         </button>
-
-        <button
-          type="button"
-          onClick={() => {
-            setMode("camera");
-            startCamera();
-          }}
-          className={`flex-1 inline-flex items-center justify-center space-x-2 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all ${
-            mode === "camera"
-              ? "bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/25"
-              : "text-slate-400 hover:text-white"
-          }`}
-        >
-          <Camera className="w-4 h-4" />
-          <span>Live Webcam Scanner</span>
-        </button>
       </div>
 
       {/* Scanner Container */}
@@ -256,13 +234,13 @@ export default function WasteScanner({ onScanResult }: WasteScannerProps) {
           <div>
             <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-semibold mb-2">
               <Sparkles className="w-3.5 h-3.5 animate-spin" />
-              <span>AI Vision & Neural Classifier</span>
+              <span>100% Google Gemini AI Vision</span>
             </div>
             <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
-              {mode === "camera" ? "Live Camera AI Scanner" : "Upload Photo or Select Preset"}
+              {mode === "camera" ? "Live Camera Gemini Scanner" : "Upload Photo for Gemini Classification"}
             </h2>
             <p className="text-slate-400 text-xs sm:text-sm">
-              Our neural network detects material composition, bin category, confidence score & step-by-step sorting rules.
+              Point your camera or upload a picture. Google Gemini Vision identifies material composition, municipal bin category, resin codes, and decomposition lifecycle in real time.
             </p>
           </div>
 
@@ -339,7 +317,7 @@ export default function WasteScanner({ onScanResult }: WasteScannerProps) {
                     className="inline-flex items-center space-x-2 px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-emerald-500 hover:from-cyan-400 hover:to-emerald-400 text-slate-950 font-extrabold text-sm shadow-xl shadow-cyan-500/25 transition-all hover:scale-105 disabled:opacity-50"
                   >
                     <Camera className="w-5 h-5" />
-                    <span>Capture & Classify</span>
+                    <span>Capture &amp; Classify with Gemini</span>
                   </button>
 
                   <button
@@ -405,7 +383,7 @@ export default function WasteScanner({ onScanResult }: WasteScannerProps) {
                       Drop your image here, or{" "}
                       <span className="text-cyan-400 underline">browse files</span>
                     </p>
-                    <p className="text-slate-500 text-xs">Supports JPG, PNG, WEBP up to 10MB</p>
+                    <p className="text-slate-500 text-xs">Supports JPG, PNG, WEBP — sent directly to Google Gemini Vision</p>
                   </div>
                 </div>
               )}
@@ -414,36 +392,22 @@ export default function WasteScanner({ onScanResult }: WasteScannerProps) {
                 <div className="absolute inset-0 bg-slate-950/85 backdrop-blur-md rounded-2xl flex flex-col items-center justify-center space-y-3">
                   <RefreshCw className="w-10 h-10 text-cyan-400 animate-spin" />
                   <p className="text-cyan-400 font-bold text-sm tracking-wide">
-                    Analyzing Material Composition...
+                    Google Gemini AI Vision is analyzing your item...
                   </p>
                 </div>
               )}
             </div>
           )}
 
-          {/* Instant Sample Presets */}
-          <div className="space-y-3 pt-2">
-            <div className="flex items-center justify-between">
-              <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
-                Or Try Instant Presets (18 Everyday Materials):
-              </p>
+          {/* Gemini AI Badges & Info */}
+          <div className="p-4 rounded-2xl bg-slate-950/50 border border-slate-800 flex items-center justify-between text-xs text-slate-400">
+            <div className="flex items-center space-x-2">
+              <Zap className="w-4 h-4 text-cyan-400 shrink-0" />
+              <span>Real-time visual inference running on Google Gemini</span>
             </div>
-            <div className="flex flex-wrap gap-2 max-h-48 overflow-y-auto pr-1">
-              {samplePresets.map((preset) => (
-                <button
-                  key={preset.key}
-                  onClick={() => handleSampleSelect(preset.key)}
-                  className={`inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
-                    activeSampleKey === preset.key
-                      ? "bg-cyan-500 text-slate-950 font-bold shadow-lg shadow-cyan-500/30 scale-105"
-                      : "bg-slate-800/80 text-slate-300 hover:bg-slate-700 hover:text-white border border-slate-700"
-                  }`}
-                >
-                  <span>{preset.icon}</span>
-                  <span>{preset.label}</span>
-                </button>
-              ))}
-            </div>
+            <span className="text-[11px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full">
+              Gemini Vision Active
+            </span>
           </div>
         </div>
       </div>
