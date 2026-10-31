@@ -17,7 +17,7 @@ export default function Home() {
         <div className="text-center max-w-3xl mx-auto space-y-6 relative">
           <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs sm:text-sm font-semibold">
             <Recycle className="w-4 h-4 text-emerald-400 animate-pulse" />
-            <span>♻️ EcoSort AI Waste Assistant &amp; Recycling System</span>
+            <span>♻️ WasteIQ - Smart AI Waste Assistant &amp; Recycling</span>
           </div>
 
           <h1 className="text-4xl sm:text-6xl font-extrabold text-white tracking-tight leading-tight">
@@ -37,7 +37,7 @@ export default function Home() {
               className="w-full sm:w-auto inline-flex items-center justify-center space-x-3 px-8 py-4 rounded-xl font-bold text-slate-950 bg-gradient-to-r from-emerald-400 to-cyan-400 hover:from-emerald-300 hover:to-cyan-300 shadow-xl shadow-emerald-500/20 hover:shadow-emerald-500/30 hover:-translate-y-0.5 active:translate-y-0 transition-all"
             >
               <Sparkles className="w-5 h-5 text-slate-950" />
-              <span>Launch EcoSort AI Scanner</span>
+              <span>Launch WasteIQ Scanner</span>
               <ArrowRight className="w-4 h-4 ml-1" />
             </Link>
 

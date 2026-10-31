@@ -17,8 +17,8 @@ import {
 } from "lucide-react";
 
 export const metadata = {
-  title: "Admin Mission Control | EcoSort AI",
-  description: "Executive Administrator Dashboard for EcoSort AI Waste Management Platform",
+  title: "Admin Mission Control | WasteIQ",
+  description: "Executive Administrator Dashboard for WasteIQ Platform",
 };
 
 export const dynamic = "force-dynamic";
@@ -38,7 +38,7 @@ export default async function AdminDashboardPage() {
           <div className="space-y-2">
             <h1 className="text-2xl font-extrabold text-white">Administrator Access Required</h1>
             <p className="text-xs text-slate-400 leading-relaxed">
-              This mission control dashboard is strictly restricted to EcoSort AI Super Administrators.
+              This mission control dashboard is strictly restricted to WasteIQ Super Administrators.
             </p>
           </div>
 
@@ -100,7 +100,7 @@ export default async function AdminDashboardPage() {
                 <span className="text-xs text-slate-500 font-mono">v2.4 Live</span>
               </div>
               <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-                EcoSort AI Executive Administrator
+                WasteIQ Executive Administrator
               </h1>
               <p className="text-xs text-slate-400 mt-1">
                 Real-time user engagement, AI vision classifications, carbon avoidance metrics, and municipal bin routing.

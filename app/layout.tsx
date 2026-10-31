@@ -5,9 +5,9 @@ import EcoSortAgentChat from "@/components/EcoSortAgentChat";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "EcoSort AI - Waste Classification & Recycling Assistant",
+  title: "WasteIQ - AI Waste Classification & Smart Recycling Assistant",
   description: "AI-Powered waste classification, confidence score, bin category guide & Clerk Google OAuth authentication.",
-  keywords: "waste classification, recycling, AI, EcoSort, sustainability, eco-friendly",
+  keywords: "waste classification, recycling, AI, WasteIQ, sustainability, eco-friendly",
 };
 
 export default function RootLayout({

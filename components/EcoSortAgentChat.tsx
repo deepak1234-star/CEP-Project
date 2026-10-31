@@ -46,7 +46,7 @@ export default function EcoSortAgentChat() {
       id: "welcome",
       role: "assistant",
       content:
-        "👋 Hello! I am **EcoSort AI**, your autonomous environmental assistant built with the **Vercel AI SDK**.\n\nI can query our real-time waste database, calculate carbon & water savings, check contamination risks, and guide hazardous drop-offs. Ask me anything!",
+        "👋 Hello! I am **WasteIQ AI**, your autonomous environmental assistant built with the **Vercel AI SDK**.\n\nI can query our real-time waste database, calculate carbon & water savings, check contamination risks, and guide hazardous drop-offs. Ask me anything!",
       timestamp: "Just now",
     },
   ]);
@@ -156,7 +156,7 @@ export default function EcoSortAgentChat() {
               <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-cyan-300"></span>
             </span>
           </div>
-          <span className="text-sm font-semibold tracking-wide">EcoSort Agent</span>
+          <span className="text-sm font-semibold tracking-wide">WasteIQ Agent</span>
           <span className="text-xs bg-black/30 border border-white/20 px-2 py-0.5 rounded-full text-emerald-200 font-mono">
             Vercel AI SDK
           </span>
@@ -174,7 +174,7 @@ export default function EcoSortAgentChat() {
               </div>
               <div>
                 <div className="flex items-center space-x-2">
-                  <h3 className="text-sm font-bold text-white">EcoSort AI Agent</h3>
+                  <h3 className="text-sm font-bold text-white">WasteIQ AI Agent</h3>
                   <span className="text-[10px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 px-1.5 py-0.5 rounded-md font-mono">
                     ToolLoopAgent
                   </span>

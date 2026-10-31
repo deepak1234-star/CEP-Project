@@ -56,7 +56,7 @@ async function classifyWithGemini(params: {
 
   const userQueryText = searchQuery || (fileName ? `File: ${fileName}` : "");
 
-  const prompt = `You are EcoSort AI, a world-class environmental scientist, material researcher, and recycling expert.
+  const prompt = `You are WasteIQ AI, a world-class environmental scientist, material researcher, and recycling expert.
 Analyze the provided ${cleanBase64 ? "image" : `item inquiry: "${userQueryText}"`} and classify the primary waste or recyclable item.
 
 Return ONLY a valid JSON object matching this schema with no markdown code fences:

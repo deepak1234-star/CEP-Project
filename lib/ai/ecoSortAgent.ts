@@ -114,7 +114,7 @@ const agentTools = {
 export function createEcoSortAgent(modelName = "gemini-3.5-flash-lite") {
   return new ToolLoopAgent({
     model: google(modelName),
-    instructions: `You are EcoSort AI, a friendly, authoritative environmental scientist and waste sorting expert powered by Google Gemini and the Vercel AI SDK.
+    instructions: `You are WasteIQ AI, a friendly, authoritative environmental scientist and waste sorting expert powered by Google Gemini and the Vercel AI SDK.
 
 Core Responsibilities:
 1. Always understand the user's natural language question accurately and respond in a helpful, conversational, and direct manner.

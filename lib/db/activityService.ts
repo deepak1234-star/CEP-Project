@@ -165,7 +165,7 @@ export async function getRecentActivities(options: ActivityFilterOptions = {}) {
         return activities.map((a: any) => ({
           id: a._id.toString(),
           userId: a.userId,
-          userEmail: a.userEmail || "anonymous@ecosort.ai",
+          userEmail: a.userEmail || "anonymous@wasteiq.ai",
           userName: a.userName || "Eco User",
           userAvatar: a.userAvatar || "",
           itemName: a.itemName,
@@ -192,7 +192,7 @@ export async function getRecentActivities(options: ActivityFilterOptions = {}) {
     for (const u of userList.data) {
       const metadata = (u.unsafeMetadata || {}) as Record<string, any>;
       const scans = (metadata.scanHistory || []) as any[];
-      const primaryEmail = u.emailAddresses[0]?.emailAddress || "anonymous@ecosort.ai";
+      const primaryEmail = u.emailAddresses[0]?.emailAddress || "anonymous@wasteiq.ai";
       const name = `${u.firstName || ""} ${u.lastName || ""}`.trim() || u.username || "Eco Recycler";
 
       for (const s of scans) {

@@ -78,7 +78,7 @@ export default function ScanHistoryDrawer({
     link.setAttribute("href", encodedUri);
     link.setAttribute(
       "download",
-      `EcoSort_Scan_Report_${new Date().toISOString().slice(0, 10)}.csv`
+      `WasteIQ_Scan_Report_${new Date().toISOString().slice(0, 10)}.csv`
     );
     document.body.appendChild(link);
     link.click();

@@ -145,7 +145,7 @@ export default function AvatarPickerModal({
             <div>
               <h2 className="text-lg font-bold text-white leading-tight">Choose Profile Picture</h2>
               <p className="text-xs text-slate-400">
-                Personalize your avatar for EcoSort AI
+                Personalize your avatar for WasteIQ
               </p>
             </div>
           </div>

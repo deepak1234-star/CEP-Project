@@ -74,7 +74,7 @@ export default async function DashboardPage() {
         initialActivities={userMetadata.activities}
       />
 
-      {/* Quick Access to EcoSort AI Scanner */}
+      {/* Quick Access to WasteIQ AI Scanner */}
       <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-emerald-950/40 via-slate-900 to-cyan-950/40 border border-emerald-500/30 p-6 sm:p-8 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="space-y-2 text-center md:text-left">
           <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-semibold">
@@ -94,7 +94,7 @@ export default async function DashboardPage() {
           className="inline-flex items-center space-x-2 px-6 py-3.5 rounded-xl font-bold text-slate-950 bg-gradient-to-r from-emerald-400 to-cyan-400 hover:from-emerald-300 hover:to-cyan-300 shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/30 transition-all flex-shrink-0"
         >
           <Recycle className="w-5 h-5 text-slate-950" />
-          <span>Launch EcoSort AI Scanner</span>
+          <span>Launch WasteIQ Scanner</span>
           <ArrowRight className="w-4 h-4 ml-1" />
         </Link>
       </div>

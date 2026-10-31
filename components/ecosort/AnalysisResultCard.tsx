@@ -70,14 +70,14 @@ export default function AnalysisResultCard({
 
   const handleCopySummary = () => {
     playSound("click");
-    const summaryText = `♻️ EcoSort AI Result:
+    const summaryText = `♻️ WasteIQ Result:
 Item: ${result.itemName} (${result.category})
 Bin Destination: ${result.binType}
 Action: ${result.preparationAction}
 Landfill Lifespan: ${result.decompositionTime || "N/A"}
 CO2 Offset: ${result.co2SavedPerKg || "N/A"}
 Recyclability: ${result.recyclabilityRating || "High"}
-Source: EcoSort AI Waste Assistant`;
+Source: WasteIQ Smart Waste Assistant`;
 
     navigator.clipboard.writeText(summaryText).then(() => {
       setCopied(true);

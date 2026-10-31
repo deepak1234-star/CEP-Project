@@ -77,7 +77,7 @@ export default function EcoSortPage() {
       <div className="text-center max-w-3xl mx-auto space-y-3 sm:space-y-4 pt-1 sm:pt-2">
         <div className="inline-flex items-center space-x-2 px-3 sm:px-3.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs sm:text-sm font-semibold">
           <Leaf className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-400 flex-shrink-0" />
-          <span className="truncate">♻️ EcoSort AI Waste Classification System</span>
+          <span className="truncate">♻️ WasteIQ - Smart AI Waste Classification</span>
         </div>
 
         <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-snug sm:leading-tight">

@@ -321,7 +321,7 @@ export default function EditProfileModal({
                 <span>Tell About Yourself: Eco Habits &amp; Lifestyle</span>
               </label>
               <p className="text-xs text-slate-400 mt-0.5">
-                Check all that describe your habits or interests to personalize your EcoSort experience:
+                Check all that describe your habits or interests to personalize your WasteIQ experience:
               </p>
             </div>
 

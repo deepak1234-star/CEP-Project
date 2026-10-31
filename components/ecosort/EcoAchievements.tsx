@@ -82,7 +82,7 @@ export default function EcoAchievements({
 
   const handleShareAchievements = () => {
     playSound("click");
-    const shareText = `🏆 My EcoSort AI Status:
+    const shareText = `🏆 My WasteIQ Status:
 Rank: ${currentRank.title}
 Eco Points: ${totalEcoPoints} pts
 Badges Unlocked: ${unlockedBadges.length}/${ECO_BADGES_LIST.length}

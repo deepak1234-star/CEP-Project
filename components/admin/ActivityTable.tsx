@@ -140,7 +140,7 @@ export default function ActivityTable({ initialActivities }: Props) {
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", `ecosort_admin_scans_${Date.now()}.csv`);
+    link.setAttribute("download", `wasteiq_admin_scans_${Date.now()}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -154,7 +154,7 @@ export default function ActivityTable({ initialActivities }: Props) {
       encodeURIComponent(JSON.stringify(filteredActivities, null, 2));
     const link = document.createElement("a");
     link.setAttribute("href", jsonStr);
-    link.setAttribute("download", `ecosort_admin_scans_${Date.now()}.json`);
+    link.setAttribute("download", `wasteiq_admin_scans_${Date.now()}.json`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

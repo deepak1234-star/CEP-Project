@@ -124,7 +124,7 @@ export default function EcoQuiz({ onQuizComplete }: EcoQuizProps) {
             <HelpCircle className="w-5 h-5" />
           </div>
           <div>
-            <h3 className="font-bold text-white text-lg">EcoSort Recycling Knowledge Quiz</h3>
+            <h3 className="font-bold text-white text-lg">WasteIQ Recycling Knowledge Quiz</h3>
             <p className="text-slate-400 text-xs">Test your waste sorting & eco-sustainability IQ</p>
           </div>
         </div>
