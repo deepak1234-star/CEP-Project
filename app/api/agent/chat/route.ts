@@ -25,7 +25,6 @@ export async function POST(req: Request) {
 
     const { result, modelUsed } = await runEcoSortAgent({
       prompt: fullPrompt,
-      userQuery: userPrompt,
     });
 
     const toolExecutions: Array<{ toolName: string; args: any; output: any }> = [];
