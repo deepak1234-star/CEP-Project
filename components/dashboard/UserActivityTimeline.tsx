@@ -41,14 +41,78 @@ export default function UserActivityTimeline({
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    // Fetch latest synced cloud activities from Clerk
+    // 1. Read local scans from browser storage (for offline or pre-sync scans)
+    let localScans: any[] = [];
+    try {
+      const saved = localStorage.getItem("ecosort_scan_history");
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          localScans = parsed;
+          // If initial stats are empty, seed immediately from local storage
+          setStats((prev) => {
+            if (prev.totalScans === 0 && localScans.length > 0) {
+              const co2 = +(localScans.length * 0.45).toFixed(2);
+              const points = localScans.length * 50;
+              return {
+                ...prev,
+                totalScans: localScans.length,
+                ecoPoints: points,
+                totalCo2SavedKg: co2,
+                level:
+                  points >= 500
+                    ? "Zero-Waste Hero 🛡️ (Level 4)"
+                    : points >= 250
+                    ? "Master Recycler 🌿 (Level 3)"
+                    : points >= 100
+                    ? "Eco Enthusiast 🌱 (Level 2)"
+                    : "Eco Beginner 🐣 (Level 1)",
+              };
+            }
+            return prev;
+          });
+        }
+      }
+    } catch (e) {
+      console.warn("Could not read local scan history:", e);
+    }
+
+    // 2. Sync with Clerk backend & fetch authoritative cloud stats
     setIsLoading(true);
-    fetch("/api/user/sync")
+
+    const syncPromise =
+      localScans.length > 0
+        ? fetch("/api/user/sync", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ batchScans: localScans }),
+          })
+        : fetch("/api/user/sync");
+
+    syncPromise
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
-          if (data.ecoStats) setStats(data.ecoStats);
-          if (Array.isArray(data.activities)) setActivities(data.activities);
+          if (data.ecoStats && (data.ecoStats.totalScans > 0 || localScans.length === 0)) {
+            setStats(data.ecoStats);
+          }
+          if (Array.isArray(data.activities) && data.activities.length > 0) {
+            setActivities(data.activities);
+          } else if (localScans.length > 0) {
+            // Fallback: generate activities from local scans if activities array is empty
+            const generated = localScans.map((s, idx) => ({
+              id: s.id || `act-local-${idx}`,
+              type: "scan" as const,
+              title: `Scanned ${s.itemName || "Waste Item"}`,
+              category: s.category || "General",
+              binColor: s.binColor || "blue",
+              points: 50,
+              timestamp: s.createdAt || new Date().toISOString(),
+              co2Saved: s.co2SavedPerKg || "0.5 kg CO₂",
+              note: s.preparationAction || "Classified with Google Gemini AI",
+            }));
+            setActivities(generated);
+          }
         }
       })
       .catch((err) => console.warn("Failed to load user activities from Clerk:", err))

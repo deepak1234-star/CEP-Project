@@ -66,6 +66,13 @@ export default function EcoSortPage() {
           try {
             localStorage.setItem("ecosort_scan_history", JSON.stringify(merged));
           } catch {}
+        } else if (localList.length > 0) {
+          // If cloud has 0 scans but local storage has scans, push local scans to cloud
+          fetch("/api/user/sync", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ batchScans: localList }),
+          }).catch(console.warn);
         }
       }
     });

@@ -1,6 +1,8 @@
 import { auth, clerkClient } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
-import { recordUserScanActivity } from "@/lib/clerkActivity";
+import { recordUserScanActivity, recordBatchScanActivities } from "@/lib/clerkActivity";
+
+export const dynamic = "force-dynamic";
 
 export async function GET() {
   try {
@@ -41,10 +43,13 @@ export async function POST(req: Request) {
     }
 
     const body = await req.json();
-    const { scanHistory, customAvatar, newScan, profileDetails } = body;
+    const { scanHistory, batchScans, customAvatar, newScan, profileDetails } = body;
 
-    // If new scan is provided, record it with eco points and activity logging
-    if (newScan) {
+    // Handle batch scans migration from client localStorage
+    const scansToBatch = batchScans || (Array.isArray(scanHistory) && scanHistory.length > 0 ? scanHistory : null);
+    if (scansToBatch && scansToBatch.length > 0) {
+      await recordBatchScanActivities(userId, scansToBatch);
+    } else if (newScan) {
       await recordUserScanActivity(userId, newScan);
     }
 
@@ -52,29 +57,22 @@ export async function POST(req: Request) {
     const user = await client.users.getUser(userId);
     const currentMetadata = (user.unsafeMetadata || {}) as Record<string, any>;
 
-    let updatedHistory = currentMetadata.scanHistory || [];
-
-    if (newScan) {
-      updatedHistory = [newScan, ...updatedHistory.filter((item: any) => item.id !== newScan.id)].slice(0, 40);
-    } else if (Array.isArray(scanHistory)) {
-      updatedHistory = scanHistory.slice(0, 40);
-    }
-
     const updatedMetadata = {
       ...currentMetadata,
-      scanHistory: updatedHistory,
       ...(customAvatar !== undefined ? { customAvatar } : {}),
       ...(profileDetails !== undefined ? { profileDetails } : {}),
       lastSyncedAt: new Date().toISOString(),
     };
 
-    await client.users.updateUserMetadata(userId, {
-      unsafeMetadata: updatedMetadata,
-    });
+    if (customAvatar !== undefined || profileDetails !== undefined) {
+      await client.users.updateUserMetadata(userId, {
+        unsafeMetadata: updatedMetadata,
+      });
+    }
 
     return NextResponse.json({
       success: true,
-      scanHistory: updatedHistory,
+      scanHistory: currentMetadata.scanHistory || [],
       customAvatar: updatedMetadata.customAvatar,
       profileDetails: updatedMetadata.profileDetails,
       ecoStats: currentMetadata.ecoStats || null,
