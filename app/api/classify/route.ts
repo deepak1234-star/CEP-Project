@@ -1,4 +1,6 @@
 import { NextResponse } from "next/server";
+import { auth } from "@clerk/nextjs/server";
+import { recordUserScanActivity } from "@/lib/clerkActivity";
 
 // Active Gemini models with available quota, tested and prioritized
 const GEMINI_MODELS = [
@@ -198,6 +200,16 @@ export async function POST(req: Request) {
       classificationNote: "Classified by Google Gemini Multimodal Vision AI in real time ✨",
       createdAt: new Date().toISOString(),
     };
+
+    // If user is logged in via Clerk, automatically record activity & ecoPoints into Clerk metadata
+    try {
+      const { userId } = await auth();
+      if (userId) {
+        await recordUserScanActivity(userId, result);
+      }
+    } catch (syncErr) {
+      console.warn("Could not sync scan activity to Clerk metadata:", syncErr);
+    }
 
     return NextResponse.json({ success: true, result });
   } catch (error: any) {

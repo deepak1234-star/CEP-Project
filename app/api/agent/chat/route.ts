@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
+import { auth } from "@clerk/nextjs/server";
 import { runEcoSortAgent } from "@/lib/ai/ecoSortAgent";
+import { recordUserAgentActivity } from "@/lib/clerkActivity";
 
 export async function POST(req: Request) {
   try {
@@ -42,6 +44,16 @@ export async function POST(req: Request) {
           }
         }
       }
+    }
+
+    // If user is authenticated via Clerk, log learning activity and award eco points
+    try {
+      const { userId } = await auth();
+      if (userId) {
+        await recordUserAgentActivity(userId, userPrompt);
+      }
+    } catch (syncErr) {
+      console.warn("Could not sync agent chat activity to Clerk:", syncErr);
     }
 
     return NextResponse.json({

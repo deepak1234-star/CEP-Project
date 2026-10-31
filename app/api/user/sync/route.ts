@@ -1,5 +1,6 @@
 import { auth, clerkClient } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
+import { recordUserScanActivity } from "@/lib/clerkActivity";
 
 export async function GET() {
   try {
@@ -14,6 +15,8 @@ export async function GET() {
       scanHistory?: any[];
       customAvatar?: any;
       profileDetails?: any;
+      ecoStats?: any;
+      activities?: any[];
     };
 
     return NextResponse.json({
@@ -21,6 +24,8 @@ export async function GET() {
       scanHistory: metadata.scanHistory || [],
       customAvatar: metadata.customAvatar || null,
       profileDetails: metadata.profileDetails || null,
+      ecoStats: metadata.ecoStats || null,
+      activities: metadata.activities || [],
     });
   } catch (error) {
     console.error("Failed to retrieve user cloud metadata:", error);
@@ -38,6 +43,11 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { scanHistory, customAvatar, newScan, profileDetails } = body;
 
+    // If new scan is provided, record it with eco points and activity logging
+    if (newScan) {
+      await recordUserScanActivity(userId, newScan);
+    }
+
     const client = await clerkClient();
     const user = await client.users.getUser(userId);
     const currentMetadata = (user.unsafeMetadata || {}) as Record<string, any>;
@@ -45,7 +55,6 @@ export async function POST(req: Request) {
     let updatedHistory = currentMetadata.scanHistory || [];
 
     if (newScan) {
-      // Prepend new scan, prevent duplicates by ID, cap at 40 items
       updatedHistory = [newScan, ...updatedHistory.filter((item: any) => item.id !== newScan.id)].slice(0, 40);
     } else if (Array.isArray(scanHistory)) {
       updatedHistory = scanHistory.slice(0, 40);
@@ -68,6 +77,8 @@ export async function POST(req: Request) {
       scanHistory: updatedHistory,
       customAvatar: updatedMetadata.customAvatar,
       profileDetails: updatedMetadata.profileDetails,
+      ecoStats: currentMetadata.ecoStats || null,
+      activities: currentMetadata.activities || [],
     });
   } catch (error) {
     console.error("Failed to sync user cloud metadata:", error);

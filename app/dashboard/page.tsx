@@ -11,6 +11,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import UserProfileCard from "@/components/dashboard/UserProfileCard";
+import UserActivityTimeline from "@/components/dashboard/UserActivityTimeline";
 
 export default async function DashboardPage() {
   const { userId } = await auth();
@@ -51,6 +52,11 @@ export default async function DashboardPage() {
     (acc) => acc.provider === "google"
   ) ?? false;
 
+  const userMetadata = (user.unsafeMetadata || {}) as {
+    ecoStats?: any;
+    activities?: any[];
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-6 sm:space-y-8">
       {/* Interactive User Profile Card with Avatar Picker */}
@@ -60,6 +66,12 @@ export default async function DashboardPage() {
         userEmail={userEmail}
         initialClerkAvatar={userAvatar}
         hasGoogleOAuth={hasGoogleOAuth}
+      />
+
+      {/* Real-Time Eco Activity Metrics & Scan History synced to Clerk */}
+      <UserActivityTimeline
+        initialEcoStats={userMetadata.ecoStats}
+        initialActivities={userMetadata.activities}
       />
 
       {/* Quick Access to EcoSort AI Scanner */}
