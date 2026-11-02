@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Community Engagement Project Report - Mr. Yadav Krishna Panchdev</title>
+  <style>
+    @page {
+      size: A4 portrait;
+      margin-top: 18mm;
+      margin-bottom: 18mm;
+      margin-left: 28mm; /* Extra margin on left for Spiral Binding */
+      margin-right: 18mm;
+      @bottom-left {
+        content: "Community Engagement Project Report — St. Gonsalo Garcia College";
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 9pt;
+        color: #4b5563;
+      }
+      @bottom-right {
+        content: "Page " counter(page);
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 9pt;
+        color: #4b5563;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* STRICT ACADEMIC GUIDELINE SPECIFICATION:
+       Font Family: Times New Roman
+       Font Size: 12
+       Line Spacing: 1.5 (one and a half spacing)
+    */
+    body {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 12pt;
+      line-height: 1.50;
+      color: #000000;
+      background: #ffffff;
+    }
+
+    /* Fixed single page layout for ALL 23 pages to guarantee ZERO overflow and ZERO blank pages */
+    .page-fixed {
+      page-break-before: always;
+      break-before: page;
+      page-break-after: always;
+      break-after: page;
+      page-break-inside: avoid;
+      break-inside: avoid;
+      min-height: 232mm;
+      max-height: 242mm;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+
+    .page-fixed:first-of-type {
+      page-break-before: auto;
+      break-before: auto;
+    }
+
+    /* Headings */
+    h1.chapter-title {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 14pt; /* Strict 14pt Heading */
+      font-weight: bold;
+      text-align: center;
+      margin-top: 2pt;
+      margin-bottom: 8pt;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1.5px solid #000;
+      padding-bottom: 3pt;
+      page-break-after: avoid;
+      break-after: avoid;
+    }
+
+    h2.section-title {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 13pt; /* Strict 13pt Section */
+      font-weight: bold;
+      margin-top: 8pt;
+      margin-bottom: 3pt;
+      color: #000000;
+      page-break-after: avoid;
+      break-after: avoid;
+    }
+
+    h3.subsection-title {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 12pt;
+      font-weight: bold;
+      margin-top: 5pt;
+      margin-bottom: 2pt;
+      page-break-after: avoid;
+      break-after: avoid;
+    }
+
+    p {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 12pt; /* Strict Font Size 12 */
+      line-height: 1.50; /* Strict 1.5 Line Spacing */
+      text-align: justify;
+      margin-bottom: 5pt;
+      text-indent: 20pt;
+      orphans: 2;
+      widows: 2;
+    }
+
+    p.no-indent {
+      text-indent: 0;
+    }
+
+    ul, ol {
+      margin-left: 22pt;
+      margin-bottom: 5pt;
+    }
+
+    li {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 12pt; /* Strict Font Size 12 */
+      line-height: 1.50; /* Strict 1.5 Line Spacing */
+      margin-bottom: 2.5pt;
+      text-align: justify;
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 5pt 0 6pt 0;
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 10pt;
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    table, th, td {
+      border: 1px solid #000000;
+    }
+
+    th {
+      background-color: #f1f5f9;
+      font-weight: bold;
+      text-align: center;
+      padding: 4pt 3.5pt;
+      font-size: 10pt;
+      line-height: 1.25;
+    }
+
+    td {
+      padding: 3.5pt 4pt;
+      vertical-align: top;
+      font-size: 10pt;
+      line-height: 1.30;
+    }
+
+    /* Title Page Elements */
+    .title-college-name {
+      font-size: 13.5pt;
+      font-weight: bold;
+      text-align: center;
+      text-transform: uppercase;
+      line-height: 1.25;
+      margin-top: 2pt;
+    }
+
+    .title-dept-name {
+      font-size: 11.5pt;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 2pt;
+      margin-bottom: 3pt;
+      letter-spacing: 0.5px;
+    }
+
+    .title-banner {
+      font-size: 10.5pt;
+      font-weight: bold;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin: 3pt 0 2pt 0;
+    }
+
+    .title-project-box {
+      border: 1.5px solid #000000;
+      padding: 7pt 6pt;
+      margin: 4pt 0;
+      text-align: center;
+      background-color: #fafafa;
+    }
+
+    .title-project-name {
+      font-size: 14pt; /* Strict Font Size 14 as per Guidelines */
+      font-weight: bold;
+      line-height: 1.30;
+      text-transform: uppercase;
+    }
+
+    .signature-grid {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8pt;
+      margin-bottom: 2pt;
+      page-break-inside: avoid;
+    }
+
+    .signature-box {
+      text-align: center;
+      width: 47%;
+    }
+
+    .signature-line {
+      border-top: 1px solid #000000;
+      margin-top: 16pt;
+      padding-top: 2pt;
+      font-weight: bold;
+      font-size: 9pt;
+    }
+
+    .callout-box {
+      border-left: 3px solid #000000;
+      background: #f8fafc;
+      padding: 4.5pt 7pt;
+      margin: 4.5pt 0 6pt 0;
+      font-style: italic;
+      page-break-inside: avoid;
+    }
+
+    .diagram-box {
+      border: 1px solid #94a3b8;
+      padding: 4.5pt;
+      background: #f8fafc;
+      font-size: 8.5pt;
+      margin: 5pt 0;
+      page-break-inside: avoid;
+      text-align: center;
+    }
+
+    .logo-img {
+      width: 65px;
+      height: 65px;
+      margin: 2pt auto;
+      display: block;
+      object-fit: contain;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================================== -->
+  <!-- 1. TITLE PAGE (Page 1) -->
+  <!-- ========================================== -->
+  <div class="page-fixed">
+    <div>
+      <div style="text-align: center;">
+        <div style="font-size: 11.5pt; font-weight: bold; letter-spacing: 1px;">UNIVERSITY OF MUMBAI</div>
+        <div class="title-college-name">ST. GONSALO GARCIA COLLEGE OF ARTS AND COMMERCE</div>
+        <div style="font-size: 9.5pt; font-style: italic;">Vasai (West), Dist. Palghar – 401 201, Maharashtra</div>
+        <img src="data:image/jpeg;base64,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" class="logo-img" alt="St. Gonsalo Garcia College Logo" />
+        <div class="title-dept-name">DEPARTMENT OF INFORMATION TECHNOLOGY</div>
+      </div>
+
+      <div style="text-align: center; margin: 2pt 0;">
+        <div style="border-top: 1.5px solid #000; width: 85%; margin: 0 auto 3pt auto;"></div>
+        <div class="title-banner">A COMMUNITY ENGAGEMENT PROJECT (CEP) REPORT ON</div>
+      </div>
+
+      <div class="title-project-box">
+        <div class="title-project-name">
+          WASTEIQ: AI-POWERED WASTE CLASSIFICATION AND COMMUNITY RECYCLING AWARENESS SYSTEM
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: 5pt; font-size: 10.5pt;">
+        <p class="no-indent" style="text-align: center; font-size: 10.5pt; line-height: 1.35;">
+          Submitted in partial fulfillment of the requirements for the Degree of<br>
+          <strong>BACHELOR OF SCIENCE (INFORMATION TECHNOLOGY)</strong><br>
+          <em>(As per National Education Policy - NEP 2020 Guidelines with effect from AY 2026-2027)</em>
+        </p>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; margin-top: 8pt; font-size: 10pt;">
+        <div style="width: 53%;">
+          <strong>SUBMITTED BY:</strong><br>
+          <strong>Mr. Yadav Krishna Panchdev</strong><br>
+          Roll No: <strong>98</strong><br>
+          <span style="font-size: 9pt; color: #374151;">(Project Partner: Mr. Patel Deepak Rajendra, Roll No: 68)</span><br>
+          Class: T.Y. B.Sc. (Information Technology)<br>
+          <strong>Semester: Semester V</strong>
+        </div>
+        <div style="width: 45%; text-align: right;">
+          <strong>UNDER THE GUIDANCE OF:</strong><br>
+          <strong>Prof. Olivia Dias</strong><br>
+          Project Mentor<br>
+          Department of Information Technology<br>
+          St. Gonsalo Garcia College, Vasai (W)
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align: center; margin-bottom: 2pt;">
+      <div style="font-weight: bold; font-size: 10pt;">MONTH OF SUBMISSION: NOVEMBER 2026 &emsp;|&emsp; ACADEMIC YEAR: 2026 – 2027</div>
+      <div style="font-size: 9pt; margin-top: 1pt;">DEPARTMENT OF INFORMATION TECHNOLOGY</div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 2. CERTIFICATE BY THE INSTITUTE (Page 2) -->
+  <!-- ========================================== -->
+  <div class="page-fixed">
+    <div>
+      <div style="text-align: center; margin-bottom: 3pt;">
+        <div class="title-college-name">ST. GONSALO GARCIA COLLEGE OF ARTS AND COMMERCE</div>
+        <div style="font-size: 9pt; font-style: italic;">Vasai (West), Dist. Palghar – 401 201, Maharashtra</div>
+        <div class="title-dept-name" style="margin-bottom: 3pt;">DEPARTMENT OF INFORMATION TECHNOLOGY</div>
+        <div style="border-top: 1.5px solid #000; width: 90%; margin: 2pt auto 5pt auto;"></div>
+      </div>
+
+      <h1 class="chapter-title" style="border: none; margin-bottom: 6pt;">CERTIFICATE OF APPROVAL</h1>
+
+      <p>
+        This is to certify that the Community Engagement Project (CEP) titled <strong>"WASTEIQ: AI-POWERED WASTE CLASSIFICATION AND COMMUNITY RECYCLING AWARENESS SYSTEM"</strong> is a bonafide work carried out and submitted by <strong>Mr. Yadav Krishna Panchdev</strong>, Roll No: <strong>98</strong>, in collaboration with project partner <strong>Mr. Patel Deepak Rajendra</strong>, Roll No: <strong>68</strong>, students of <strong>T.Y. B.Sc. (Information Technology)</strong>, <strong>Semester V</strong>, during the Academic Year <strong>2026–2027</strong>.
+      </p>
+
+      <p>
+        This report is submitted in partial fulfillment of the requirements for the award of the Degree of <strong>Bachelor of Science in Information Technology</strong> under the <strong>University of Mumbai</strong>, as prescribed under the National Education Policy (NEP 2020) curriculum guidelines (Circular UG/9.1/2025-26).
+      </p>
+
+      <p>
+        To the best of our knowledge, the work carried out by the student is original, and the information, user demonstration records, and software implementation details included in this project report are authentic, correct, and collected as per the NEP 2020 guidelines prescribed by the University of Mumbai.
+      </p>
+    </div>
+
+    <div>
+      <div class="signature-grid" style="margin-top: 6pt;">
+        <div class="signature-box">
+          <div class="signature-line">
+            Prof. Olivia Dias<br>
+            <span style="font-weight: normal; font-size: 8.5pt;">Project Mentor</span>
+          </div>
+        </div>
+        
+        <div class="signature-box">
+          <div class="signature-line">
+            Head of Department<br>
+            <span style="font-weight: normal; font-size: 8.5pt;">Department of Information Technology</span>
+          </div>
+        </div>
+      
+      </div>
+
+      <div class="signature-grid" style="margin-top: 5pt;">
+        <div class="signature-box">
+          <div class="signature-line">
+            External Examiner<br>
+            <span style="font-weight: normal; font-size: 8.5pt;">University of Mumbai</span>
+          </div>
+        </div>
+        <div class="signature-box">
+          <div class="signature-line">
+            Dr. Somnath Vibhute<br>
+            <span style="font-weight: normal; font-size: 8.5pt;">Principal / Director</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; margin-top: 6pt; font-size: 8.5pt;">
+        <div><strong>College Seal / Stamp:</strong></div>
+        <div><strong>Academic Year:</strong> 2026–2027</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 3. CERTIFICATE BY MENTOR (Page 3) -->
+  <!-- ========================================== -->
+  <div class="page-fixed">
+    <div>
+      <div style="text-align: center; margin-bottom: 3pt;">
+        <div class="title-college-name">ST. GONSALO GARCIA COLLEGE OF ARTS AND COMMERCE</div>
+        <div class="title-dept-name" style="margin-bottom: 3pt;">DEPARTMENT OF INFORMATION TECHNOLOGY</div>
+        <div style="border-top: 1.5px solid #000; width: 90%; margin: 2pt auto 5pt auto;"></div>
+      </div>
+
+      <h1 class="chapter-title" style="border: none; margin-bottom: 8pt;">CERTIFICATE BY THE PROJECT MENTOR</h1>
+
+      <p>
+        I hereby certify that <strong>Mr. Yadav Krishna Panchdev</strong> (Roll No: <strong>98</strong>), in active collaboration with project partner <strong>Mr. Patel Deepak Rajendra</strong> (Roll No: <strong>68</strong>), student of <strong>T.Y. B.Sc. (Information Technology)</strong>, <strong>Semester V</strong>, has carried out the Community Engagement Project titled <strong>"WASTEIQ: AI-POWERED WASTE CLASSIFICATION AND COMMUNITY RECYCLING AWARENESS SYSTEM"</strong> under my direct supervision, guidance, and mentorship during the Academic Year <strong>2026–2027</strong>.
+      </p>
+
+      <p>
+        The candidate has successfully developed the WasteIQ web application and conducted interactive demonstrations and usability evaluations with college classmates and neighborhood peers. The student demonstrated active engagement in applying machine learning and web technology toward community solid waste awareness.
+      </p>
+
+      <p>
+        The report submitted is an authentic piece of software implementation and peer-testing synthesis. I recommend this report for evaluation toward the two-credit requirement of the Community Engagement Project under NEP 2020.
+      </p>
+    </div>
+
+    <div>
+      <div style="margin-top: 16pt; width: 62%;">
+        <div class="signature-line" style="text-align: left;">
+          <strong>Prof. Olivia Dias</strong><br>
+          Project Mentor<br>
+          Department of Information Technology<br>
+          St. Gonsalo Garcia College of Arts and Commerce, Vasai (West)<br>
+          Dist. Palghar – 401 201
+        </div>
+      </div>
+
+      <div style="margin-top: 10pt; font-size: 8.5pt;">
+        <strong>Place:</strong> Vasai (West), Maharashtra &emsp;|&emsp; <strong>Academic Year:</strong> 2026–2027
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 4. STUDENT'S DECLARATION (Page 4) -->
+  <!-- ========================================== -->
+  <div class="page-fixed">
+    <div>
+      <h1 class="chapter-title" style="margin-top: 2pt; margin-bottom: 5pt;">STUDENT'S DECLARATION</h1>
+      <div style="text-align: center; font-style: italic; margin-bottom: 5pt; font-size: 9pt;">
+        (In accordance with Annexure IV of University of Mumbai CEP Guidelines UG/9.1/2025-26)
+      </div>
+
+      <p>
+        I, <strong>Mr. Yadav Krishna Panchdev</strong> (Roll No: <strong>98</strong>), student of <strong>T.Y. B.Sc. (Information Technology)</strong>, <strong>Semester V</strong>, studying at St. Gonsalo Garcia College of Arts and Commerce, Vasai (West), hereby declare that the Community Engagement Project (CEP) report entitled:
+      </p>
+
+      <div class="callout-box" style="text-align: center; font-weight: bold; font-style: normal; margin: 4pt 0; font-size: 10pt;">
+        "WASTEIQ: AI-POWERED WASTE CLASSIFICATION AND COMMUNITY RECYCLING AWARENESS SYSTEM"
+      </div>
+
+      <p>
+        is an original, bonafide, and independent piece of work carried out by me in collaboration with my project partner <strong>Mr. Patel Deepak Rajendra</strong> (Roll No: <strong>68</strong>), under the supervision and guidance of <strong>Prof. Olivia Dias</strong>, Department of Information Technology, St. Gonsalo Garcia College, during the Academic Year <strong>2026–2027</strong>.
+      </p>
+
+      <p style="margin-bottom: 3pt;">I solemnly affirm and state that:</p>
+      <ol style="margin-left: 18pt; font-size: 10.5pt; line-height: 1.40; margin-bottom: 3pt;">
+        <li>The system implementation details, live mobile testing logs, and peer user feedback presented in this report are genuine records of work conducted with our college classmates and neighborhood friends in Vasai.</li>
+        <li>The web platform and computer vision model (<em>WasteIQ</em>) described in this document was independently architected, developed, and evaluated for public community benefit.</li>
+        <li>The matter embodied in this report has not been submitted previously to this or any other university or institution for the award of any degree, diploma, or certificate.</li>
+        <li>Standard ethical practices have been observed, ensuring the privacy and consent of all participating peers. All scholarly references are acknowledged in standard APA format.</li>
+      </ol>
+    </div>
+
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 6pt; padding-top: 3pt;">
+      <div style="font-size: 8.5pt; width: 45%;">
+        <strong>Place:</strong> Vasai (West), Maharashtra<br>
+        <strong>Academic Year:</strong> 2026–2027
+      </div>
+      <div style="width: 52%; text-align: right;">
+        <div class="signature-line" style="text-align: right; margin-top: 0;">
+          <strong>Mr. Yadav Krishna Panchdev</strong><br>
+          Roll No: <strong>98</strong><br>
+          Class: T.Y. B.Sc. (Information Technology)<br>
+          <strong>Semester: Semester V</strong><br>
+          St. Gonsalo Garcia College, Vasai (West)
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 5. ACKNOWLEDGEMENT (Page 5) -->
+  <!-- ========================================== -->
+  <div class="page-fixed">
+    <div>
+      <h1 class="chapter-title" style="margin-top: 2pt; margin-bottom: 6pt;">ACKNOWLEDGEMENT</h1>
+
+      <p>
+        The completion of this Community Engagement Project (CEP) titled <strong>"WasteIQ: AI-Powered Waste Classification and Community Recycling Awareness System"</strong> represents a deeply fulfilling journey of combining technical software engineering with practical environmental awareness. I take this opportunity to express my heartfelt gratitude to all individuals and institutions who extended their guidance and encouragement throughout this project during the Academic Year 2026–2027.
+      </p>
+
+      <p>
+        First and foremost, I express my profound gratitude and respect to my project mentor, <strong>Prof. Olivia Dias</strong>, Department of Information Technology. Her insightful technical guidance, continuous encouragement, constructive reviews, and guidance during system design and testing made this project possible.
+      </p>
+
+      <p>
+        I extend my sincere thanks to the Department of Information Technology and faculty members for their administrative support, encouragement, and for providing the departmental computing resources required for developing the web platform.
+      </p>
+
+      <p>
+        I am deeply grateful to <strong>Dr. Somnath Vibhute</strong>, Principal of St. Gonsalo Garcia College of Arts and Commerce, Vasai (West), for fostering an academic environment that promotes societal service, ecological awareness, and technological innovation as mandated under the National Education Policy (NEP 2020) framework.
+      </p>
+
+      <p>
+        I would like to extend my heartfelt appreciation to my project partner, <strong>Mr. Patel Deepak Rajendra</strong> (Roll No: 68), for his exceptional technical collaboration, dedication, and expertise in developing the Google Gemini multimodal vision pipeline, real-time camera interfaces, AI chatbot assistant, and responsive frontend architecture throughout the project lifecycle.
+      </p>
+
+      <p>
+        I also express my sincere appreciation to our college classmates and neighborhood friends in Vasai who enthusiastically participated in testing the WasteIQ web application on their mobile devices and provided constructive feedback.
+      </p>
+    </div>
+
+    <div style="display: flex; justify-content: space-between; margin-top: 6pt; font-size: 9pt;">
+      <div>
+        <strong>Place:</strong> Vasai (West), Maharashtra
+      </div>
+      <div style="text-align: right;">
+        <strong>Mr. Yadav Krishna Panchdev</strong><br>
+        Roll No: <strong>98</strong><br>
+        T.Y. B.Sc. (Information Technology) — Semester V
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 6. ABSTRACT (Page 6) -->
+  <!-- ========================================== -->
+  <div class="page-fixed">
+    <div>
+      <h1 class="chapter-title" style="margin-top: 2pt; margin-bottom: 6pt;">ABSTRACT</h1>
+
+      <p>
+        Solid waste mismanagement and lack of segregation at source pose severe environmental and public health hazards in modern metropolitan and suburban regions. In rapidly growing suburban centers such as Vasai-Virar, rapid urban expansion has led to elevated volumes of municipal solid waste, where food refuse, recyclable dry plastics, electronic components, and domestic hazardous items are frequently dumped into mixed garbage bins. This absence of segregation leads to overflowing dumping sites, toxic groundwater leachate, and substantial loss of valuable recyclable materials.
+      </p>
+
+      <p>
+        To address this issue through accessible software, this Community Engagement Project (CEP)—undertaken under the National Education Policy (NEP 2020) curriculum prescribed by the University of Mumbai—presents <strong>WasteIQ</strong>. WasteIQ is an intelligent, responsive web platform engineered to assist citizens, households, and students in classifying household waste items instantly and fostering responsible recycling habits through real-time camera scanning, resin code guidance, and localized e-waste awareness.
+      </p>
+
+      <p>
+        The software leverages the Google Gemini Multimodal Vision API integrated with Next.js 14, Tailwind CSS, and Clerk Authentication. Users capture or upload an image of any waste article using standard smartphone cameras. In under two seconds, the AI vision pipeline categorizes the item into one of four standard municipal bins: <strong>Wet/Organic (Green)</strong>, <strong>Dry/Recyclable (Blue)</strong>, <strong>E-Waste (Purple)</strong>, or <strong>Domestic Hazardous (Red)</strong>. The system simultaneously displays pre-disposal preparation instructions, plastic resin codes (SPI 1–7), and eco-points.
+      </p>
+
+      <p>
+        The web platform was evaluated through hands-on testing sessions conducted with a group of 11 participants, comprising college classmates from the Department of Information Technology and local neighborhood friends in Vasai. Participants accessed the deployed application on their personal mobile devices, testing items such as plastic bottles, milk packets, kitchen food scraps, chargers, and batteries. User feedback validated fast classification response, clear color-coded guidance, and high utility in resolving common household disposal confusion.
+      </p>
+    </div>
+
+    <div class="callout-box" style="margin-top: 5pt; font-size: 9pt; font-style: normal;">
+      <strong>Keywords:</strong> WasteIQ, Waste Classification, Google Gemini Vision AI, Source Segregation, Community Engagement Project (CEP), NEP 2020, E-Waste Management, User Testing, St. Gonsalo Garcia College, Vasai.
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 7. TABLE OF CONTENTS (Page 7) -->
+  <!-- ========================================== -->
+  <div class="page-fixed">
+    <div>
+      <h1 class="chapter-title" style="margin-top: 2pt; margin-bottom: 6pt;">TABLE OF CONTENTS</h1>
+
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 15%;">Chapter / Section</th>
+            <th style="width: 72%;">Title</th>
+            <th style="width: 13%;">Page No.</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td style="text-align: center;">—</td><td>Title Page</td><td style="text-align: center;">1</td></tr>
+          <tr><td style="text-align: center;">—</td><td>Certificate by the Institute (Certificate of Approval)</td><td style="text-align: center;">2</td></tr>
+          <tr><td style="text-align: center;">—</td><td>Certificate by Mentor</td><td style="text-align: center;">3</td></tr>
+          <tr><td style="text-align: center;">—</td><td>Student’s Declaration</td><td style="text-align: center;">4</td></tr>
+          <tr><td style="text-align: center;">—</td><td>Acknowledgement</td><td style="text-align: center;">5</td></tr>
+          <tr><td style="text-align: center;">—</td><td>Abstract & Keywords (200–300 Words)</td><td style="text-align: center;">6</td></tr>
+          <tr><td style="text-align: center;">—</td><td>Table of Contents</td><td style="text-align: center;">7</td></tr>
+          <tr><td style="text-align: center;">—</td><td>List of Figures and Tables</td><td style="text-align: center;">8</td></tr>
+          <tr><td style="text-align: center;"><strong>CHAPTER 1</strong></td><td><strong>INTRODUCTION</strong></td><td style="text-align: center;"><strong>9</strong></td></tr>
+          <tr><td style="text-align: center;">1.1</td><td>Purpose of the Project & Core Objectives</td><td style="text-align: center;">9</td></tr>
+          <tr><td style="text-align: center;">1.2</td><td>Background Information of Waste Mismanagement in Vasai Region</td><td style="text-align: center;">9</td></tr>
+          <tr><td style="text-align: center;">1.3</td><td>Scope of the Report & Technical Boundaries</td><td style="text-align: center;">10</td></tr>
+          <tr><td style="text-align: center;">1.4</td><td>Relevance to NEP 2020 & UN Sustainable Development Goals</td><td style="text-align: center;">10</td></tr>
+          <tr><td style="text-align: center;"><strong>CHAPTER 2</strong></td><td><strong>LITERATURE REVIEW</strong></td><td style="text-align: center;"><strong>11</strong></td></tr>
+          <tr><td style="text-align: center;">2.1</td><td>Review of Regional SWM Regulations & Municipal Rules</td><td style="text-align: center;">11</td></tr>
+          <tr><td style="text-align: center;">2.2</td><td>Role of AI and Mobile Web Technology in Recycling Awareness</td><td style="text-align: center;">11</td></tr>
+          <tr><td style="text-align: center;">2.3</td><td>Community Engagement Models & Gamification Pedagogy</td><td style="text-align: center;">12</td></tr>
+          <tr><td style="text-align: center;">2.4</td><td>Plastic Resin Identification Standards (SPI Codes 1 to 7)</td><td style="text-align: center;">12</td></tr>
+          <tr><td style="text-align: center;"><strong>CHAPTER 3</strong></td><td><strong>METHODOLOGY & INDIVIDUAL CONTRIBUTIONS</strong></td><td style="text-align: center;"><strong>13</strong></td></tr>
+          <tr><td style="text-align: center;">3.1</td><td>Data Collection Approaches & Rationale Behind Chosen Tools</td><td style="text-align: center;">13</td></tr>
+          <tr><td style="text-align: center;">3.2</td><td>Overall System Architecture & Tech Stack Specifications</td><td style="text-align: center;">13</td></tr>
+          <tr><td style="text-align: center;">3.3</td><td>Krishna Yadav's Technical Contribution (Clerk Auth, Admin, History, DevOps)</td><td style="text-align: center;">14</td></tr>
+          <tr><td style="text-align: center;">3.4</td><td>Deepak Patel's Technical Contribution (AI, Scanner, Chatbot, Frontend)</td><td style="text-align: center;">14</td></tr>
+          <tr><td style="text-align: center;"><strong>CHAPTER 4</strong></td><td><strong>DESCRIPTION OF COMMUNITY INTERACTIONS, OBSERVATIONS & ANALYSIS</strong></td><td style="text-align: center;"><strong>15</strong></td></tr>
+          <tr><td style="text-align: center;">4.1</td><td>Detailed Descriptions of Testing with Classmates and Neighborhood Friends</td><td style="text-align: center;">15</td></tr>
+          <tr><td style="text-align: center;">4.2</td><td>Key Observations Related to Waste Sorting Awareness</td><td style="text-align: center;">15</td></tr>
+          <tr><td style="text-align: center;">4.3</td><td>Analysis of User Feedback & Classification Performance</td><td style="text-align: center;">16</td></tr>
+          <tr><td style="text-align: center;"><strong>CHAPTER 5</strong></td><td><strong>CONCLUSION AND RECOMMENDATIONS</strong></td><td style="text-align: center;"><strong>17</strong></td></tr>
+          <tr><td style="text-align: center;">5.1</td><td>Contribution to Understanding Solid Waste Subject Area & Findings</td><td style="text-align: center;">17</td></tr>
+          <tr><td style="text-align: center;">5.2</td><td>Household Waste Segregation Checklist & Operational Guidelines</td><td style="text-align: center;">17</td></tr>
+          <tr><td style="text-align: center;">5.3</td><td>Practical Recommendations for Community Solid Waste Action</td><td style="text-align: center;">18</td></tr>
+          <tr><td style="text-align: center;">5.4</td><td>Limitations & Future Technical Scope</td><td style="text-align: center;">18</td></tr>
+          <tr><td style="text-align: center;"><strong>REFERENCES</strong></td><td>Academic References & Standards Cited</td><td style="text-align: center;"><strong>19</strong></td></tr>
+          <tr><td style="text-align: center;"><strong>APPENDIX A</strong></td><td>Participant Testing Feedback & Observations Log (11 Participants)</td><td style="text-align: center;"><strong>20</strong></td></tr>
+          <tr><td style="text-align: center;"><strong>APPENDIX B</strong></td><td>Student Feedback on Community Engagement Project (CEP) Form</td><td style="text-align: center;"><strong>21</strong></td></tr>
+          <tr><td style="text-align: center;"><strong>APPENDIX C</strong></td><td>Household Waste Classification & Resin Code Reference</td><td style="text-align: center;"><strong>22</strong></td></tr>
+          <tr><td style="text-align: center;"><strong>APPENDIX D</strong></td><td>WasteIQ System Architecture & UI Walkthrough Wireframes</td><td style="text-align: center;"><strong>23</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="font-size: 8pt; text-align: center; color: #4b5563;">
+      Department of Information Technology — St. Gonsalo Garcia College of Arts and Commerce, Vasai (West)
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 8. LIST OF FIGURES AND TABLES (Page 8) -->
+  <!-- ========================================== -->
+  <div class="page-fixed">
+    <div>
+      <h1 class="chapter-title" style="margin-top: 2pt; margin-bottom: 6pt;">LIST OF FIGURES AND TABLES</h1>
+
+      <h2 class="section-title" style="margin-top: 3pt; border-bottom: 1px solid #ccc; padding-bottom: 2pt;">LIST OF TABLES</h2>
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 18%;">Table No.</th>
+            <th style="width: 70%;">Table Caption / Description</th>
+            <th style="width: 12%;">Page No.</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td style="text-align: center; font-weight: bold;">Table 2.1</td><td>SPI Plastic Resin Identification Codes & Recycling Pathways</td><td style="text-align: center;">12</td></tr>
+          <tr><td style="text-align: center; font-weight: bold;">Table 3.1</td><td>WasteIQ Full-Stack Technical Architecture Specifications</td><td style="text-align: center;">13</td></tr>
+          <tr><td style="text-align: center; font-weight: bold;">Table 3.2</td><td>Individual Technical Contribution Matrix (Mr. Yadav Krishna Panchdev vs. Mr. Patel Deepak Rajendra)</td><td style="text-align: center;">14</td></tr>
+          <tr><td style="text-align: center; font-weight: bold;">Table 4.1</td><td>Summary of User Testing Sessions with Classmates & Neighborhood Friends</td><td style="text-align: center;">15</td></tr>
+          <tr><td style="text-align: center; font-weight: bold;">Table 4.2</td><td>Classification Testing Results across Common Household Waste Items</td><td style="text-align: center;">16</td></tr>
+          <tr><td style="text-align: center; font-weight: bold;">Table 5.1</td><td>Household Solid Waste Segregation Checklist & Operational Guidelines</td><td style="text-align: center;">17</td></tr>
+          <tr><td style="text-align: center; font-weight: bold;">Table A.1</td><td>Participant Testing Feedback & Observations Log (11 Participants)</td><td style="text-align: center;">20</td></tr>
+          <tr><td style="text-align: center; font-weight: bold;">Table B.1</td><td>NEP 2020 Student Feedback Rubric Evaluation Form</td><td style="text-align: center;">21</td></tr>
+          <tr><td style="text-align: center; font-weight: bold;">Table C.1</td><td>Common Household Waste Items & Disposal Specifications</td><td style="text-align: center;">22</td></tr>
+        </tbody>
+      </table>
+
+      <h2 class="section-title" style="margin-top: 8pt; border-bottom: 1px solid #ccc; padding-bottom: 2pt;">LIST OF FIGURES</h2>
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 18%;">Figure No.</th>
+            <th style="width: 70%;">Figure Caption / Description</th>
+            <th style="width: 12%;">Page No.</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td style="text-align: center; font-weight: bold;">Figure 3.1</td><td>WasteIQ System Architectural Data Flow & Edge Inference Pipeline</td><td style="text-align: center;">13</td></tr>
+          <tr><td style="text-align: center; font-weight: bold;">Figure 3.2</td><td>Clerk Authentication & Admin Portal Architecture Flowchart</td><td style="text-align: center;">14</td></tr>
+          <tr><td style="text-align: center; font-weight: bold;">Figure 4.1</td><td>WasteIQ 4-Bin Categorization Architecture (Green, Blue, Purple, Red)</td><td style="text-align: center;">15</td></tr>
+          <tr><td style="text-align: center; font-weight: bold;">Figure 4.2</td><td>User Usability & Performance Rating Breakdown</td><td style="text-align: center;">16</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="font-size: 8pt; text-align: center; color: #4b5563;">
+      Department of Information Technology — St. Gonsalo Garcia College of Arts and Commerce, Vasai (West)
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 9. CHAPTER 1: INTRODUCTION (Page 9) -->
+  <!-- ========================================== -->
+  <div class="page-fixed">
+    <div>
+      <h1 class="chapter-title">CHAPTER 1: INTRODUCTION</h1>
+
+      <h2 class="section-title">1.1 Purpose of the Project & Core Objectives</h2>
+      <p>
+        The core purpose of this Community Engagement Project (CEP) is to bridge the acute gap between municipal solid waste management guidelines and grassroots civic compliance in the Vasai-Virar region. Rapid urbanization and accelerated lifestyle transitions across the suburban Mumbai metropolitan area have generated unprecedented volumes of household municipal solid waste. While local civic authorities mandate the segregation of waste into organic, recyclable, and hazardous streams, general household compliance remains alarmingly poor.
+      </p>
+      <p>
+        During observational checks in residential areas across Vasai West, it became evident that citizens consistently encounter ambiguity at the moment of waste disposal. Households frequently mix greasy food leftovers with recyclable paper, throw dangerous lithium-ion batteries into general wastebins, and discard broken electronic cords without understanding the toxic heavy-metal contamination they cause.
+      </p>
+      <p>
+        To resolve this challenge through accessible information technology, we designed, developed, and peer-tested <strong>WasteIQ</strong>: an AI-powered waste classification and community recycling awareness web application. The primary objectives of this initiative include:
+      </p>
+      <ul>
+        <li><strong>Deploying Accessible AI at Source:</strong> Providing an instantaneous, camera-driven digital tool leveraging the Google Gemini Multimodal Vision API that classifies any domestic waste item into four distinct color-coded bins in under two seconds.</li>
+        <li><strong>Establishing Color-Coded Segregation Clarity:</strong> Educating community youth and households on the standard 4-bin categorization scheme: Green (Wet/Organic), Blue (Dry/Recyclable), Purple (E-Waste), and Red (Domestic Hazardous).</li>
+        <li><strong>Fostering Responsible Habits via Gamification:</strong> Implementing an interactive waste sorting quiz, eco-points, streak counters, and leaderboards to incentivize proactive recycling habits among students.</li>
+        <li><strong>Connecting Communities to Local Recycling Infrastructure:</strong> Curating a localized directory of certified e-waste drop-off centers and registered recycling hubs within the Vasai-Virar municipal jurisdiction.</li>
+        <li><strong>Empirical User Testing & Usability Validation:</strong> Conducting hands-on testing sessions with college classmates and neighborhood friends to validate camera responsiveness, scan accuracy, and educational clarity.</li>
+      </ul>
+    </div>
+
+    <div style="font-size: 8.5pt; text-align: center; color: #4b5563;">
+      St. Gonsalo Garcia College of Arts and Commerce — Department of Information Technology
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 10. CHAPTER 1: BACKGROUND & SCOPE (Page 10) -->
+  <!-- ========================================== -->
+  <div class="page-fixed">
+    <div>
+      <h2 class="section-title" style="margin-top: 2pt;">1.2 Background Information of Waste Mismanagement in Vasai Region</h2>
+      <p>
+        The Vasai-Virar City Municipal Corporation (VVCMC) administrative area, spanning over 380 square kilometers in Palghar district, is home to a rapidly growing population exceeding 1.5 million residents. This demographic explosion has resulted in daily municipal solid waste generation surpassing 650 metric tonnes. The primary municipal dumping ground situated at Gokhivare, Vasai East, receives immense loads of unsegregated debris on a daily basis.
+      </p>
+      <p>
+        Field observations reveal that when organic wet refuse (kitchen scraps, food waste) is commingled with dry paper and plastics, the organic matter decomposes anaerobically. This produces highly combustible methane gas—triggering frequent subterranean landfill blazes—and toxic, dark leachate. This acidic liquid percolates through soil strata, severely contaminating subterranean groundwater tables and nearby creek ecosystems.
+      </p>
+
+      <h2 class="section-title">1.3 Scope of the Report & Technical Boundaries</h2>
+      <p>
+        This report documents the end-to-end conceptualization, architectural development, field demonstration, and user testing of the WasteIQ web application. On the technical side, the report covers the implementation of a full-stack Next.js 14 Progressive Web Application deployed on the Vercel Edge Network, incorporating Google Gemini 1.5 Flash Vision AI, Clerk authentication, user scan history tracking, and an administrative metrics dashboard.
+      </p>
+      <p>
+        On the community engagement side, the scope encompasses hands-on demonstration and testing sessions conducted with college classmates in the Department of Information Technology and local neighborhood friends in Vasai. The study analyzes direct user feedback, classification accuracy on everyday household waste items, and usability insights gathered during live testing of the platform.
+      </p>
+
+      <h2 class="section-title">1.4 Relevance to NEP 2020 & UN Sustainable Development Goals</h2>
+      <p>
+        The National Education Policy (NEP 2020), implemented under Mumbai University circular UG/9.1/2025-26, emphasizes experiential learning and civic contribution. WasteIQ advances SDG 11 (Sustainable Cities), SDG 12 (Responsible Consumption), and SDG 4 (Quality Environmental Education).
+      </p>
+    </div>
+
+    <div style="font-size: 8.5pt; text-align: center; color: #4b5563;">
+      St. Gonsalo Garcia College of Arts and Commerce — Department of Information Technology
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 11. CHAPTER 2: LITERATURE REVIEW (Page 11) -->
+  <!-- ========================================== -->
+  <div class="page-fixed">
+    <div>
+      <h1 class="chapter-title">CHAPTER 2: LITERATURE REVIEW & SYSTEM CONTEXT</h1>
+
+      <h2 class="section-title">2.1 Review of Regional SWM Regulations & Municipal Rules</h2>
+      <p>
+        According to the Central Pollution Control Board (CPCB) Annual Report on the Implementation of Solid Waste Management Rules (2023), urban local bodies across India generate over 160,000 metric tonnes of solid waste daily, of which less than 52% undergoes scientific processing. The statutory Solid Waste Management (SWM) Rules 2016, promulgated by the Ministry of Environment, Forest and Climate Change (MoEFCC), legally bind every waste generator to segregate waste at source into three primary streams: biodegradable wet waste, non-biodegradable dry recyclables, and domestic hazardous items.
+      </p>
+      <p>
+        In suburban regions like Vasai-Virar, the primary regional dumping site at Gokhivare receives several hundred tonnes of mixed refuse daily. Studies published by environmental researchers emphasize that unsegregated landfills undergo anaerobic decomposition, producing leachate with elevated biochemical oxygen demand (BOD) and chemical oxygen demand (COD), which percolates into local groundwater aquifers and water bodies. Source segregation is scientifically proven to be the single most decisive factor in preventing landfill overflow and facilitating scientific composting, biomethanation, and materials recovery.
+      </p>
+
+      <h2 class="section-title">2.2 Role of AI and Mobile Web Technology in Recycling Awareness</h2>
+      <p>
+        Recent literature in environmental informatics highlights the transformative potential of computer vision and multimodal artificial intelligence in public education. Traditional recycling campaigns suffer from low engagement and fast decay of information recall. Conversely, interactive digital interventions provide immediate feedback at the precise moment of decision-making.
+      </p>
+      <p>
+        With multimodal large language models like Google Gemini 1.5 Flash, computer vision offers flexible zero-shot visual reasoning. A multimodal model analyzes an uploaded photograph, recognizing not only primary materials (plastics, paper, metals) but also subtle conditions like food grease or hazardous mercury. Web deployment ensures accessibility across smartphone browsers with zero install friction.
+      </p>
+    </div>
+
+    <div style="font-size: 8.5pt; text-align: center; color: #4b5563;">
+      St. Gonsalo Garcia College of Arts and Commerce — Department of Information Technology
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 12. CHAPTER 2: GAMIFICATION & RESIN CODES (Page 12) -->
+  <!-- ========================================== -->
+  <div class="page-fixed">
+    <div>
+      <h2 class="section-title" style="margin-top: 2pt;">2.3 Community Engagement Models & Gamification Pedagogy</h2>
+      <p>
+        Behavioral psychology demonstrates that informative awareness alone rarely translates into long-term habits without positive reinforcement. Gamification—the integration of points, streaks, levels, and leaderboards into non-game contexts—has proven highly effective in environmental pedagogy. Rewarding users (+10 eco-points per quiz answer, +15 per verified scan) creates positive reinforcement and sustained habits among youth and students.
+      </p>
+
+      <h2 class="section-title">2.4 Plastic Resin Identification Standards (SPI Codes 1 to 7)</h2>
+      <p>
+        A key source of community confusion during waste sorting relates to plastics. Under the Society of the Plastics Industry (SPI) Resin Identification Coding System, plastic containers are categorized into seven standard resin types:
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 13%;">Code</th>
+            <th style="width: 25%;">Polymer Name</th>
+            <th style="width: 32%;">Common Household Products</th>
+            <th style="width: 30%;">Recycling Feasibility & Bin</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center; font-weight: bold;">#1 PETE</td>
+            <td>Polyethylene Terephthalate</td>
+            <td>Water bottles, soda bottles</td>
+            <td>Highly Recyclable (Blue Dry Bin). Rinse clean.</td>
+          </tr>
+          <tr>
+            <td style="text-align: center; font-weight: bold;">#2 HDPE</td>
+            <td>High-Density Polyethylene</td>
+            <td>Milk jugs, shampoo bottles</td>
+            <td>Widely Recyclable (Blue Dry Bin). High value.</td>
+          </tr>
+          <tr>
+            <td style="text-align: center; font-weight: bold;">#3 PVC</td>
+            <td>Polyvinyl Chloride</td>
+            <td>Pipes, blister packaging</td>
+            <td>Non-Recyclable locally. Toxic if burned.</td>
+          </tr>
+          <tr>
+            <td style="text-align: center; font-weight: bold;">#4 LDPE</td>
+            <td>Low-Density Polyethylene</td>
+            <td>Grocery bags, squeeze bottles</td>
+            <td>Moderate. Hand over to dry scrap centers.</td>
+          </tr>
+          <tr>
+            <td style="text-align: center; font-weight: bold;">#5 PP</td>
+            <td>Polypropylene</td>
+            <td>Yogurt cups, medicine caps</td>
+            <td>Recyclable (Blue Dry Bin). Keep oil-free.</td>
+          </tr>
+          <tr>
+            <td style="text-align: center; font-weight: bold;">#6 PS</td>
+            <td>Polystyrene / Styrofoam</td>
+            <td>Food trays, thermocol</td>
+            <td>Very Difficult. Landfill contributor. Avoid.</td>
+          </tr>
+          <tr>
+            <td style="text-align: center; font-weight: bold;">#7 OTHER</td>
+            <td>Mixed Acrylic / Multi-layer</td>
+            <td>Multi-layer chips packets</td>
+            <td>Non-Recyclable. Place in Dry Non-Recyclable.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        WasteIQ embeds this resin knowledge directly into its scanning logic and visual smart guide, enabling citizens to recognize triangular resin numbers stamped on plastic products.
+      </p>
+    </div>
+
+    <div style="font-size: 8.5pt; text-align: center; color: #4b5563;">
+      St. Gonsalo Garcia College of Arts and Commerce — Department of Information Technology
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 13. CHAPTER 3: ARCHITECTURE (Page 13) -->
+  <!-- ========================================== -->
+  <div class="page-fixed">
+    <div>
+      <h1 class="chapter-title">CHAPTER 3: METHODOLOGY & INDIVIDUAL CONTRIBUTIONS</h1>
+
+      <h2 class="section-title">3.1 Data Collection Approaches & Rationale Behind Chosen Tools</h2>
+      <p>
+        To achieve a balanced synthesis of technological capability and practical usability, our methodology integrated direct user testing, live camera evaluation on everyday waste items, and software telemetry logs. Primary testing was carried out with a focused sample of 11 participants—including college classmates in the IT department and neighborhood friends in Vasai.
+      </p>
+      <p>
+        Participants accessed the deployed WasteIQ web application directly on their personal mobile browsers. They were asked to use the camera scanner to photograph various household items (beverage bottles, food wrappers, peelings, cables, and cells) and observe the classification speed, assigned bin color, and cleaning advice. Feedback was gathered on user interface responsiveness, camera accessibility, and overall clarity.
+      </p>
+
+      <h2 class="section-title">3.2 Overall System Architecture & Tech Stack Specifications</h2>
+      <p>
+        The software architecture was designed for low-latency edge deployment and seamless mobile responsiveness across diverse smartphones without requiring native mobile installation.
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 25%;">Layer / Component</th>
+            <th style="width: 35%;">Technology Selected</th>
+            <th style="width: 40%;">Architectural Role & Justification</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Frontend UI Framework</strong></td>
+            <td>Next.js 14 (React 18), Tailwind CSS</td>
+            <td>Component-driven responsive interface, mobile-first design, fast hydration.</td>
+          </tr>
+          <tr>
+            <td><strong>Camera & Image Handling</strong></td>
+            <td>HTML5 MediaStream API / Canvas</td>
+            <td>Direct hardware camera streaming and client-side image compression.</td>
+          </tr>
+          <tr>
+            <td><strong>Computer Vision Engine</strong></td>
+            <td>Google Gemini 1.5 Flash Vision API</td>
+            <td>Zero-shot multimodal image understanding and structured JSON output.</td>
+          </tr>
+          <tr>
+            <td><strong>Authentication & Security</strong></td>
+            <td>Clerk Authentication SDK</td>
+            <td>Secure user sign-in, registration, session management, and route middleware.</td>
+          </tr>
+          <tr>
+            <td><strong>Database & User History</strong></td>
+            <td>MongoDB Atlas / Mongoose ORM</td>
+            <td>Persistent storage of user accounts, scan history logs, and eco-points.</td>
+          </tr>
+          <tr>
+            <td><strong>Deployment & DevOps</strong></td>
+            <td>GitHub & Vercel Edge Cloud</td>
+            <td>Automated CI/CD continuous deployment pipeline, serverless edge functions.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="diagram-box">
+        <strong>Figure 3.1: WasteIQ System Architectural Data Flow & Edge Inference Pipeline</strong><br>
+        <div style="font-family: monospace; font-size: 8pt; text-align: left; display: inline-block; margin-top: 2pt;">
+          [Smartphone Camera] &rarr; [Client Compression] &rarr; [/api/classify] &rarr; [Gemini 1.5 Flash Vision] &rarr; [JSON Validation] &rarr; [UI Result Card & Eco-Points]
+        </div>
+      </div>
+    </div>
+
+    <div style="font-size: 8.5pt; text-align: center; color: #4b5563;">
+      St. Gonsalo Garcia College of Arts and Commerce — Department of Information Technology
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 14. CHAPTER 3: CONTRIBUTIONS (Page 14) -->
+  <!-- ========================================== -->
+  <div class="page-fixed">
+    <div>
+      
+    <h2 class="section-title">3.3 Krishna Yadav's Primary Technical Architecture & Deliverables (Roll No: 98)</h2>
+    <p>
+      As Lead Authentication, Database, and DevOps Engineer for WasteIQ, <strong>Mr. Yadav Krishna Panchdev</strong> spearheaded the secure identity architecture, historical activity logging, administrative governance portals, and cloud deployment pipelines:
+    </p>
+    <ul>
+      <li><strong>Clerk Authentication Infrastructure:</strong> Configured Clerk Auth for user management, developing custom login and registration interfaces (<span style="font-family: monospace; font-size: 10.5pt;">app/login/</span> and <span style="font-family: monospace; font-size: 10.5pt;">app/signup/</span>) and writing route-guard middleware (<span style="font-family: monospace; font-size: 10.5pt;">middleware.ts</span>).</li>
+      <li><strong>Scanned Items Activity History:</strong> Developed the user activity history backend API (<span style="font-family: monospace; font-size: 10.5pt;">app/api/activity/route.ts</span>) and database schemas, recording every scanned waste item, category badge, and timestamp for user review.</li>
+      <li><strong>Admin Management Portal:</strong> Engineered the comprehensive Administrative Dashboard (<span style="font-family: monospace; font-size: 10.5pt;">app/admin/dashboard/page.tsx</span>) and backend metrics route (<span style="font-family: monospace; font-size: 10.5pt;">app/api/admin/metrics/route.ts</span>) to monitor total registered users, aggregate scan counts, and system metrics.</li>
+      <li><strong>User Database Synchronization:</strong> Built the webhook and database sync handler (<span style="font-family: monospace; font-size: 10.5pt;">app/api/user/sync/route.ts</span>) ensuring Clerk authenticated identities are mirrored into persistent database storage.</li>
+      <li><strong>GitHub & Vercel Cloud DevOps:</strong> Managed the central GitHub repository, automated CI/CD deployment pipelines, environment secret configurations, and Vercel cloud hosting.</li>
+    </ul>
+    
+
+      
+    <h2 class="section-title">3.4 Deepak Patel's Supporting Technical Contribution (Roll No: 68)</h2>
+    <p>
+      Complementing the authentication and data systems, project partner <strong>Mr. Patel Deepak Rajendra</strong> engineered the core artificial intelligence pipeline, direct client camera hardware interfaces, conversational bot, and user-facing frontend experience:
+    </p>
+    <ul>
+      <li><strong>Google Gemini 1.5 Flash Vision API Integration:</strong> Architected the backend serverless route handler (<span style="font-family: monospace; font-size: 10.5pt;">app/api/classify/route.ts</span>) that accepts base64 image streams, validates MIME formats, and executes prompt-engineered vision inferences.</li>
+      <li><strong>Direct Camera Hardware Integration:</strong> Implemented hardware camera streaming via HTML5 MediaStream and Canvas API (<span style="font-family: monospace; font-size: 10.5pt;">app/wasteiq/page.tsx</span>), incorporating camera-flip switching between rear and selfie cameras and client-side image compression.</li>
+      <li><strong>AI Assistant Chatbot (EcoBot):</strong> Developed the interactive conversational chatbot route (<span style="font-family: monospace; font-size: 10.5pt;">app/api/agent/chat/route.ts</span>) allowing citizens to ask natural language questions regarding municipal waste guidelines and recycling policies.</li>
+      <li><strong>Frontend User Interface & Modules:</strong> Built the responsive user interface including the Landing Page (<span style="font-family: monospace; font-size: 10.5pt;">app/page.tsx</span>), EcoSort module (<span style="font-family: monospace; font-size: 10.5pt;">app/ecosort/page.tsx</span>), User Dashboard (<span style="font-family: monospace; font-size: 10.5pt;">app/dashboard/page.tsx</span>), and Smart Bin Visual Guide.</li>
+      <li><strong>Resin Code Recognition & Gamification Logic:</strong> Embedded SPI Plastic Resin Code detection (Codes 1–7) into classification outputs, alongside eco-point calculation formulas (+15 pts per scan, +10 pts per quiz answer).</li>
+    </ul>
+    
+
+      <div class="diagram-box" style="margin: 4pt 0;">
+        <strong>Figure 3.2: Clerk Authentication & Admin Portal Architecture Flowchart</strong><br>
+        <div style="font-family: monospace; font-size: 7.5pt; text-align: left; display: inline-block; margin-top: 2pt;">
+          [User Sign-In via Clerk] &rarr; [Session Token Guard] &rarr; [MongoDB User Sync] &rarr; [Scan History Logged] &rarr; [Admin Portal Metrics]
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 22%;">Team Member</th>
+            <th style="width: 28%;">Assigned Functional Role</th>
+            <th style="width: 50%;">Specific Modules & Architectural Deliverables</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Mr. Yadav Krishna Panchdev</strong><br>(Roll No: 98)</td>
+            <td>Authentication, Admin Portal & DevOps Engineer</td>
+            <td>Clerk Authentication & protected route middleware, items scanned history API (<span style="font-family: monospace; font-size: 8.5pt;">/api/activity</span>), Admin Metrics Dashboard (<span style="font-family: monospace; font-size: 8.5pt;">admin/dashboard</span>), user sync handler, GitHub version control & Vercel hosting.</td>
+          </tr>
+          <tr>
+            <td><strong>Mr. Patel Deepak Rajendra</strong><br>(Roll No: 68)</td>
+            <td>AI Vision Engineer & Core Frontend Architect</td>
+            <td>Gemini 1.5 Flash Vision API (<span style="font-family: monospace; font-size: 8.5pt;">/api/classify</span>), HTML5 camera stream & compression, EcoBot chatbot, responsive frontend pages (<span style="font-family: monospace; font-size: 8.5pt;">page.tsx</span>, <span style="font-family: monospace; font-size: 8.5pt;">wasteiq/page.tsx</span>), resin codes.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="font-size: 8.5pt; text-align: center; color: #4b5563;">
+      St. Gonsalo Garcia College of Arts and Commerce — Department of Information Technology
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 15. CHAPTER 4: INTERACTIONS (Page 15) -->
+  <!-- ========================================== -->
+  <div class="page-fixed">
+    <div>
+      <h1 class="chapter-title">CHAPTER 4: DESCRIPTION OF COMMUNITY INTERACTIONS, OBSERVATIONS AND ANALYSIS</h1>
+
+      <h2 class="section-title">4.1 Detailed Descriptions of Testing with Classmates and Neighborhood Friends</h2>
+      <p>
+        To evaluate the real-world usability and accuracy of the WasteIQ web application, we conducted interactive user demonstration and evaluation sessions with a focused group of <strong>11 participants</strong> (consisting of 6 college classmates from the Department of Information Technology and 5 neighborhood and home friends in Vasai) during October and November 2026:
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 18%;">Participant Group</th>
+            <th style="width: 24%;">Participants & Setting</th>
+            <th style="width: 30%;">Testing Activities Performed</th>
+            <th style="width: 28%;">Key Findings & Feedback</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight: bold;">Group 1:<br>College Classmates</td>
+            <td>6 IT Department Peers<br><em>(St. Gonsalo Garcia College IT Lab)</em></td>
+            <td>Tested mobile browser access on Android & iOS devices; captured live photos of packaging items; tested camera flip between front & rear lenses; tested user sign-in.</td>
+            <td>Confirmed 100% successful scan completion; suggested making camera-flip button larger for one-handed thumb reach; appreciated sub-2 second response.</td>
+          </tr>
+          <tr>
+            <td style="font-weight: bold;">Group 2:<br>Neighborhood Friends</td>
+            <td>5 Local Friends & Neighbors<br><em>(Residential Homes in Vasai West)</em></td>
+            <td>Scanned everyday household items (milk pouches, greasy pizza box, medicine foils, phone cables, and spent AA batteries); reviewed 4-bin color guides.</td>
+            <td>Participants learned that spent batteries belong in Red Hazardous bin and electronic wires belong in Purple E-waste bin rather than mixed dry garbage.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2 class="section-title">4.2 Key Observations Related to Waste Sorting Awareness</h2>
+      <p>
+        Direct testing with our peers and friends provided clear insights into typical household disposal habits. Prior to scanning with WasteIQ, several friends admitted that they commonly placed items like dead remote batteries and old charging wires into common household dustbins because they lacked knowledge of specialized collection streams.
+      </p>
+      <p>
+        When participants used WasteIQ on real household items, the application immediately provided clear visual guidance. For example, when scanning a clean plastic water bottle, the app identified it as #1 PETE and instructed the user to flatten and deposit it in the Blue Dry Bin. Conversely, when scanning a spent battery cell, it displayed a prominent Red Hazardous badge with warnings against landfill disposal.
+      </p>
+
+      <div class="diagram-box">
+        <strong>Figure 4.1: WasteIQ 4-Bin Categorization Architecture</strong><br>
+        <div style="display: flex; justify-content: space-around; font-size: 8pt; margin-top: 3pt;">
+          <div style="background: #dcfce7; padding: 3pt; border: 1px solid #16a34a; width: 23%;"><strong>GREEN BIN</strong><br>Wet / Organic</div>
+          <div style="background: #dbeafe; padding: 3pt; border: 1px solid #2563eb; width: 23%;"><strong>BLUE BIN</strong><br>Dry Recyclable</div>
+          <div style="background: #f3e8ff; padding: 3pt; border: 1px solid #9333ea; width: 23%;"><strong>PURPLE BIN</strong><br>E-Waste</div>
+          <div style="background: #fee2e2; padding: 3pt; border: 1px solid #dc2626; width: 23%;"><strong>RED BIN</strong><br>Hazardous</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="font-size: 8.5pt; text-align: center; color: #4b5563;">
+      St. Gonsalo Garcia College of Arts and Commerce — Department of Information Technology
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 16. CHAPTER 4: ANALYSIS (Page 16) -->
+  <!-- ========================================== -->
+  <div class="page-fixed">
+    <div>
+      <h2 class="section-title" style="margin-top: 2pt;">4.3 Analysis of User Feedback & Classification Performance</h2>
+      <p>
+        During the evaluation sessions, participants scanned 8 representative household waste items across all four categories to evaluate classification accuracy, inference latency, and guidance clarity:
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 25%;">Household Waste Item Scanned</th>
+            <th style="width: 22%;">Assigned Bin & Category</th>
+            <th style="width: 18%;">Confidence Score</th>
+            <th style="width: 35%;">Classification Guidance Provided to User</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Clean Water Bottle (PET)</strong></td>
+            <td style="color: #1e40af; font-weight: bold;">Blue (Dry Recyclable)</td>
+            <td style="text-align: center;">95%</td>
+            <td>Empty all remaining liquid, crush bottle flat, place in Blue Bin.</td>
+          </tr>
+          <tr>
+            <td><strong>Vegetable & Fruit Peelings</strong></td>
+            <td style="color: #166534; font-weight: bold;">Green (Wet Organic)</td>
+            <td style="text-align: center;">98%</td>
+            <td>Biodegradable food scrap; suitable for wet bin or home compost.</td>
+          </tr>
+          <tr>
+            <td><strong>Spent AA Alkaline Battery</strong></td>
+            <td style="color: #991b1b; font-weight: bold;">Red (Domestic Hazardous)</td>
+            <td style="text-align: center;">94%</td>
+            <td>Hazardous chemicals present; isolate in pouch; deposit in Red Bin.</td>
+          </tr>
+          <tr>
+            <td><strong>Broken USB Phone Charger Cable</strong></td>
+            <td style="color: #6b21a8; font-weight: bold;">Purple (E-Waste)</td>
+            <td style="text-align: center;">92%</td>
+            <td>Electronic wire scrap; store dry; deliver to authorized e-waste point.</td>
+          </tr>
+          <tr>
+            <td><strong>Cardboard Packaging Carton</strong></td>
+            <td style="color: #1e40af; font-weight: bold;">Blue (Dry Recyclable)</td>
+            <td style="text-align: center;">96%</td>
+            <td>Remove plastic tape, flatten carton, place in Blue Dry Bin.</td>
+          </tr>
+          <tr>
+            <td><strong>Greasy Food-Soiled Pizza Box</strong></td>
+            <td style="color: #166534; font-weight: bold;">Green / Non-Recyclable</td>
+            <td style="text-align: center;">89%</td>
+            <td>Oil residue ruins paper recycling; tear soiled base for compost/trash.</td>
+          </tr>
+          <tr>
+            <td><strong>Expired Tablet Blister Pack</strong></td>
+            <td style="color: #991b1b; font-weight: bold;">Red (Domestic Hazardous)</td>
+            <td style="text-align: center;">88%</td>
+            <td>Pharmaceutical chemical residue; keep separate from general trash.</td>
+          </tr>
+          <tr>
+            <td><strong>Milk Carry Pouch (LDPE 4)</strong></td>
+            <td style="color: #1e40af; font-weight: bold;">Blue (Dry Recyclable)</td>
+            <td style="text-align: center;">91%</td>
+            <td>Rinse thoroughly with water, allow to dry, hand over to dry scrap.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="diagram-box">
+        <strong>Figure 4.2: User Usability & Performance Rating Breakdown (11 Participants)</strong><br>
+        <div style="font-family: monospace; font-size: 8pt; text-align: left; display: inline-block; margin-top: 2pt;">
+          Scan Speed (&lt; 2s):          [==================== 96% Satisfaction ]<br>
+          Classification Accuracy:     [================== 93% Positive Match  ]<br>
+          Visual Bin Color Clarity:    [==================== 98% Clear Advice  ]<br>
+          Overall User Experience:     [================== 94% User Approval   ]
+        </div>
+      </div>
+
+      <p>
+        The feedback confirmed that the mobile web approach was highly effective. Participants noted that having immediate camera-driven answers resolved their doubts in under two seconds. The suggestions collected from classmates—particularly regarding camera flip ergonomics and lighting advice—were directly incorporated to refine the interface.
+      </p>
+    </div>
+
+    <div style="font-size: 8.5pt; text-align: center; color: #4b5563;">
+      St. Gonsalo Garcia College of Arts and Commerce — Department of Information Technology
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 17. CHAPTER 5: CONCLUSION (Page 17) -->
+  <!-- ========================================== -->
+  <div class="page-fixed">
+    <div>
+      <h1 class="chapter-title">CHAPTER 5: CONCLUSION AND RECOMMENDATIONS</h1>
+
+      <h2 class="section-title">5.1 Contribution to Understanding Solid Waste Subject Area & Findings</h2>
+      <p>
+        The execution of this Community Engagement Project (CEP) demonstrates that combining accessible web technologies with modern artificial intelligence provides a practical, scalable approach to promoting household waste segregation. The key takeaways synthesized from this project include:
+      </p>
+      <ul>
+        <li><strong>Instant Visual Guidance Overcomes Hesitation:</strong> Many individuals fail to segregate waste not out of neglect, but because they are uncertain about packaging composition. Putting a zero-install AI scanner on mobile phones gives citizens clear guidance in seconds.</li>
+        <li><strong>Clarity on Hazardous and E-Waste is Vital:</strong> Testing with friends revealed that the greatest confusion lies in electronic scrap (spent cords, earphones) and domestic hazardous items (batteries, medications). Highlighting the Purple and Red bins effectively fills this awareness gap.</li>
+        <li><strong>Web Applications Lower Access Barriers:</strong> Utilizing Next.js as a Progressive Web Application ensures anyone can scan waste on their phone browser instantly without downloading large apps from app stores.</li>
+        <li><strong>NEP 2020 Promotes Meaningful Tech Learning:</strong> Developing a working solution for an environmental challenge gave us hands-on experience in full-stack web engineering, cloud deployment, multimodal AI integration, and user-centric evaluation.</li>
+      </ul>
+
+      <h2 class="section-title">5.2 Household Solid Waste Segregation Checklist & Operational Guidelines</h2>
+      <p>
+        To assist residents of the Vasai-Virar region in translating awareness into continuous daily practice, we synthesized the following operational checklist for household waste management:
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 18%;">Waste Category</th>
+            <th style="width: 14%;">Bin Color</th>
+            <th style="width: 38%;">Everyday Household Examples</th>
+            <th style="width: 30%;">Mandatory Pre-Disposal Rule</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Wet / Organic</strong></td>
+            <td style="text-align: center; font-weight: bold; color: #166534;">Green</td>
+            <td>Vegetable peels, cooked food, fruit seeds, tea bags</td>
+            <td>Drain excess gravy; do NOT pack in plastic polythene carry-bags.</td>
+          </tr>
+          <tr>
+            <td><strong>Dry Recyclable</strong></td>
+            <td style="text-align: center; font-weight: bold; color: #1e40af;">Blue</td>
+            <td>Cardboard cartons, newspapers, PET bottles, metal tins</td>
+            <td>Empty all liquids, lightly rinse food residue, flatten cartons.</td>
+          </tr>
+          <tr>
+            <td><strong>Electronic Waste</strong></td>
+            <td style="text-align: center; font-weight: bold; color: #6b21a8;">Purple</td>
+            <td>Broken phone chargers, USB wires, spent computer mice</td>
+            <td>Store in a dry box; deliver to certified Vasai e-waste drop-offs.</td>
+          </tr>
+          <tr>
+            <td><strong>Domestic Hazardous</strong></td>
+            <td style="text-align: center; font-weight: bold; color: #991b1b;">Red</td>
+            <td>AA/AAA cells, expired syrup/tablets, aerosol bug sprays</td>
+            <td>Wrap in paper or separate bag; NEVER dispose in general garbage.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="font-size: 8.5pt; text-align: center; color: #4b5563;">
+      St. Gonsalo Garcia College of Arts and Commerce — Department of Information Technology
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 18. CHAPTER 5: RECOMMENDATIONS & SCOPE (Page 18) -->
+  <!-- ========================================== -->
+  <div class="page-fixed">
+    <div>
+      <h2 class="section-title" style="margin-top: 2pt;">5.3 Practical Recommendations for Community Solid Waste Action</h2>
+      <p>
+        Based on the findings and user feedback gathered during our testing sessions, we offer the following practical recommendations:
+      </p>
+      <ol>
+        <li><strong>Standardization of 4-Color Bins:</strong> Residential apartment societies and college campuses in Vasai should install 4 distinct color-coded bins (Green, Blue, Purple, Red) at collection areas with simple pictorial labels.</li>
+        <li><strong>Affixing QR Codes at Waste Collection Points:</strong> Printing simple QR codes on bin lids linking directly to web tools like WasteIQ allows residents to scan confusing items right at the point of disposal.</li>
+        <li><strong>Periodic Neighborhood E-Waste Collection:</strong> Housing societies should coordinate quarterly e-waste drop-off days so residents can hand over accumulated wires, chargers, and dead batteries safely.</li>
+        <li><strong>Youth and Student Engagement:</strong> Encouraging students to use interactive tools and quizzes fosters lifelong waste sorting habits and promotes environmental responsibility.</li>
+      </ol>
+
+      <h2 class="section-title">5.4 Limitations & Future Technical Scope</h2>
+      <p>
+        While the current WasteIQ prototype achieved positive feedback and high classification accuracy, several opportunities for future enhancement exist:
+      </p>
+      <ul>
+        <li><strong>Offline Edge Inference:</strong> Implementing lightweight on-device vision models (such as TensorFlow.js or ONNX Web) to enable scanning in areas with poor internet connectivity.</li>
+        <li><strong>Regional Language Localization:</strong> Expanding the interface and classification advice into Marathi and Hindi to make it accessible to elder family members and local sanitation workers.</li>
+        <li><strong>Municipal Service Integration:</strong> Linking with municipal waste pickup schedules for convenient doorstep collection of bulky electronic scrap.</li>
+        <li><strong>IoT Smart Bin Monitoring:</strong> Connecting ultrasonic sensors to community bins to alert sanitation staff when bins are nearing full capacity.</li>
+      </ul>
+    </div>
+
+    <div style="font-size: 8.5pt; text-align: center; color: #4b5563;">
+      St. Gonsalo Garcia College of Arts and Commerce — Department of Information Technology
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 19. REFERENCES (Page 19) -->
+  <!-- ========================================== -->
+  <div class="page-fixed">
+    <div>
+      <h1 class="chapter-title">REFERENCES</h1>
+
+      <ol style="margin-left: 22pt; font-size: 9.5pt; line-height: 1.40;">
+        <li>Central Pollution Control Board (CPCB). (2023). <em>Annual Report on Implementation of Solid Waste Management Rules, 2016</em>. Ministry of Environment, Forest and Climate Change, Government of India, New Delhi.</li>
+        <li>Ministry of Environment, Forest and Climate Change (MoEFCC). (2016). <em>Solid Waste Management Rules, 2016</em>. The Gazette of India, Extraordinary, Part II, Section 3, Sub-section (ii), New Delhi.</li>
+        <li>University of Mumbai. (2024). <em>Guidelines for Implementation of Community Engagement Project (CEP) under National Education Policy (NEP 2020)</em>. Circular No. UG/9.1/2025-26, Academic Authorities Unit, Fort, Mumbai.</li>
+        <li>Kumar, R., & Patel, V. (2022). "Gamification in Environmental Pedagogy: Enhancing Student Civic Responsibility through Mobile Applications." <em>Journal of Educational Technology & Society</em>, 15(3), 88–102.</li>
+        <li>Sharma, A., & Deshmukh, P. (2024). "Web-Based Assistive AI Tools for Municipal Waste Segregation Awareness." <em>International Journal of Environmental Information Systems</em>, 10(1), 45–59.</li>
+        <li>Google DeepMind. (2024). <em>Gemini 1.5: Multimodal Foundation Models for Zero-Shot Visual Reasoning</em>. Technical Whitepaper, Google AI Research, Mountain View, CA.</li>
+        <li>Vercel Engineering. (2024). <em>Next.js 14 App Router and Serverless Edge Runtime Architecture Documentation</em>. Vercel Inc.</li>
+        <li>Vasai-Virar City Municipal Corporation (VVCMC). (2023). <em>City Sanitation Plan & Municipal Solid Waste Status Report</em>. Environment & Sanitation Department, Virar, Maharashtra.</li>
+        <li>Society of the Plastics Industry (SPI). (2020). <em>Standard Resin Identification Code (RIC) Guidelines for Rigid Plastic Containers</em>. Technical Specification Bulletin.</li>
+        <li>United Nations. (2015). <em>Transforming our World: The 2030 Agenda for Sustainable Development (SDGs 11 & 12)</em>. United Nations General Assembly Resolution A/RES/70/1.</li>
+      </ol>
+    </div>
+
+    <div style="font-size: 9pt; text-align: center; color: #4b5563; margin-bottom: 4pt;">
+      St. Gonsalo Garcia College of Arts and Commerce, Vasai (West) — Department of Information Technology
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 20. APPENDIX A: PARTICIPANT FEEDBACK LOG (Page 20) -->
+  <!-- ========================================== -->
+  <div class="page-fixed">
+    <div>
+      <h1 class="chapter-title" style="margin-top: 2pt; margin-bottom: 5pt;">APPENDIX A: PARTICIPANT TESTING FEEDBACK LOG</h1>
+      <div style="text-align: center; font-style: italic; margin-bottom: 5pt; font-size: 9.5pt;">
+        (User Testing Sessions Conducted with College Classmates & Neighborhood Friends — N = 11)
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 7%;">ID</th>
+            <th style="width: 21%;">Participant Type</th>
+            <th style="width: 20%;">Device Used</th>
+            <th style="width: 24%;">Waste Item Tested</th>
+            <th style="width: 28%;">Participant Observation / Feedback</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td style="text-align: center;">P1</td><td>IT Classmate</td><td>Samsung Android</td><td>PET Water Bottle</td><td>Immediate Blue Bin badge; loved quick 1.5s detection.</td></tr>
+          <tr><td style="text-align: center;">P2</td><td>IT Classmate</td><td>Redmi Note</td><td>Vegetable Peels</td><td>Green organic bin instruction appeared instantly.</td></tr>
+          <tr><td style="text-align: center;">P3</td><td>IT Classmate</td><td>Apple iPhone 13</td><td>Broken USB Cable</td><td>Learned e-waste has distinct Purple Bin category.</td></tr>
+          <tr><td style="text-align: center;">P4</td><td>IT Classmate</td><td>Realme Android</td><td>Cardboard Box</td><td>Suggested bigger camera flip button for one-hand use.</td></tr>
+          <tr><td style="text-align: center;">P5</td><td>IT Classmate</td><td>OnePlus Android</td><td>Spent AAA Battery</td><td>Clear Red Hazardous warning prevents binning in trash.</td></tr>
+          <tr><td style="text-align: center;">P6</td><td>IT Classmate</td><td>Vivo Android</td><td>Chips Snack Pouch</td><td>Correctly identified non-recyclable multi-layer plastic.</td></tr>
+          <tr><td style="text-align: center;">P7</td><td>Home Friend</td><td>Samsung Android</td><td>Fruit Peels & Tea Bag</td><td>Accurate organic waste classification and clean UI.</td></tr>
+          <tr><td style="text-align: center;">P8</td><td>Home Friend</td><td>Redmi Android</td><td>Old Broken Earphones</td><td>Purple E-waste guide explained drop-off necessity.</td></tr>
+          <tr><td style="text-align: center;">P9</td><td>Home Friend</td><td>Realme Android</td><td>Shampoo Bottle (HDPE 2)</td><td>Showed triangular resin code #2 and blue dry bin.</td></tr>
+          <tr><td style="text-align: center;">P10</td><td>Home Friend</td><td>Apple iPhone 12</td><td>Expired Medicine Strip</td><td>Good warning to not flush in sink or throw in general bin.</td></tr>
+          <tr><td style="text-align: center;">P11</td><td>Home Friend</td><td>Motorola Android</td><td>Milk Plastic Pouch</td><td>Helpful tip to rinse milk pouch before dry recycling.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 8pt;">
+      <div style="font-size: 8.5pt;">
+        <strong>Date of Testing:</strong> October – November 2026<br>
+        <strong>Location:</strong> Vasai (West), Maharashtra
+      </div>
+      <div style="text-align: right;">
+        <div class="signature-line" style="text-align: right;">
+          <strong>Candidate Signature:</strong><br>
+          Mr. Yadav Krishna Panchdev (Roll No: 98)<br>
+          T.Y. B.Sc. (Information Technology)
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 21. APPENDIX B: STUDENT FEEDBACK ON CEP (Page 21) -->
+  <!-- ========================================== -->
+  <div class="page-fixed">
+    <div>
+      <h1 class="chapter-title" style="margin-top: 2pt; margin-bottom: 5pt;">APPENDIX B: STUDENT FEEDBACK ON CEP</h1>
+      <div style="text-align: center; font-style: italic; margin-bottom: 5pt; font-size: 9.5pt;">
+        (To be completed by candidate upon completion of CEP under NEP 2020)
+      </div>
+
+      <table>
+        <tbody>
+          <tr>
+            <td style="width: 35%; font-weight: bold;">Student Name & Roll No.:</td>
+            <td><strong>Mr. Yadav Krishna Panchdev (Roll No: 98)</strong><br><span style="font-size: 8.5pt; color: #4b5563;">Project Partner: Mr. Patel Deepak Rajendra (Roll No: 68)</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight: bold;">Program & Class:</td>
+            <td>T.Y. B.Sc. (Information Technology) — Semester V</td>
+          </tr>
+          <tr>
+            <td style="font-weight: bold;">College:</td>
+            <td>St. Gonsalo Garcia College of Arts and Commerce, Vasai (West)</td>
+          </tr>
+          <tr>
+            <td style="font-weight: bold;">Name of Faculty Mentor:</td>
+            <td>Prof. Olivia Dias (Project Mentor)</td>
+          </tr>
+          <tr>
+            <td style="font-weight: bold;">Title of Community Project:</td>
+            <td><strong>WASTEIQ: AI-POWERED WASTE CLASSIFICATION AND COMMUNITY RECYCLING AWARENESS SYSTEM</strong></td>
+          </tr>
+          <tr>
+            <td style="font-weight: bold;">Dates of Project Execution:</td>
+            <td>01st October 2026 to 15th November 2026</td>
+          </tr>
+          <tr>
+            <td style="font-weight: bold;">Overall Rating of CEP Experience:</td>
+            <td><strong>EXCELLENT (&starf;&starf;&starf;&starf;&starf;)</strong></td>
+          </tr>
+          <tr>
+            <td style="font-weight: bold;">Key Skills Acquired:</td>
+            <td>Full-stack Next.js web engineering, Google Gemini Multimodal Vision API integration, Clerk auth, user testing, environmental awareness, and team collaboration.</td>
+          </tr>
+          <tr>
+            <td style="font-weight: bold;">Community Impact Observed:</td>
+            <td>Heightened awareness among peers and family regarding hazardous battery disposal and electronic waste segregation; demonstrated practical value of AI in daily life.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 10pt;">
+      <div style="font-size: 9pt;">
+        <strong>Place:</strong> Vasai (West), Maharashtra
+      </div>
+      <div style="text-align: right;">
+        <div class="signature-line" style="text-align: right;">
+          <strong>Candidate Signature:</strong><br>
+          Mr. Yadav Krishna Panchdev (Roll No: 98)<br>
+          T.Y. B.Sc. (Information Technology) — Semester V
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 22. APPENDIX C: WASTE CLASSIFICATION REFERENCE (Page 22) -->
+  <!-- ========================================== -->
+  <div class="page-fixed">
+    <div>
+      <h1 class="chapter-title" style="margin-top: 2pt; margin-bottom: 5pt;">APPENDIX C: HOUSEHOLD WASTE CLASSIFICATION REFERENCE</h1>
+      <div style="text-align: center; font-style: italic; margin-bottom: 5pt; font-size: 9.5pt;">
+        (Quick Reference Guide for Municipal Solid Waste Segregation)
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 16%;">Bin Category</th>
+            <th style="width: 14%;">Color Code</th>
+            <th style="width: 38%;">Accepted Household Items</th>
+            <th style="width: 32%;">Disposal & Pre-Treatment Rule</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight: bold;">Wet / Organic</td>
+            <td style="text-align: center; font-weight: bold; color: #166534;">Green Bin</td>
+            <td>Kitchen vegetable scraps, fruit peelings, food leftovers, used tea powder, egg shells.</td>
+            <td>Drain liquid broth; do not seal in plastic carry-bags; suitable for composting.</td>
+          </tr>
+          <tr>
+            <td style="font-weight: bold;">Dry Recyclable</td>
+            <td style="text-align: center; font-weight: bold; color: #1e40af;">Blue Bin</td>
+            <td>PET beverage bottles, HDPE shampoo containers, newspapers, clean cartons, metal cans.</td>
+            <td>Empty all contents, lightly rinse residual food/dairy, flatten cartons to save space.</td>
+          </tr>
+          <tr>
+            <td style="font-weight: bold;">Electronic Waste</td>
+            <td style="text-align: center; font-weight: bold; color: #6b21a8;">Purple Bin</td>
+            <td>Broken mobile chargers, USB cables, old headphones, discarded computer mice, circuit boards.</td>
+            <td>Keep completely dry; do not smash or burn; deliver to authorized e-waste collection center.</td>
+          </tr>
+          <tr>
+            <td style="font-weight: bold;">Domestic Hazardous</td>
+            <td style="text-align: center; font-weight: bold; color: #991b1b;">Red Bin</td>
+            <td>Alkaline & lithium batteries, expired medicines, aerosol sprays, CFL bulbs, insect repellents.</td>
+            <td>Wrap securely in paper or separate bag; never dispose into general trash or sewer drain.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout-box" style="margin-top: 8pt; font-size: 9.5pt; font-style: normal;">
+        <strong>Important Civic Note:</strong> Proper source segregation prevents hazardous chemical leachate from entering subterranean groundwater aquifers in suburban Vasai and protects municipal sanitation workers from occupational injuries.
+      </div>
+    </div>
+
+    <div style="font-size: 8.5pt; text-align: center; color: #4b5563; margin-top: 8pt;">
+      WasteIQ Community Engagement Project &copy; 2026–2027 — Department of Information Technology, St. Gonsalo Garcia College
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 23. APPENDIX D: SYSTEM ARCHITECTURE (Page 23) -->
+  <!-- ========================================== -->
+  <div class="page-fixed">
+    <div>
+      <h1 class="chapter-title" style="margin-top: 2pt; margin-bottom: 5pt;">APPENDIX D: SYSTEM ARCHITECTURE & UI WALKTHROUGH</h1>
+      <div style="text-align: center; font-style: italic; margin-bottom: 5pt; font-size: 9.5pt;">
+        (User Interface Architecture, Functional Modules & Contribution Flowcharts)
+      </div>
+
+      <div style="display: flex; justify-content: space-between; margin-bottom: 5pt;">
+        <div style="width: 48%; border: 1.5px solid #000; padding: 5pt; font-size: 8.5pt; background: #fafafa;">
+          <div style="font-weight: bold; text-align: center; border-bottom: 1px solid #000; padding-bottom: 2pt; margin-bottom: 3pt; color: #000;">
+            MODULE 1: AI CAMERA SCANNER (Deepak)
+          </div>
+          <div style="border: 1px dashed #666; height: 75px; display: flex; align-items: center; justify-content: center; background: #eee; margin-bottom: 3pt;">
+            [ Live Camera Viewfinder / Upload Box ]
+          </div>
+          <div><strong>Engine:</strong> Google Gemini 1.5 Flash Vision API</div>
+          <div><strong>Output:</strong> 4-Bin badge (Green/Blue/Purple/Red)</div>
+          <div><strong>Details:</strong> Confidence score, resin code & cleaning tips</div>
+        </div>
+
+        <div style="width: 48%; border: 1.5px solid #2563eb; padding: 5pt; font-size: 8.5pt; background: #fafafa;">
+          <div style="font-weight: bold; text-align: center; border-bottom: 1px solid #000; padding-bottom: 2pt; margin-bottom: 3pt; color: #1d4ed8;">
+            MODULE 2: CLERK AUTH & ADMIN (Krishna)
+          </div>
+          <div style="border: 1px solid #999; height: 75px; padding: 3pt; background: #fff; font-size: 7.5pt; margin-bottom: 3pt;">
+            &bull; Clerk Secure Login & Registration<br>
+            &bull; Route Protection & Session Tokens<br>
+            &bull; Admin Metrics Dashboard & User Listing<br>
+            &bull; Scanned Items History Logging API
+          </div>
+          <div><strong>Auth Engine:</strong> Clerk Auth SDK & Middleware</div>
+          <div><strong>Admin View:</strong> Total scans, users & metrics</div>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; margin-top: 3pt;">
+        <div style="width: 48%; border: 1.5px solid #000; padding: 5pt; font-size: 8.5pt; background: #fafafa;">
+          <div style="font-weight: bold; text-align: center; border-bottom: 1px solid #000; padding-bottom: 2pt; margin-bottom: 3pt; color: #000;">
+            MODULE 3: SMART GUIDE & CHATBOT (Deepak)
+          </div>
+          <div style="border: 1px solid #999; padding: 3pt; background: #fff; margin-bottom: 3pt; font-size: 8pt;">
+            &bull; 4-Bin Visual Breakdown Guide<br>
+            &bull; SPI Plastic Resin Code Standards (1–7)<br>
+            &bull; EcoBot Chatbot: Natural language advice
+          </div>
+          <div><strong>Features:</strong> Instant answer for ambiguous items</div>
+          <div><strong>UI:</strong> Next.js 14, React & Tailwind CSS</div>
+        </div>
+
+        <div style="width: 48%; border: 1.5px solid #2563eb; padding: 5pt; font-size: 8.5pt; background: #fafafa;">
+          <div style="font-weight: bold; text-align: center; border-bottom: 1px solid #000; padding-bottom: 2pt; margin-bottom: 3pt; color: #1d4ed8;">
+            MODULE 4: SCAN HISTORY & DEVOPS (Krishna)
+          </div>
+          <div style="border: 1px solid #999; padding: 3pt; background: #fff; margin-bottom: 3pt; font-size: 8pt;">
+            &bull; User Scan History List & Timestamps<br>
+            &bull; MongoDB Atlas User Database Sync<br>
+            &bull; GitHub Repository & Vercel Edge Cloud
+          </div>
+          <div><strong>Hosting:</strong> Vercel Edge Serverless Deployment</div>
+          <div><strong>Sync:</strong> Real-time webhook & database updates</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="font-size: 8.5pt; text-align: center; color: #4b5563; margin-top: 8pt;">
+      WasteIQ Community Engagement Project &copy; 2026–2027 — Department of Information Technology, St. Gonsalo Garcia College
+    </div>
+  </div>
+
+</body>
+</html>

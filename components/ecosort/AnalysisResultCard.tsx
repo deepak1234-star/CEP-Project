@@ -32,6 +32,27 @@ export default function AnalysisResultCard({
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [copied, setCopied] = useState(false);
 
+  // Safe fallback arrays for DOs and DONTs to prevent undefined.map errors
+  const dosList = Array.isArray(result?.dos)
+    ? result.dos
+    : typeof result?.dos === "string"
+    ? [result.dos]
+    : [
+        "Empty all residue and clean container before disposal.",
+        "Check municipal color-coded bin guidelines for your area.",
+        "Keep dry and separate from hazardous materials.",
+      ];
+
+  const dontsList = Array.isArray(result?.donts)
+    ? result.donts
+    : typeof result?.donts === "string"
+    ? [result.donts]
+    : [
+        "Do not dispose in unsegregated black general refuse bags.",
+        "Do not leave food or liquid contamination inside.",
+        "Avoid crushing items containing toxic chemicals or batteries.",
+      ];
+
   // Stop speech when component unmounts or result changes
   useEffect(() => {
     return () => {
@@ -309,7 +330,7 @@ Source: WasteIQ Smart Waste Assistant`;
             <span>DO</span>
           </div>
           <ul className="space-y-2 text-xs sm:text-sm text-slate-300">
-            {result.dos.map((item, index) => (
+            {dosList.map((item, index) => (
               <li key={index} className="flex items-start space-x-2">
                 <span className="text-emerald-400 font-bold">•</span>
                 <span>{item}</span>
@@ -325,7 +346,7 @@ Source: WasteIQ Smart Waste Assistant`;
             <span>DON&apos;T</span>
           </div>
           <ul className="space-y-2 text-xs sm:text-sm text-slate-300">
-            {result.donts.map((item, index) => (
+            {dontsList.map((item, index) => (
               <li key={index} className="flex items-start space-x-2">
                 <span className="text-rose-400 font-bold">•</span>
                 <span>{item}</span>

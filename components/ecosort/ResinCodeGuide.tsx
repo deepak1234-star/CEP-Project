@@ -210,7 +210,7 @@ export default function ResinCodeGuide() {
                 Common Products Made With #{activeResin.code}
               </h4>
               <ul className="space-y-1 text-xs sm:text-sm text-slate-300">
-                {activeResin.commonProducts.map((prod, i) => (
+                {(activeResin.commonProducts || []).map((prod, i) => (
                   <li key={i} className="flex items-center space-x-2">
                     <span className="text-cyan-400">•</span>
                     <span>{prod}</span>
@@ -224,7 +224,7 @@ export default function ResinCodeGuide() {
                 What It Gets Reborn Into (Recycled Products)
               </h4>
               <ul className="space-y-1 text-xs sm:text-sm text-slate-300">
-                {activeResin.recycledInto.map((item, i) => (
+                {(activeResin.recycledInto || []).map((item, i) => (
                   <li key={i} className="flex items-center space-x-2">
                     <span className="text-emerald-400">•</span>
                     <span>{item}</span>

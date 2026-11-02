@@ -15,8 +15,8 @@ export interface ClassificationResult {
   binColor: "green" | "blue" | "yellow" | "purple" | "red";
   confidence: number;
   preparationAction: string;
-  dos: string[];
-  donts: string[];
+  dos?: string[];
+  donts?: string[];
   explanation: string;
   imageUrl?: string;
   createdAt: string;

@@ -64,10 +64,26 @@ export async function POST(req: Request) {
       binColor: binColor || "blue",
       co2SavedKg: typeof co2SavedKg === "number" ? co2SavedKg : 0.5,
       confidence: confidence || 92,
-      preparationAction,
-      dos,
-      donts,
-      explanation,
+      preparationAction: preparationAction || "Check municipal recycling rules.",
+      dos: Array.isArray(dos)
+        ? dos
+        : typeof dos === "string"
+        ? [dos]
+        : [
+            "Empty all residue and clean container before disposal.",
+            "Check municipal color-coded bin guidelines for your area.",
+            "Keep dry and separate from hazardous materials.",
+          ],
+      donts: Array.isArray(donts)
+        ? donts
+        : typeof donts === "string"
+        ? [donts]
+        : [
+            "Do not dispose in unsegregated black general refuse bags.",
+            "Do not leave food or liquid contamination inside.",
+            "Avoid crushing items containing toxic chemicals or batteries.",
+          ],
+      explanation: explanation || "Material classified for source segregation.",
       resinCode,
       resinName,
       decompositionTime,

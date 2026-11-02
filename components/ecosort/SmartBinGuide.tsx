@@ -122,7 +122,7 @@ export default function SmartBinGuide() {
                 Common Items for This Bin:
               </span>
               <div className="flex flex-wrap gap-1.5">
-                {bin.examples.map((ex, i) => (
+                {(bin.examples || []).map((ex, i) => (
                   <span
                     key={i}
                     className="px-2.5 py-1 rounded-lg bg-slate-950/60 border border-slate-800 text-xs text-slate-200 font-medium"
@@ -139,7 +139,7 @@ export default function SmartBinGuide() {
                 Sorting & Handling Rules:
               </span>
               <ul className="space-y-1.5 text-xs text-slate-300">
-                {bin.sortingRules.map((rule, idx) => (
+                {(bin.sortingRules || []).map((rule, idx) => (
                   <li key={idx} className="flex items-start space-x-2">
                     <span className="text-cyan-400 font-bold">•</span>
                     <span>{rule}</span>

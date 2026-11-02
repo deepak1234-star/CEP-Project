@@ -92,6 +92,24 @@ export async function recordUserScanActivity(
       {
         ...scanResult,
         id: scanResult.id || `scan-${Date.now()}`,
+        dos: Array.isArray(scanResult.dos)
+          ? scanResult.dos
+          : typeof scanResult.dos === "string"
+          ? [scanResult.dos]
+          : [
+              "Empty all residue and clean container before disposal.",
+              "Check municipal color-coded bin guidelines for your area.",
+              "Keep dry and separate from hazardous materials.",
+            ],
+        donts: Array.isArray(scanResult.donts)
+          ? scanResult.donts
+          : typeof scanResult.donts === "string"
+          ? [scanResult.donts]
+          : [
+              "Do not dispose in unsegregated black general refuse bags.",
+              "Do not leave food or liquid contamination inside.",
+              "Avoid crushing items containing toxic chemicals or batteries.",
+            ],
         createdAt: scanResult.createdAt || new Date().toISOString(),
       },
       ...currentScans.filter((s) => s.id !== scanResult.id),

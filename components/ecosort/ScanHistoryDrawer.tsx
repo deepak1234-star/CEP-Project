@@ -58,12 +58,12 @@ export default function ScanHistoryDrawer({
       "CO2 Saved",
     ];
 
-    const rows = scanHistory.map((item) => [
+    const rows = (scanHistory || []).map((item) => [
       item.createdAt,
-      `"${item.itemName.replace(/"/g, '""')}"`,
-      item.category,
-      `"${item.binType.replace(/"/g, '""')}"`,
-      item.confidence,
+      `"${(item.itemName || "Item").replace(/"/g, '""')}"`,
+      item.category || "General",
+      `"${(item.binType || "Recyclable Bin").replace(/"/g, '""')}"`,
+      item.confidence || 90,
       item.recyclabilityRating || "High",
       item.decompositionTime || "N/A",
       item.co2SavedPerKg || "1.0 kg",
@@ -171,7 +171,7 @@ export default function ScanHistoryDrawer({
       {/* Items List */}
       {filteredHistory.length > 0 ? (
         <div className="space-y-3">
-          {filteredHistory.map((item) => (
+          {(filteredHistory || []).map((item) => (
             <div
               key={item.id}
               onClick={() => {

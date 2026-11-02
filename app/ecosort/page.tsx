@@ -43,21 +43,66 @@ export default function EcoSortPage() {
 
     // Pure Clerk Cloud data fetch
     fetchUserCloudData().then((cloud) => {
-      if (cloud && cloud.scanHistory) {
+      if (cloud && Array.isArray(cloud.scanHistory)) {
         setIsCloudSynced(true);
-        setScanHistory(cloud.scanHistory);
-        if (cloud.scanHistory.length > 0) {
-          setCurrentResult(cloud.scanHistory[0]);
+        const sanitizedHistory: ClassificationResult[] = cloud.scanHistory
+          .filter((item) => item && typeof item === "object")
+          .map((item) => ({
+            ...item,
+            dos: Array.isArray(item.dos)
+              ? item.dos
+              : typeof item.dos === "string"
+              ? [item.dos]
+              : [
+                  "Empty all residue and clean container before disposal.",
+                  "Check municipal color-coded bin guidelines for your area.",
+                  "Keep dry and separate from hazardous materials.",
+                ],
+            donts: Array.isArray(item.donts)
+              ? item.donts
+              : typeof item.donts === "string"
+              ? [item.donts]
+              : [
+                  "Do not dispose in unsegregated black general refuse bags.",
+                  "Do not leave food or liquid contamination inside.",
+                  "Avoid crushing items containing toxic chemicals or batteries.",
+                ],
+          }));
+
+        setScanHistory(sanitizedHistory);
+        if (sanitizedHistory.length > 0) {
+          setCurrentResult(sanitizedHistory[0]);
         }
       }
     });
   }, []);
 
   const handleScanResult = (result: ClassificationResult) => {
-    setCurrentResult(result);
-    setScanHistory((prev) => [result, ...prev.filter((i) => i.id !== result.id)].slice(0, 50));
+    const sanitizedResult: ClassificationResult = {
+      ...result,
+      dos: Array.isArray(result.dos)
+        ? result.dos
+        : typeof result.dos === "string"
+        ? [result.dos]
+        : [
+            "Empty all residue and clean container before disposal.",
+            "Check municipal color-coded bin guidelines for your area.",
+            "Keep dry and separate from hazardous materials.",
+          ],
+      donts: Array.isArray(result.donts)
+        ? result.donts
+        : typeof result.donts === "string"
+        ? [result.donts]
+        : [
+            "Do not dispose in unsegregated black general refuse bags.",
+            "Do not leave food or liquid contamination inside.",
+            "Avoid crushing items containing toxic chemicals or batteries.",
+          ],
+    };
+    setCurrentResult(sanitizedResult);
+    setScanHistory((prev) => [sanitizedResult, ...prev.filter((i) => i.id !== sanitizedResult.id)].slice(0, 50));
     // Persist directly to Clerk cloud metadata and MongoDB
-    syncScanToCloud(result);
+    syncScanToCloud(sanitizedResult);
     setIsCloudSynced(true);
   };
 
