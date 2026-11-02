@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
-import { runEcoSortAgent } from "@/lib/ai/ecoSortAgent";
+import { runWasteIQAgent } from "@/lib/ai/wasteIqAgent";
 import { recordUserAgentActivity } from "@/lib/clerkActivity";
 
 export async function POST(req: Request) {
@@ -20,12 +20,12 @@ export async function POST(req: Request) {
     if (Array.isArray(history) && history.length > 0) {
       const formattedHistory = history
         .slice(-6)
-        .map((h: { role: string; content: string }) => `${h.role === "user" ? "User" : "EcoSort AI"}: ${h.content}`)
+        .map((h: { role: string; content: string }) => `${h.role === "user" ? "User" : "WasteIQ AI"}: ${h.content}`)
         .join("\n");
       fullPrompt = `Previous conversation context:\n${formattedHistory}\n\nCurrent user question:\n${userPrompt}`;
     }
 
-    const { result, modelUsed } = await runEcoSortAgent({
+    const { result, modelUsed } = await runWasteIQAgent({
       prompt: fullPrompt,
     });
 
@@ -64,7 +64,7 @@ export async function POST(req: Request) {
       modelUsed,
     });
   } catch (error: any) {
-    console.error("EcoSort AI Agent execution error:", error);
+    console.error("WasteIQ AI Agent execution error:", error);
     return NextResponse.json(
       {
         success: false,

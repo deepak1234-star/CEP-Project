@@ -336,7 +336,7 @@
   <div class="page-break"></div>
   <h1>🚀 5. Project Ke 5 Sabse Bade Modules (Screen By Screen Tour)</h1>
 
-  <h2>📸 Module 1: AI Camera Waste Scanner (`/wasteiq` ya `/ecosort`)</h2>
+  <h2>📸 Module 1: AI Camera Waste Scanner (`/wasteiq`)</h2>
   <p>User mobile camera se kachre ki photo khinchta hai. 1.2 second me Google Gemini Vision AI scan karke detailed card render karta hai:</p>
   <ul>
     <li><strong>Item Name:</strong> e.g., <em>"Crushed PET Mineral Water Bottle"</em></li>
@@ -362,7 +362,7 @@
     <li><strong>Chronological Activity Feed:</strong> Pichle sabhi scans ka real-time timeline card feed.</li>
   </ul>
 
-  <h2>🤖 Module 3: Autonomous AI Floating Assistant (`EcoSortAgentChat`)</h2>
+  <h2>🤖 Module 3: Autonomous AI Floating Assistant (`WasteIQAgentChat`)</h2>
   <p>Right-bottom corner par floating chat widget. Iske paas 2 autonomous tools hain:</p>
   <ul>
     <li><strong>Tool 1: `calculateCarbonImpact`:</strong> User agar bole <em>"Maine 20 aluminum cans recycle kiye, kitna carbon bacha?"</em>, agent tool call karke exact 2.7 kg CO₂ aur 22 kWh electricity bachat calculate karta hai.</li>
@@ -403,14 +403,14 @@ c:\Users\Deepak Patel\Documents\NEW START\New folder (2)\Demo project\
 │       └── admin/metrics/route.ts    # Aggregated Admin Analytics Endpoint
 ├── components/                       # Modular Reusable React UI Components
 │   ├── Navbar.tsx                    # Top navigation with user avatar & Admin pill
-│   ├── EcoSortAgentChat.tsx          # Floating bottom-right autonomous chat assistant
+│   ├── WasteIQAgentChat.tsx          # Floating bottom-right autonomous chat assistant
 │   ├── admin/                        # Admin dashboard sub-components (Cards, Table, Charts)
 │   ├── dashboard/                    # User dashboard sub-components (Profile, Metrics, Feed)
-│   └── ecosort/                      # Scanner sub-components (Camera, Result Card, Quiz)
+│   └── wasteiq/                      # Scanner sub-components (Camera, Result Card, Quiz)
 ├── lib/                              # Core Utility Services & Business Logic
 │   ├── adminAuth.ts                  # 3-Layer Super Admin Server Security Guard
 │   ├── clerkActivity.ts              # Clerk User Metadata helper methods
-│   ├── ai/ecoSortAgent.ts            # Vercel AI SDK ToolLoopAgent configuration
+│   ├── ai/wasteIqAgent.ts            # Vercel AI SDK ToolLoopAgent configuration
 │   └── db/
 │       ├── mongodb.ts                # Serverless cached Mongoose connection
 │       ├── activityService.ts        # Database aggregation pipeline queries

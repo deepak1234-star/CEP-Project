@@ -34,8 +34,10 @@ export default function CustomUserButton({
       setCustomAvatar(customEvent.detail);
     };
 
-    window.addEventListener("ecosort_avatar_changed", handler);
-    return () => window.removeEventListener("ecosort_avatar_changed", handler);
+    window.addEventListener("wasteiq_avatar_changed", handler);
+    return () => {
+      window.removeEventListener("wasteiq_avatar_changed", handler);
+    };
   }, [user]);
 
   if (!mounted || !isLoaded || !isSignedIn) {

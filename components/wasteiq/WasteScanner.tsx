@@ -14,7 +14,7 @@ import {
   AlertCircle,
   Zap,
 } from "lucide-react";
-import { ClassificationResult } from "@/types/ecosort";
+import { ClassificationResult } from "@/types/wasteiq";
 import { playSound } from "@/lib/wasteDatabase";
 
 interface WasteScannerProps {

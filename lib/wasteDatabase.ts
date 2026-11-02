@@ -1,4 +1,4 @@
-import { ClassificationResult, BinInfo, WasteCategory, ResinCodeInfo, EcoBadge } from "@/types/ecosort";
+import { ClassificationResult, BinInfo, WasteCategory, ResinCodeInfo, EcoBadge } from "@/types/wasteiq";
 
 export interface ExtendedClassificationResult extends ClassificationResult {
   decompositionTime?: string;

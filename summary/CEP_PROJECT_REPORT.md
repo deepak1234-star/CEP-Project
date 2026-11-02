@@ -226,7 +226,7 @@ The methodology for evaluating WasteIQ combined direct user demonstration sessio
 | **Data History & Logging** | Connected user scan actions to client-side toast notifications and immediate visual feedback. | Engineered MongoDB activity schemas, developed `/api/activity/route.ts`, and built persistent item scan history logging. |
 | **Admin Portal & Analytics** | Designed chart containers and metric display cards for waste category breakdown. | Built complete Admin Dashboard (`app/admin/dashboard/page.tsx`) and metrics endpoint (`/api/admin/metrics/route.ts`) for system monitoring. |
 | **Conversational Assistant** | Developed EcoBot AI conversational route (`app/api/agent/chat/route.ts`) for answering recycling questions. | Implemented session storage persistence for chatbot interaction history. |
-| **Frontend UI Pages** | Architected Landing Page (`app/page.tsx`), EcoSort module (`app/ecosort/page.tsx`), Dashboard (`app/dashboard/page.tsx`), and Bin Guide. | Styled authentication modals, table formatting, and administrative layout components. |
+| **Frontend UI Pages** | Architected Landing Page (`app/page.tsx`), WasteIQ module (`app/wasteiq/page.tsx`), Dashboard (`app/dashboard/page.tsx`), and Bin Guide. | Styled authentication modals, table formatting, and administrative layout components. |
 | **DevOps & Cloud Deployment** | Configured client-side environment bindings and responsive mobile viewport testing. | Configured GitHub repository synchronization, Vercel automated CI/CD builds, and production environment secrets management. |
 
 ---

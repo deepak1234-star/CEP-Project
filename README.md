@@ -1,8 +1,8 @@
-# ♻️ EcoSort AI — AI-Powered Waste Classification & Recycling System
+# ♻️ WasteIQ — AI-Powered Waste Classification & Recycling System
 
-EcoSort AI is a web application and environmental recycling assistant built with **Next.js 14 (App Router)**, **TypeScript**, **Tailwind CSS**, **Google Gemini Vision AI**, and **Clerk Authentication with Google OAuth**.
+WasteIQ is a web application and environmental recycling assistant built with **Next.js 14 (App Router)**, **TypeScript**, **Tailwind CSS**, **Google Gemini Vision AI**, and **Clerk Authentication with Google OAuth**.
 
-EcoSort AI eliminates recycling confusion by analyzing photos of waste items in real time, accurately classifying them into 7 disposal categories, identifying plastic resin codes (#1–7), recommending municipal bin colors, calculating carbon offsets, and gamifying sustainability through quizzes and badges.
+WasteIQ eliminates recycling confusion by analyzing photos of waste items in real time, accurately classifying them into 7 disposal categories, identifying plastic resin codes (#1–7), recommending municipal bin colors, calculating carbon offsets, and gamifying sustainability through quizzes and badges.
 
 ---
 
@@ -43,8 +43,8 @@ EcoSort AI eliminates recycling confusion by analyzing photos of waste items in 
 ├── app/
 │   ├── layout.tsx                      # Root layout wrapped with ClerkProvider
 │   ├── page.tsx                        # Public landing page with category showcase
-│   ├── ecosort/
-│   │   └── page.tsx                    # Main EcoSort AI Scanner, Quiz, & History Hub
+│   ├── wasteiq/
+│   │   └── page.tsx                    # Main WasteIQ AI Scanner, Quiz, & History Hub
 │   ├── dashboard/
 │   │   └── page.tsx                    # Protected dashboard displaying profile & stats
 │   ├── login/[[...login]]/             # Clerk Google OAuth Sign-In page
@@ -59,7 +59,7 @@ EcoSort AI eliminates recycling confusion by analyzing photos of waste items in 
 │   │   ├── UserProfileCard.tsx         # User identity profile card
 │   │   ├── EditProfileModal.tsx        # Profile editing modal with bio & completion meter
 │   │   └── AvatarPickerModal.tsx       # Custom avatar selector
-│   └── ecosort/
+│   └── wasteiq/
 │   │   ├── WasteScanner.tsx            # Camera stream & upload analysis interface
 │   │   ├── AnalysisResultCard.tsx      # Comprehensive AI sorting result card
 │   │   ├── SmartBinGuide.tsx           # 7-category bin classification guide
@@ -74,7 +74,7 @@ EcoSort AI eliminates recycling confusion by analyzing photos of waste items in 
 │   ├── userProfile.ts                  # Profile completion calculations
 │   └── avatars.ts                      # Preset avatar catalogue
 ├── types/
-│   ├── ecosort.ts                      # EcoSort TypeScript interfaces
+│   ├── wasteiq.ts                      # WasteIQ TypeScript interfaces
 │   └── profile.ts                      # User profile TypeScript interfaces
 ├── test_images/                        # Test images for visual verification
 ├── gemini_scanner.py                   # Standalone Python CLI Gemini Vision scanner

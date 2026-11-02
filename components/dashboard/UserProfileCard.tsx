@@ -96,11 +96,11 @@ export default function UserProfileCard({
       setUserProfile(customEvent.detail);
     };
 
-    window.addEventListener("ecosort_avatar_changed", avatarHandler);
+    window.addEventListener("wasteiq_avatar_changed", avatarHandler);
     window.addEventListener(PROFILE_CHANGED_EVENT, profileHandler);
 
     return () => {
-      window.removeEventListener("ecosort_avatar_changed", avatarHandler);
+      window.removeEventListener("wasteiq_avatar_changed", avatarHandler);
       window.removeEventListener(PROFILE_CHANGED_EVENT, profileHandler);
     };
   }, [userId]);

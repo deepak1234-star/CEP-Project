@@ -43,7 +43,7 @@ def analyze_waste_image(image_path: str = "scanned_image.jpg"):
     scanned_file = PIL.Image.open(image_path)
 
     prompt = (
-        "You are EcoSort AI, an expert environmental recycling assistant. "
+        "You are WasteIQ AI, an expert environmental recycling assistant. "
         "Analyze this item and classify it into one of these categories: "
         "Organic, Paper, Plastic, Metal, Glass, E-Waste, or Hazardous. "
         "Identify: 1) Item name, 2) Material category, 3) Resin identification code (#1-7) if plastic, "
@@ -58,7 +58,7 @@ def analyze_waste_image(image_path: str = "scanned_image.jpg"):
             model="gemini-3.5-flash",
             contents=[prompt, scanned_file]
         )
-        print("\n--- EcoSort AI Waste Analysis ---")
+        print("\n--- WasteIQ AI Waste Analysis ---")
         print(response.text)
     except Exception as e:
         print(f"Error calling Gemini: {e}")

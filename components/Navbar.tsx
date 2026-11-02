@@ -23,7 +23,7 @@ export default async function Navbar() {
         <nav className="flex items-center space-x-1.5 sm:space-x-3">
           {/* WasteIQ button */}
           <Link
-            href="/ecosort"
+            href="/wasteiq"
             className="hidden md:inline-flex items-center space-x-2 px-3 sm:px-4 py-2 rounded-lg text-sm font-semibold text-emerald-400 bg-emerald-950/40 border border-emerald-500/30 hover:bg-emerald-900/50 transition-all shadow-sm"
           >
             <Sparkles className="w-4 h-4 text-emerald-400 animate-pulse" />

@@ -1,4 +1,4 @@
-import { ClassificationResult } from "@/types/ecosort";
+import { ClassificationResult } from "@/types/wasteiq";
 import { CustomAvatarState } from "./avatars";
 import { UserProfileDetails } from "@/types/profile";
 

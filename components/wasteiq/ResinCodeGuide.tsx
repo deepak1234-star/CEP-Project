@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { RESIN_CODES_DATABASE, playSound } from "@/lib/wasteDatabase";
-import { ResinCodeInfo } from "@/types/ecosort";
+import { ResinCodeInfo } from "@/types/wasteiq";
 import {
   ShieldAlert,
   ShieldCheck,

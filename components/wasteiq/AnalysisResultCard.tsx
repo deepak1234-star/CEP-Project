@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { ClassificationResult } from "@/types/ecosort";
+import { ClassificationResult } from "@/types/wasteiq";
 import {
   CheckCircle2,
   XCircle,

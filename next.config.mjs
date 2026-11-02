@@ -22,6 +22,15 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/ecosort',
+        destination: '/wasteiq',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

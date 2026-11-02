@@ -110,7 +110,7 @@ export default async function AdminDashboardPage() {
             {/* Quick Navigation links */}
             <div className="flex items-center space-x-2.5">
               <Link
-                href="/ecosort"
+                href="/wasteiq"
                 className="inline-flex items-center space-x-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-emerald-400 bg-emerald-950/40 border border-emerald-500/30 hover:bg-emerald-900/50 transition shadow-sm"
               >
                 <Sparkles className="w-3.5 h-3.5 animate-pulse" />

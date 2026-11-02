@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ClassificationResult, WasteCategory } from "@/types/ecosort";
+import { ClassificationResult, WasteCategory } from "@/types/wasteiq";
 import { playSound } from "@/lib/wasteDatabase";
 import {
   History,

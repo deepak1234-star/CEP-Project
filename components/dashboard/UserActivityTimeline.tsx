@@ -43,7 +43,7 @@ export default function UserActivityTimeline({
   useEffect(() => {
     // Purge any remnant localStorage
     try {
-      localStorage.removeItem("ecosort_scan_history");
+      localStorage.removeItem("wasteiq_scan_history");
     } catch {}
 
     // Pure Clerk backend fetch
@@ -169,7 +169,7 @@ export default function UserActivityTimeline({
           </div>
 
           <Link
-            href="/ecosort"
+            href="/wasteiq"
             className="inline-flex items-center space-x-2 px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-slate-950 font-bold text-xs transition shadow-md self-start sm:self-auto"
           >
             <Camera className="w-3.5 h-3.5" />
@@ -259,7 +259,7 @@ export default function UserActivityTimeline({
               </p>
             </div>
             <Link
-              href="/ecosort"
+              href="/wasteiq"
               className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs shadow-lg transition"
             >
               <Camera className="w-4 h-4" />

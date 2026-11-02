@@ -90,7 +90,7 @@ export default async function DashboardPage() {
         </div>
 
         <Link
-          href="/ecosort"
+          href="/wasteiq"
           className="inline-flex items-center space-x-2 px-6 py-3.5 rounded-xl font-bold text-slate-950 bg-gradient-to-r from-emerald-400 to-cyan-400 hover:from-emerald-300 hover:to-cyan-300 shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/30 transition-all flex-shrink-0"
         >
           <Recycle className="w-5 h-5 text-slate-950" />

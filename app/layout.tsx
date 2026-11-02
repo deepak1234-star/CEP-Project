@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import ClerkProviderWrapper from "@/components/ClerkProviderWrapper";
 import Navbar from "@/components/Navbar";
-import EcoSortAgentChat from "@/components/EcoSortAgentChat";
+import WasteIQAgentChat from "@/components/WasteIQAgentChat";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -33,18 +33,19 @@ export default function RootLayout({
           <footer className="border-t border-white/5 py-10 text-center text-slate-500 text-sm relative z-10">
             <div className="max-w-7xl mx-auto px-4 space-y-3">
               <div className="flex items-center justify-center space-x-2 text-slate-400">
-                <span className="text-emerald-400 font-bold text-base">EcoSort</span>
-                <span className="text-cyan-400 font-bold text-base">AI</span>
+                <span className="font-bold text-base text-white">
+                  Waste<span className="text-emerald-400">IQ</span>
+                </span>
               </div>
               <p className="text-xs text-slate-500">
-                © {new Date().getFullYear()} EcoSort AI — Built with Next.js App Router, TypeScript &amp; Clerk Authentication.
+                © {new Date().getFullYear()} WasteIQ — Built with Next.js App Router, TypeScript &amp; Clerk Authentication.
               </p>
               <p className="text-xs text-slate-600">
                 ♻️ Classify responsibly. Protect the planet one scan at a time.
               </p>
             </div>
           </footer>
-          <EcoSortAgentChat />
+          <WasteIQAgentChat />
         </body>
       </html>
     </ClerkProviderWrapper>

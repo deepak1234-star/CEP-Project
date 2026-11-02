@@ -4,10 +4,10 @@ import {
   ProfileCompletionItem,
 } from "@/types/profile";
 
-export const PROFILE_CHANGED_EVENT = "ecosort_profile_updated";
+export const PROFILE_CHANGED_EVENT = "wasteiq_profile_updated";
 
 export function getProfileStorageKey(userId: string): string {
-  return `ecosort_profile_${userId}`;
+  return `wasteiq_profile_${userId}`;
 }
 
 export function getStoredProfile(userId: string): UserProfileDetails | null {

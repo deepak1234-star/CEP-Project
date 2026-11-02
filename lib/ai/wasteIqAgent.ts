@@ -111,7 +111,7 @@ const agentTools = {
   }),
 };
 
-export function createEcoSortAgent(modelName = "gemini-3.5-flash-lite") {
+export function createWasteIQAgent(modelName = "gemini-3.5-flash-lite") {
   return new ToolLoopAgent({
     model: google(modelName),
     instructions: `You are WasteIQ AI, a friendly, authoritative environmental scientist and waste sorting expert powered by Google Gemini and the Vercel AI SDK.
@@ -132,13 +132,13 @@ Core Responsibilities:
   });
 }
 
-export async function runEcoSortAgent({ prompt }: { prompt: string }) {
+export async function runWasteIQAgent({ prompt }: { prompt: string }) {
   let lastError: any = null;
 
   // Try active Gemini models in priority order
   for (const modelName of AGENT_MODELS) {
     try {
-      const agent = createEcoSortAgent(modelName);
+      const agent = createWasteIQAgent(modelName);
       const result = await agent.generate({ prompt });
       return { result, modelUsed: modelName };
     } catch (err: any) {
@@ -150,4 +150,4 @@ export async function runEcoSortAgent({ prompt }: { prompt: string }) {
   throw lastError || new Error("Failed to reach Gemini AI services.");
 }
 
-export const ecoSortAgent = createEcoSortAgent("gemini-3.5-flash-lite");
+export const wasteIqAgent = createWasteIQAgent("gemini-3.5-flash-lite");

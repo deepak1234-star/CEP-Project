@@ -37,7 +37,7 @@ const QUICK_PROMPTS = [
   "What does plastic resin code #5 mean?",
 ];
 
-export default function EcoSortAgentChat() {
+export default function WasteIQAgentChat() {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -147,7 +147,7 @@ export default function EcoSortAgentChat() {
         <button
           onClick={() => setIsOpen(true)}
           className="group relative flex items-center space-x-3 bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 hover:from-emerald-500 hover:to-cyan-500 text-white font-medium px-4 py-3 rounded-full shadow-2xl hover:shadow-emerald-500/30 transition-all duration-300 transform hover:scale-105"
-          aria-label="Open EcoSort AI Agent"
+          aria-label="Open WasteIQ AI Agent"
         >
           <div className="relative flex items-center justify-center">
             <Bot className="w-5 h-5 animate-pulse text-emerald-200" />

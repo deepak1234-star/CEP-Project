@@ -1,7 +1,7 @@
 @echo off
-title Push EcoSort AI to GitHub
+title Push WasteIQ to GitHub
 echo ========================================================
-echo        Pushing EcoSort AI to GitHub Repository
+echo        Pushing WasteIQ to GitHub Repository
 echo ========================================================
 echo Remote: https://github.com/deepak1234-star/CEP-Project.git
 echo.

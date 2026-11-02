@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { ECO_BADGES_LIST, playSound } from "@/lib/wasteDatabase";
-import { ClassificationResult, EcoBadge } from "@/types/ecosort";
+import { ClassificationResult, EcoBadge } from "@/types/wasteiq";
 import {
   Trophy,
   Award,

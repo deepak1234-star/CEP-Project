@@ -32,7 +32,7 @@
 5. **Project Ke 5 Sabse Bade Modules Ka Deep Tour (Screen By Screen):**
    - Module 1: AI Camera Waste Scanner (`/wasteiq`)
    - Module 2: User Profile & Gamified Dashboard (`/dashboard`)
-   - Module 3: Autonomous AI Floating Assistant Chatbot (`EcoSortAgentChat`)
+   - Module 3: Autonomous AI Floating Assistant Chatbot (`WasteIQAgentChat`)
    - Module 4: Super Admin Mission Control (`/admin/dashboard` — Teacher ko impress karne ka brahmastra!)
    - Module 5: Educational Hub (Resin Codes 1-7 Guide & EcoQuiz)
 6. **Codebase Ka Postmortem: Har Ek Folder Aur File Ka Matlab (Simple Language Mein):**
@@ -165,7 +165,7 @@ Bhai, teacher agar kisi bhi technology par ungli rakh kar pooche ki "Ye kya hai 
 
 Jab teacher bole ki *"Deepak, apna project chala ke dikhao"*, toh aap ye 5 screens dikhayenge:
 
-### 📸 Module 1: AI Camera Scanner (`/wasteiq` ya `/ecosort`)
+### 📸 Module 1: AI Camera Scanner (`/wasteiq`)
 1. User camera allow karta hai. Live video preview dikhta hai.
 2. User kisi bhi kachre (bottle, wrapper, cardboard) ko camera ke samne karke **"Capture & Classify"** button dabata hai.
 3. Loading spinner ghoomta hai (1.2 second).
@@ -192,7 +192,7 @@ Jab teacher bole ki *"Deepak, apna project chala ke dikhao"*, toh aap ye 5 scree
    - Level 5: 🌍 Planet Guardian (1000+ pts)
 4. **Recent Activity Feed:** Pichle saare scans ki date aur details card format me dikhti hain.
 
-### 🤖 Module 3: Autonomous AI Floating Agent (`EcoSortAgentChat`)
+### 🤖 Module 3: Autonomous AI Floating Agent (`WasteIQAgentChat`)
 1. Website ke right-bottom corner par ek floating button hai. Click karte hi AI chat khul jata hai.
 2. Ye simple chat nahi hai, iske paas **2 Special Tools** hain:
    - **Tool 1: `calculateCarbonImpact`:** User bolta hai *"Calculate carbon for 25 aluminum cans"*, bot tool call karke exact answer calculate karta hai.
@@ -232,7 +232,7 @@ Teacher code dekhkar zaroor poochenge ki kaun si file kya karti hai. Ye table ya
 | `lib/adminAuth.ts` | Security check karta hai ki logged-in user Deepak Patel hai ya nahi. |
 | `lib/db/mongodb.ts` | MongoDB connection create aur cache karta hai taaki serverless par connection leak na ho. |
 | `lib/db/models/ScanActivity.ts`| MongoDB database ka structure (schema) define karta hai ki scan me kya-kya save hoga. |
-| `lib/ai/ecoSortAgent.ts` | AI Agent ke system prompts aur do tools (`calculateCarbonImpact`, `getSpecializedDisposalGuide`) ka logic. |
+| `lib/ai/wasteIqAgent.ts` | AI Agent ke system prompts aur do tools (`calculateCarbonImpact`, `getSpecializedDisposalGuide`) ka logic. |
 
 ---
 

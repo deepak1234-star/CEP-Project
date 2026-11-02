@@ -1,5 +1,5 @@
 import { clerkClient } from "@clerk/nextjs/server";
-import { ClassificationResult } from "@/types/ecosort";
+import { ClassificationResult } from "@/types/wasteiq";
 import { connectToDatabase } from "@/lib/db/mongodb";
 import ScanActivity from "@/lib/db/models/ScanActivity";
 import UserProfile from "@/lib/db/models/UserProfile";

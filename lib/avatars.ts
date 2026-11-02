@@ -92,7 +92,7 @@ export const ECO_AVATAR_PRESETS: AvatarPreset[] = [
   },
   {
     id: "smart_bot",
-    name: "EcoSort AI Bot",
+    name: "WasteIQ AI Bot",
     category: "eco",
     type: "emoji",
     emoji: "🤖",
@@ -161,7 +161,7 @@ export interface CustomAvatarState {
   avatarName?: string;
 }
 
-const STORAGE_KEY_PREFIX = "ecosort_user_avatar_";
+const STORAGE_KEY_PREFIX = "wasteiq_user_avatar_";
 
 export function getStoredAvatar(userId: string): CustomAvatarState | null {
   if (typeof window === "undefined") return null;
@@ -186,7 +186,7 @@ export function saveStoredAvatar(userId: string, avatar: CustomAvatarState | nul
       localStorage.setItem(key, JSON.stringify(avatar));
     }
     // Notify components that avatar was updated
-    window.dispatchEvent(new CustomEvent("ecosort_avatar_changed", { detail: avatar }));
+    window.dispatchEvent(new CustomEvent("wasteiq_avatar_changed", { detail: avatar }));
   } catch (e) {
     console.warn("Could not save avatar:", e);
   }
